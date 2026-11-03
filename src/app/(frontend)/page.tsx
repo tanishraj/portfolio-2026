@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
+import { AskBox } from '@/components/AskBox'
 import { container, label } from '@/components/styles'
 import { caseStudies } from '@/content/case-studies'
 import { alsoBuilt, experience, links, principles, skills, writing } from '@/content/home'
@@ -162,6 +163,13 @@ export default function HomePage() {
           ))}
         </ul>
       </Section>
+
+      {/* Shown only when the site has an Anthropic API key. */}
+      {process.env.ANTHROPIC_API_KEY && (
+        <Section id="ask" title="Ask about my work">
+          <AskBox />
+        </Section>
+      )}
 
       <Section id="approach" title="How I work">
         <ul className="grid gap-10 md:grid-cols-3 md:gap-8">

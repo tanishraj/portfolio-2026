@@ -9,6 +9,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { AccessCodes } from './collections/AccessCodes'
 import { AccessEvents } from './collections/AccessEvents'
+import { AskEvents } from './collections/AskEvents'
 import { CaseStudies } from './collections/CaseStudies'
 import { migrations } from './migrations'
 
@@ -22,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, CaseStudies, AccessCodes, AccessEvents],
+  collections: [Users, Media, CaseStudies, AccessCodes, AccessEvents, AskEvents],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

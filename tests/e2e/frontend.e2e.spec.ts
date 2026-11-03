@@ -82,4 +82,13 @@ test.describe('site', () => {
       .evaluate((canvas: HTMLCanvasElement) => canvas.width > 0 && !!canvas.getContext('webgl'))
     expect(hasContext).toBe(true)
   })
+
+  test('ask endpoint rejects bad input and stays off without an API key', async ({ request }) => {
+    const tooShort = await request.post('/api/ask', { data: { question: 'x' } })
+    expect([400, 503]).toContain(tooShort.status())
+    if (!process.env.ANTHROPIC_API_KEY) {
+      const response = await request.post('/api/ask', { data: { question: 'What does he do?' } })
+      expect(response.status()).toBe(503)
+    }
+  })
 })

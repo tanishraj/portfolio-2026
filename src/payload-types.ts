@@ -72,6 +72,7 @@ export interface Config {
     'case-studies': CaseStudy;
     'access-codes': AccessCode;
     'access-events': AccessEvent;
+    'ask-events': AskEvent;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
     'access-codes': AccessCodesSelect<false> | AccessCodesSelect<true>;
     'access-events': AccessEventsSelect<false> | AccessEventsSelect<true>;
+    'ask-events': AskEventsSelect<false> | AskEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -263,6 +265,20 @@ export interface AccessEvent {
   createdAt: string;
 }
 /**
+ * Questions asked in the “Ask about my work” box.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ask-events".
+ */
+export interface AskEvent {
+  id: number;
+  question: string;
+  outcome: 'answered' | 'limited';
+  ipHash?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -305,6 +321,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'access-events';
         value: number | AccessEvent;
+      } | null)
+    | ({
+        relationTo: 'ask-events';
+        value: number | AskEvent;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -453,6 +473,17 @@ export interface AccessEventsSelect<T extends boolean = true> {
   study?: T;
   ipHash?: T;
   userAgent?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ask-events_select".
+ */
+export interface AskEventsSelect<T extends boolean = true> {
+  question?: T;
+  outcome?: T;
+  ipHash?: T;
   updatedAt?: T;
   createdAt?: T;
 }
