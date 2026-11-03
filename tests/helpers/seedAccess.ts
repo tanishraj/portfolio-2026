@@ -20,7 +20,7 @@ export async function seedAccess() {
     existing.docs[0] ??
     (await payload.create({
       collection: 'case-studies',
-      data: { title: 'LibreChat for Liquidity One', slug: 'librechat' },
+      data: { title: 'LibreChat for LiquidityOne', slug: 'librechat' },
     }))
 
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()

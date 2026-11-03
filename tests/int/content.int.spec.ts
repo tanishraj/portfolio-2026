@@ -18,7 +18,8 @@ describe('case studies', () => {
   // The protected study's body belongs in Payload, never in this public repo.
   it('keep protected studies to a title and summary', () => {
     for (const study of lockedStudies) {
-      expect(Object.keys(study).sort()).toEqual(['locked', 'meta', 'slug', 'summary', 'title'])
+      const allowed = ['glance', 'locked', 'meta', 'slug', 'stack', 'summary', 'title']
+      for (const key of Object.keys(study)) expect(allowed, key).toContain(key)
     }
   })
 

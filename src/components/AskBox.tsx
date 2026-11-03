@@ -94,7 +94,7 @@ export function AskBox() {
           value={question}
         />
         <button
-          className="rounded-full bg-fg px-6 py-3 text-sm font-medium text-bg transition-opacity hover:opacity-90 disabled:opacity-60"
+          className="rounded-full bg-highlight px-6 py-3 text-sm font-medium text-highlight-ink transition-opacity hover:opacity-90 disabled:opacity-60"
           disabled={status === 'asking' || question.trim().length < 3}
           type="submit"
         >

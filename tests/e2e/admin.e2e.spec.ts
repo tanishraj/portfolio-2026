@@ -21,7 +21,10 @@ test.describe('Admin panel', () => {
 
   test('shows the dashboard', async () => {
     await page.goto('/admin', ready)
-    await expect(page.getByRole('heading', { name: 'Collections' })).toBeVisible()
+    // The first admin load can include a cold dev compile.
+    await expect(page.getByRole('heading', { name: 'Collections' })).toBeVisible({
+      timeout: 15_000,
+    })
   })
 
   test('lists users', async () => {

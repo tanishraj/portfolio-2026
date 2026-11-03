@@ -19,12 +19,22 @@ function caseStudyText(slug: string): string {
     ...(study.facts ?? []).map((fact) => `${fact.label}: ${fact.value}.`),
     'The problem.',
     ...(study.problem ?? []),
-    'What I did.',
-    ...(study.decisions ?? []).map((d) => `${d.title}. ${d.body}`),
+    'Constraints.',
+    ...(study.constraints ?? []),
+    'How it works.',
+    ...(study.architecture ?? []),
+    'Decisions.',
+    ...(study.decisions ?? []).map(
+      (d) => `${d.title}. ${d.body}${d.tradeoff ? ` Trade-off: ${d.tradeoff}` : ''}`,
+    ),
+    'Hard problems.',
+    ...(study.stories ?? []).map((story) => `${story.title}. ${story.body}`),
     'By the numbers.',
     ...(study.numbers ?? []).map((n) => `${n.value}: ${n.label}.`),
     'How I built it.',
     study.process ?? '',
+    'What’s next.',
+    ...(study.next ?? []),
   ].join('\n')
 }
 

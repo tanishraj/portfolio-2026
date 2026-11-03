@@ -1,14 +1,25 @@
 // Home page content. Static until step 2 moves it into Payload collections.
 // Case studies live in ./case-studies.ts.
+import type { BrandKey } from '@/components/BrandIcon'
 
-export const alsoBuilt = [
-  { title: 'Wells Fargo', detail: 'jQuery to React and TypeScript, card-loss flows' },
-  { title: 'Banque Saudi Fransi', detail: 'Customer Happiness Portal and mobile app' },
+export const alsoBuilt: { title: string; detail: string; href?: string }[] = [
   {
-    title: 'UI library',
-    detail: 'React 19 components, Storybook token pages, accessible primitives',
+    title: 'Blueprint UI kit',
+    detail: 'React components on npm as @tanishraj/ui-kit',
+    href: 'https://tanishraj.github.io/ui-kit',
   },
-  { title: 'Barebones UI', detail: 'Open-source component kit' },
+  {
+    title: 'Barebones UI',
+    detail: '40 accessible React components, Tailwind v4',
+    href: 'https://tanishraj.github.io/barebones-ui',
+  },
+  {
+    title: 'CodeCraft Pro',
+    detail: 'A JavaScript editor in the browser, on Monaco',
+    href: 'https://my-js-editor.vercel.app',
+  },
+  { title: 'Wells Fargo', detail: 'jQuery to React and TypeScript, card-loss flows' },
+  { title: 'Banque Saudi Fransi', detail: 'Digital banking on web and mobile, frontend rebrand' },
 ]
 
 export const principles = [
@@ -30,6 +41,7 @@ export const experience = [
   {
     years: '2024 — now',
     company: 'Liquidity Capital',
+    logo: 'liquidity' as BrandKey,
     role: 'Senior Frontend Engineer',
     place: 'Abu Dhabi',
     note: 'Private-credit platforms. A design system, a legacy migration to React and TypeScript, and an internal AI assistant.',
@@ -37,6 +49,7 @@ export const experience = [
   {
     years: '2022 — 2024',
     company: 'Banque Saudi Fransi',
+    logo: 'bsf' as BrandKey,
     role: 'Senior Frontend Engineer',
     place: 'Dubai',
     note: 'Digital banking on web and mobile. Led the frontend rebrand across legacy platforms and worked on performance and CI/CD.',
@@ -44,6 +57,7 @@ export const experience = [
   {
     years: '2021 — 2022',
     company: 'Wells Fargo',
+    logo: 'wellsfargo' as BrandKey,
     role: 'Frontend Engineer II',
     place: 'Bangalore',
     note: 'Moved a legacy jQuery customer portal to React and TypeScript, including lost and stolen card flows.',
@@ -51,6 +65,7 @@ export const experience = [
   {
     years: '2020 — 2021',
     company: 'Rakuten',
+    logo: 'rakuten' as BrandKey,
     role: 'Frontend Engineer I',
     place: 'Bangalore',
     note: 'Responsive React components, built test-first, and a lot of code review.',
@@ -58,6 +73,7 @@ export const experience = [
   {
     years: '2019 — 2020',
     company: 'CGI',
+    logo: 'cgi' as BrandKey,
     role: 'Frontend Engineer I',
     place: 'Bangalore',
     note: 'Enterprise Vue applications for the oil and gas industry.',
@@ -65,6 +81,7 @@ export const experience = [
   {
     years: '2016 — 2018',
     company: 'Thomson Reuters',
+    logo: 'thomsonreuters' as BrandKey,
     role: 'Associate Frontend Engineer',
     place: 'Bangalore',
     note: 'Where it started. Built an internal Snippet Portal for other developers, and received several awards for creativity and ownership.',

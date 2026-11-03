@@ -40,7 +40,7 @@ test.describe('protected case study', () => {
     await page.goto('/work/librechat')
     await submit(page, testCode.toUpperCase())
     await expect(page.getByLabel('Access code')).toHaveCount(0)
-    await expect(page.locator('h1')).toHaveText('LibreChat for Liquidity One')
+    await expect(page.locator('h1')).toHaveText('LibreChat for LiquidityOne')
 
     await page.reload()
     await expect(page.getByLabel('Access code')).toHaveCount(0)

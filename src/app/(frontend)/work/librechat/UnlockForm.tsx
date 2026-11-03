@@ -26,7 +26,7 @@ export function UnlockForm() {
           spellCheck={false}
         />
         <button
-          className="rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-bg transition-opacity hover:opacity-90 disabled:opacity-60"
+          className="rounded-full bg-highlight px-5 py-2.5 text-sm font-medium text-highlight-ink transition-opacity hover:opacity-90 disabled:opacity-60"
           disabled={pending}
           type="submit"
         >

@@ -113,7 +113,7 @@ export function LoopRing({ phase }: { phase: Phase }) {
       gl.uniform3fv(u('uBg'), toRgb(css.getPropertyValue('--surface')))
       gl.uniform3fv(u('uLine'), toRgb(css.getPropertyValue('--line-strong')))
       gl.uniform3fv(u('uInk'), toRgb(css.getPropertyValue('--fg')))
-      gl.uniform3fv(u('uAccent'), toRgb(css.getPropertyValue('--accent')))
+      gl.uniform3fv(u('uAccent'), toRgb(css.getPropertyValue('--highlight')))
     }
 
     const draw = () => {
@@ -158,7 +158,9 @@ export function LoopRing({ phase }: { phase: Phase }) {
       draw()
     }
     const themeObserver = new MutationObserver(recolor)
-    themeObserver.observe(document.documentElement, { attributeFilter: ['data-theme'] })
+    themeObserver.observe(document.documentElement, {
+      attributeFilter: ['data-theme'],
+    })
     const scheme = window.matchMedia('(prefers-color-scheme: dark)')
     scheme.addEventListener('change', recolor)
     const sizeObserver = new ResizeObserver(resize)

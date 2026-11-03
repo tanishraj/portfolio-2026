@@ -19,6 +19,8 @@
   --accent: #86cfc1;
   --glow: 134 207 193;
   --glow-alpha: 0.11;
+  --highlight: #f5b544;
+  --highlight-ink: #1a1305;
   color-scheme: dark;
 }
 
@@ -34,6 +36,8 @@
     --accent: #2a7a6e;
     --glow: 82 170 155;
     --glow-alpha: 0.14;
+    --highlight: #c2410c;
+    --highlight-ink: #ffffff;
     color-scheme: light;
   }
 }
@@ -49,8 +53,17 @@
   --accent: #2a7a6e;
   --glow: 82 170 155;
   --glow-alpha: 0.14;
+  --highlight: #c2410c;
+  --highlight-ink: #ffffff;
   color-scheme: light;
 }
+
+/*
+ * Highlight: one warm colour for what matters most (numbers, key phrases,
+ * primary actions, the current step). Marigold in dark mode, burnt orange in
+ * light mode (#c2410c keeps 4.5:1 on the light ground). Teal stays the calm
+ * brand colour.
+ */
 
 @theme inline {
   --color-bg: var(--bg);
@@ -61,6 +74,8 @@
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-highlight: var(--highlight);
+  --color-highlight-ink: var(--highlight-ink);
 
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -176,10 +191,76 @@
     --fg: #121a1d;
     --muted: #4a575d;
     --accent: #2a7a6e;
+    --highlight: #c2410c;
     color-scheme: light;
   }
 
   .rise {
     animation: none;
   }
+}
+
+/* Hero fragments travel between "complicated" and "calm". */
+.settle {
+  transition: transform 1.1s var(--ease-calm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settle {
+    transform: none !important;
+    transition: none;
+  }
+}
+
+/* Spec mode: the column grid plus labels on annotated elements. */
+.spec-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.spec-grid span {
+  background: color-mix(in oklab, var(--highlight) 7%, transparent);
+  border-inline: 1px dashed color-mix(in oklab, var(--highlight) 35%, transparent);
+}
+
+.spec-legend {
+  position: fixed;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--highlight);
+  color: var(--highlight-ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+:root[data-spec-mode] [data-spec] {
+  position: relative;
+  outline: 1px dashed var(--highlight);
+  outline-offset: 4px;
+}
+
+:root[data-spec-mode] [data-spec]::after {
+  content: attr(data-spec);
+  position: absolute;
+  left: -1px;
+  top: -26px;
+  z-index: 61;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--highlight);
+  color: var(--highlight-ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+  text-transform: none;
+  white-space: nowrap;
+  pointer-events: none;
 }
