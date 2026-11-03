@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    'case-studies': CaseStudy;
+    'access-codes': AccessCode;
+    'access-events': AccessEvent;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
+    'access-codes': AccessCodesSelect<false> | AccessCodesSelect<true>;
+    'access-events': AccessEventsSelect<false> | AccessEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -163,6 +169,100 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * Protected case studies. Shown only to visitors with a valid access code. The title and summary on the public site come from the code repo.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies".
+ */
+export interface CaseStudy {
+  id: number;
+  title: string;
+  /**
+   * Must match the slug on the public site, e.g. librechat.
+   */
+  slug: string;
+  tagline?: string | null;
+  /**
+   * Role, when, status, stack.
+   */
+  facts?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  problem?:
+    | {
+        paragraph: string;
+        id?: string | null;
+      }[]
+    | null;
+  decisions?:
+    | {
+        title: string;
+        body: string;
+        id?: string | null;
+      }[]
+    | null;
+  stats?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  process?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Give one code to each company you share a protected case study with.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "access-codes".
+ */
+export interface AccessCode {
+  id: number;
+  /**
+   * Who it’s for, e.g. "Tabby, Nov 2026".
+   */
+  label: string;
+  /**
+   * Copy this before saving and send it to the company. It is never shown again: only a hash is stored. To replace a code, type a new one here.
+   */
+  code?: string | null;
+  codeHash?: string | null;
+  study: number | CaseStudy;
+  expiresAt: string;
+  /**
+   * Stops the code working immediately, even for visitors already in.
+   */
+  revoked?: boolean | null;
+  lastUsedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Views of protected case studies, and failed code attempts.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "access-events".
+ */
+export interface AccessEvent {
+  id: number;
+  type: 'view' | 'failed';
+  code?: (number | null) | AccessCode;
+  /**
+   * Slug of the case study.
+   */
+  study?: string | null;
+  ipHash?: string | null;
+  userAgent?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -193,6 +293,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'case-studies';
+        value: number | CaseStudy;
+      } | null)
+    | ({
+        relationTo: 'access-codes';
+        value: number | AccessCode;
+      } | null)
+    | ({
+        relationTo: 'access-events';
+        value: number | AccessEvent;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -276,6 +388,73 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies_select".
+ */
+export interface CaseStudiesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  tagline?: T;
+  facts?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  problem?:
+    | T
+    | {
+        paragraph?: T;
+        id?: T;
+      };
+  decisions?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  process?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "access-codes_select".
+ */
+export interface AccessCodesSelect<T extends boolean = true> {
+  label?: T;
+  code?: T;
+  codeHash?: T;
+  study?: T;
+  expiresAt?: T;
+  revoked?: T;
+  lastUsedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "access-events_select".
+ */
+export interface AccessEventsSelect<T extends boolean = true> {
+  type?: T;
+  code?: T;
+  study?: T;
+  ipHash?: T;
+  userAgent?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
