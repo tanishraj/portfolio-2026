@@ -1,67 +1,50 @@
-# Payload Blank Template
+# tanish.im
 
-This template comes configured with the bare minimum to get started on anything you need.
+The portfolio of Tanish Raj, a senior frontend engineer in Abu Dhabi. It's a Next.js 16 app with Payload CMS running inside it, kept deliberately calm: one accent colour, light type, gentle motion.
 
-## Quick start
+## What's in it
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+- **Home.** Selected work, how I work, experience, skills, lab and writing.
+- **Case studies.** Anubhav, Notivo and an institutional CMS, at `/work/[slug]`. Every number in them comes from the project's own code, commits or docs.
+- **One protected case study.** It's about my current employer. Only its title and summary are public; the body will live in Payload, never in this repo (see [Decisions](#decisions)).
+- **About and CV.** `/cv` is the single source of the CV; `pnpm cv` prints it to `public/Tanish-Raj-CV.pdf`.
+- **Brand.** The signature mark is one path in `src/brand/signature.ts`; `pnpm brand` regenerates the favicon, Apple icon and avatar from it. Link previews are generated per page with `next/og`.
 
-## Quick Start - local setup
+## Stack
 
-To spin up this template locally, follow these steps:
+Next.js 16 (App Router, Server Components, static generation) · React 19 · TypeScript · Tailwind CSS 4 · Payload 3 on Postgres · Vitest · Playwright with axe · Lighthouse CI · GitHub Actions.
 
-### Clone
+## Running it
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+```sh
+cp .env.example .env          # then set PAYLOAD_SECRET
+docker compose up -d          # local Postgres (with pgvector)
+pnpm install
+pnpm dev                      # http://localhost:3000, admin at /admin
+```
 
-### Development
+| Script                         | What it does                                                                           |
+| ------------------------------ | -------------------------------------------------------------------------------------- |
+| `pnpm typecheck` / `pnpm lint` | TypeScript and ESLint                                                                  |
+| `pnpm test:int`                | Content guards and the Payload API test                                                |
+| `pnpm test:e2e`                | Every page on a phone viewport, in both themes, checked with axe; plus the admin panel |
+| `pnpm build`                   | Production build; portfolio pages are prerendered                                      |
+| `pnpm cv`                      | Prints `/cv` to PDF (needs the site running)                                           |
+| `pnpm brand`                   | Regenerates icons and the avatar from the signature mark                               |
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+## Quality bar
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+CI runs on every push and pull request: typecheck, lint, unit tests, a production build, end-to-end and accessibility tests, then Lighthouse.
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+Lighthouse budgets fail the build below 90 for performance, 100 for accessibility and SEO, and 95 for best practices, or if layout shift goes above 0.05. On the production build today, home and a case study score 98 / 100 / 100 / 100 under mobile throttling.
 
-#### Docker (Optional)
+## Decisions
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+- **Protected content never touches git.** A test fails if the locked case study gains anything beyond its title and summary. The sitemap and `robots.txt` leave it out, and the page is `noindex`.
+- **Content is static for now.** It lives in `src/content/*.ts` and moves into Payload collections next, along with per-company access codes for the protected study.
+- **Colour comes from tokens.** Every colour is a CSS variable in `globals.css`, with a designed light mode, a dark default and a print palette. A saved theme is applied before first paint, so there is no flash.
+- **Motion is optional.** Each animation sits behind `prefers-reduced-motion`. The hero headline doesn't animate, so it paints at once.
 
-To do so, follow these steps:
+## How it's built
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
-
-## How it works
-
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
-
-### Collections
-
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
-
-- #### Users (Authentication)
-
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/3.x/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
-
-### Docker
-
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+I build with AI agents, mostly Claude Code. I set the brief, the design rules and the architecture, and review every change against them.

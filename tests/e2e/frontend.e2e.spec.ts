@@ -1,20 +1,57 @@
-import { test, expect, Page } from '@playwright/test'
+import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
 
-test.describe('Frontend', () => {
-  let page: Page
+import { caseStudies } from '@/content/case-studies'
 
-  test.beforeAll(async ({ browser }, testInfo) => {
-    const context = await browser.newContext()
-    page = await context.newPage()
+const pages = ['/', '/about', '/cv', ...caseStudies.map((study) => `/work/${study.slug}`)]
+
+test.describe('site', () => {
+  for (const path of pages) {
+    for (const colorScheme of ['dark', 'light'] as const) {
+      test(`${path} renders, fits a phone and passes axe (${colorScheme})`, async ({ page }) => {
+        await page.emulateMedia({ colorScheme })
+        await page.setViewportSize({ width: 390, height: 844 })
+        const response = await page.goto(path)
+        expect(response?.status()).toBe(200)
+        await expect(page.locator('h1')).toHaveCount(1)
+
+        const overflows = await page.evaluate(
+          () => document.documentElement.scrollWidth > window.innerWidth,
+        )
+        expect(overflows).toBe(false)
+
+        // Check contrast at rest: wait for the load fade-ins (not the scroll-linked glow).
+        await page.evaluate(() =>
+          Promise.all(
+            document
+              .getAnimations()
+              .filter((animation) => animation.timeline === document.timeline)
+              .map((animation) => animation.finished),
+          ),
+        )
+        const { violations } = await new AxeBuilder({ page }).analyze()
+        const serious = violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')
+        expect(serious.map((v) => `${v.id}: ${v.help}`)).toEqual([])
+      })
+    }
+  }
+
+  test('protected study is hidden from search engines', async ({ page }) => {
+    await page.goto('/work/librechat')
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
   })
 
-  test('can go on homepage', async ({ page }) => {
-    await page.goto('http://localhost:3000')
+  test('unknown pages return 404', async ({ page }) => {
+    const response = await page.goto('/work/does-not-exist')
+    expect(response?.status()).toBe(404)
+  })
 
-    await expect(page).toHaveTitle(/Payload Blank Template/)
-
-    const heading = page.locator('h1').first()
-
-    await expect(heading).toHaveText('Welcome to your new project.')
+  test('theme toggle switches and remembers the theme', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' })
+    await page.goto('/')
+    await page.getByRole('button', { name: /light and dark/i }).click()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+    await page.reload()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
   })
 })

@@ -1,16 +1,17 @@
-import { test, expect, Page } from '@playwright/test'
-import { login } from '../helpers/login'
-import { seedTestUser, cleanupTestUser, testUser } from '../helpers/seedUser'
+import { expect, Page, test } from '@playwright/test'
 
-test.describe('Admin Panel', () => {
+import { login } from '../helpers/login'
+import { cleanupTestUser, seedTestUser, testUser } from '../helpers/seedUser'
+
+// The admin keeps a live connection open in dev, so "load" may never fire.
+const ready = { waitUntil: 'domcontentloaded' } as const
+
+test.describe('Admin panel', () => {
   let page: Page
 
-  test.beforeAll(async ({ browser }, testInfo) => {
+  test.beforeAll(async ({ browser }) => {
     await seedTestUser()
-
-    const context = await browser.newContext()
-    page = await context.newPage()
-
+    page = await (await browser.newContext()).newPage()
     await login({ page, user: testUser })
   })
 
@@ -18,24 +19,18 @@ test.describe('Admin Panel', () => {
     await cleanupTestUser()
   })
 
-  test('can navigate to dashboard', async () => {
-    await page.goto('http://localhost:3000/admin')
-    await expect(page).toHaveURL('http://localhost:3000/admin')
-    const dashboardArtifact = page.locator('span[title="Dashboard"]').first()
-    await expect(dashboardArtifact).toBeVisible()
+  test('shows the dashboard', async () => {
+    await page.goto('/admin', ready)
+    await expect(page.getByRole('heading', { name: 'Collections' })).toBeVisible()
   })
 
-  test('can navigate to list view', async () => {
-    await page.goto('http://localhost:3000/admin/collections/users')
-    await expect(page).toHaveURL('http://localhost:3000/admin/collections/users')
-    const listViewArtifact = page.locator('h1', { hasText: 'Users' }).first()
-    await expect(listViewArtifact).toBeVisible()
+  test('lists users', async () => {
+    await page.goto('/admin/collections/users', ready)
+    await expect(page.getByRole('heading', { level: 1, name: 'Users' })).toBeVisible()
   })
 
-  test('can navigate to edit view', async () => {
-    await page.goto('http://localhost:3000/admin/collections/users/create')
-    await expect(page).toHaveURL(/\/admin\/collections\/users\/[a-zA-Z0-9-_]+/)
-    const editViewArtifact = page.locator('input[name="email"]')
-    await expect(editViewArtifact).toBeVisible()
+  test('opens the create-user form', async () => {
+    await page.goto('/admin/collections/users/create', ready)
+    await expect(page.locator('input[name="email"]')).toBeVisible()
   })
 })

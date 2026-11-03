@@ -1,0 +1,185 @@
+@import 'tailwindcss';
+
+/*
+ * Direction C · Soft Product
+ * Dark-first with a designed light mode, one sea-glass teal accent,
+ * light display type with mono metadata, and a single ambient glow.
+ *
+ * Theme resolution: dark by default, light when the OS prefers it,
+ * and an explicit [data-theme] (set by the toggle) always wins.
+ */
+:root {
+  --bg: #0d1013;
+  --surface: #13171b;
+  --surface-raised: #181d22;
+  --line: #242b31;
+  --line-strong: #34404a;
+  --fg: #e3e8ea;
+  --muted: #8a959b;
+  --accent: #86cfc1;
+  --glow: 134 207 193;
+  --glow-alpha: 0.11;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --bg: #f4f7f7;
+    --surface: #ffffff;
+    --surface-raised: #ffffff;
+    --line: #dde5e5;
+    --line-strong: #bccbcb;
+    --fg: #121a1d;
+    --muted: #56646a;
+    --accent: #2a7a6e;
+    --glow: 82 170 155;
+    --glow-alpha: 0.14;
+    color-scheme: light;
+  }
+}
+
+:root[data-theme='light'] {
+  --bg: #f4f7f7;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --line: #dde5e5;
+  --line-strong: #bccbcb;
+  --fg: #121a1d;
+  --muted: #56646a;
+  --accent: #2a7a6e;
+  --glow: 82 170 155;
+  --glow-alpha: 0.14;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ease-calm: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgb(var(--glow) / 0.3);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* The one ambient element: a soft glow that drifts down as the page scrolls. */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient::before {
+  content: '';
+  position: absolute;
+  top: -22rem;
+  right: -18rem;
+  width: 64rem;
+  height: 48rem;
+  background: radial-gradient(closest-side, rgb(var(--glow) / var(--glow-alpha)), transparent);
+}
+
+@keyframes drift {
+  to {
+    transform: translate(-28vw, 55vh);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .ambient::before {
+      animation: drift linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  .rise {
+    animation: rise 0.9s var(--ease-calm) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+}
+
+/* The signature writes itself once, then the crossbar is struck through. */
+@keyframes write {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+.signature path {
+  stroke-dasharray: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .signature path {
+    animation: write 1.4s var(--ease-calm) 0.2s both;
+  }
+
+  .signature .signature-crossbar {
+    animation-duration: 0.5s;
+    animation-delay: 1.3s;
+  }
+}
+
+/* Print: always the light palette on A4, whatever theme the viewer chose. */
+@page {
+  size: A4;
+  margin: 12mm 14mm;
+}
+
+@media print {
+  /* Matches the specificity of the theme rules above, and wins by coming later. */
+  :root:not([data-theme='print']),
+  :root[data-theme] {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --line: #dde5e5;
+    --line-strong: #bccbcb;
+    --fg: #121a1d;
+    --muted: #4a575d;
+    --accent: #2a7a6e;
+    color-scheme: light;
+  }
+
+  .rise {
+    animation: none;
+  }
+}
