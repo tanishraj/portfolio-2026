@@ -63,11 +63,14 @@ function ArrowIcon() {
   )
 }
 
-const lab = [
+type LabItem = { status: string; title: string; body: string; href?: string }
+
+const lab: LabItem[] = [
   {
-    status: 'In progress',
+    status: 'Interactive',
     title: 'The event loop, drawn.',
-    body: 'An interactive way to see what JavaScript actually does with your code: the call stack, the task queue, microtasks, and the moment each one runs. I’m rebuilding it in WebGL.',
+    body: 'Step through promises, timers and async/await, and watch the call stack, microtasks and task queue in real time. Checked against a real JavaScript engine; the loop itself is drawn in WebGL.',
+    href: '/lab/event-loop',
   },
   {
     status: 'Private build',
@@ -75,6 +78,27 @@ const lab = [
     body: 'Stackcanvas, a token editor for a website builder. Aliases are typed, cycles and missing references are caught before publishing, every property inherits on its own, and contrast is checked per block. Demo video coming.',
   },
 ]
+
+function LabCard({ item }: { item: LabItem }) {
+  const card = 'block h-full rounded-2xl border border-line bg-surface p-6 sm:p-8'
+  const inner = (
+    <>
+      <p className={`${label} text-accent`}>{item.status}</p>
+      <h3 className="mt-4 text-2xl font-light tracking-tight">{item.title}</h3>
+      <p className="mt-3 max-w-[52ch] text-sm leading-relaxed text-muted">{item.body}</p>
+      {item.href && <span className="mt-6 inline-block text-sm text-accent">Open the lab →</span>}
+    </>
+  )
+  if (!item.href) return <div className={card}>{inner}</div>
+  return (
+    <Link
+      className={`${card} transition duration-500 ease-calm hover:-translate-y-0.5 hover:border-line-strong motion-reduce:hover:translate-y-0`}
+      href={item.href}
+    >
+      {inner}
+    </Link>
+  )
+}
 
 export default function HomePage() {
   return (
@@ -199,10 +223,8 @@ export default function HomePage() {
       <Section id="lab" title="Lab">
         <ul className="grid gap-3 md:grid-cols-2">
           {lab.map((item) => (
-            <li className="rounded-2xl border border-line bg-surface p-6 sm:p-8" key={item.title}>
-              <p className={`${label} text-accent`}>{item.status}</p>
-              <h3 className="mt-4 text-2xl font-light tracking-tight">{item.title}</h3>
-              <p className="mt-3 max-w-[52ch] text-sm leading-relaxed text-muted">{item.body}</p>
+            <li key={item.title}>
+              <LabCard item={item} />
             </li>
           ))}
         </ul>

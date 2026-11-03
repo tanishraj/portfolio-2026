@@ -3,7 +3,13 @@ import { expect, test } from '@playwright/test'
 
 import { caseStudies } from '@/content/case-studies'
 
-const pages = ['/', '/about', '/cv', ...caseStudies.map((study) => `/work/${study.slug}`)]
+const pages = [
+  '/',
+  '/about',
+  '/cv',
+  '/lab/event-loop',
+  ...caseStudies.map((study) => `/work/${study.slug}`),
+]
 
 test.describe('site', () => {
   for (const path of pages) {
@@ -53,5 +59,27 @@ test.describe('site', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
     await page.reload()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  })
+
+  test('event loop lab steps through to the real console order', async ({ page }) => {
+    await page.goto('/lab/event-loop')
+    await page.getByRole('button', { name: 'Step', exact: true }).click()
+    await expect(page.getByTestId('step-note')).toContainText('console.log prints')
+    await page.keyboard.press('End')
+    await expect(page.getByTestId('console')).toHaveText(/start.*end.*promise.*timeout/s)
+
+    await page.getByRole('button', { name: 'async / await' }).click()
+    await page.keyboard.press('End')
+    await expect(page.getByTestId('console')).toHaveText(
+      /script start.*load: start.*script end.*load: resumed.*timeout/s,
+    )
+  })
+
+  test('event loop ring renders with WebGL', async ({ page }) => {
+    await page.goto('/lab/event-loop')
+    const hasContext = await page
+      .getByTestId('loop-ring')
+      .evaluate((canvas: HTMLCanvasElement) => canvas.width > 0 && !!canvas.getContext('webgl'))
+    expect(hasContext).toBe(true)
   })
 })
