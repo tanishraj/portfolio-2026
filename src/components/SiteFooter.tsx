@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { CopyEmail } from '@/components/CopyEmail'
 import { container, label } from '@/components/styles'
 import { links } from '@/content/home'
+import { revision, updatedOn } from '@/lib/site'
 
 export function SiteFooter() {
   return (
@@ -12,12 +14,15 @@ export function SiteFooter() {
           If you&apos;re building something complicated and want it to feel calm, let&apos;s talk.
         </p>
         <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-          <a
-            className="text-lg transition-colors hover:text-accent"
-            href="mailto:hire.tanishraj@gmail.com"
-          >
-            hire.tanishraj@gmail.com
-          </a>
+          <div className="flex flex-wrap items-center gap-4">
+            <a
+              className="text-lg transition-colors hover:text-highlight"
+              href="mailto:hire.tanishraj@gmail.com"
+            >
+              hire.tanishraj@gmail.com
+            </a>
+            <CopyEmail email="hire.tanishraj@gmail.com" />
+          </div>
           <ul className="flex gap-6 text-sm text-muted">
             {links.map((link) => (
               <li key={link.label}>
@@ -33,7 +38,13 @@ export function SiteFooter() {
             ))}
           </ul>
         </div>
-        <p className="mt-16 font-mono text-xs text-muted">© 2026 Tanish Raj · Abu Dhabi</p>
+        <div className="mt-16 flex flex-col gap-2 font-mono text-[11px] text-muted sm:flex-row sm:justify-between">
+          <p>© 2026 Tanish Raj · Abu Dhabi</p>
+          <p>
+            Set in Manrope and Geist Mono · Next.js, Payload, Tailwind · rev {revision}
+            {updatedOn && ` · updated ${updatedOn}`}
+          </p>
+        </div>
       </div>
     </footer>
   )

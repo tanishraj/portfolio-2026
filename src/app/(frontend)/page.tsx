@@ -2,11 +2,13 @@ import Link from 'next/link'
 import React from 'react'
 
 import { AskBox } from '@/components/AskBox'
-import { BrandIcon } from '@/components/BrandIcon'
+import { BrandIcon, type BrandKey } from '@/components/BrandIcon'
+import { LiveStatus } from '@/components/LiveStatus'
 import { HeroSettle } from '@/components/HeroSettle'
 import { container, label } from '@/components/styles'
 import { StackIcons } from '@/components/work'
 import { WorkIndex } from '@/components/WorkIndex'
+import { LoopSpecimen } from '@/lab/event-loop/LoopSpecimen'
 import { caseStudies } from '@/content/case-studies'
 import { alsoBuilt, experience, links, principles, skills, writing } from '@/content/home'
 import { person, siteUrl } from '@/lib/site'
@@ -23,6 +25,23 @@ const jsonLd = {
   worksFor: { '@type': 'Organization', name: 'Liquidity Capital' },
   sameAs: links.map((link) => link.href),
   knowsAbout: ['React', 'TypeScript', 'Design systems', 'System design', 'Next.js'],
+}
+
+const proof = [
+  ['10 yrs', 'shipping frontends'],
+  ['3', 'products in production'],
+  ['61', 'blocks in my design system'],
+  ['2,934', 'integration tests on one platform'],
+] as const
+
+/** A company name with its small mark, for use inside sentences. */
+function Company({ name, logo }: { name: string; logo: BrandKey }) {
+  return (
+    <span className="whitespace-nowrap text-fg">
+      <BrandIcon className="mr-1.5 inline-block align-[-2px]" name={logo} size={15} />
+      {name}
+    </span>
+  )
 }
 
 const delay = (i: number) => ({ '--i': i }) as React.CSSProperties
@@ -96,9 +115,11 @@ export default function HomePage() {
             </span>{' '}
             for complicated products.
           </h1>
-          <p className="rise mt-6 max-w-[48ch] text-lg leading-relaxed text-muted" style={delay(1)}>
-            Ten years across banking, private credit and medical training. Right now at Liquidity
-            Capital, building tools for private credit. Lately: AI and backend.
+          <p className="rise mt-6 max-w-[50ch] text-lg leading-relaxed text-muted" style={delay(1)}>
+            Ten years across banking, private credit and medical training. Right now at{' '}
+            <Company logo="liquidity" name="Liquidity Capital" />, building tools for private
+            credit. Before that, <Company logo="bsf" name="Banque Saudi Fransi" /> and{' '}
+            <Company logo="wellsfargo" name="Wells Fargo" />.
           </p>
           <div className="rise mt-9 flex flex-wrap items-center gap-3" style={delay(2)}>
             <Link
@@ -119,28 +140,30 @@ export default function HomePage() {
               how this page is built
             </span>
           </div>
+          <div className="rise mt-10" style={delay(3)}>
+            <LiveStatus now="building an internal AI assistant" />
+          </div>
         </div>
         <HeroSettle />
       </section>
 
-      <section aria-label="Where I’ve worked" className="border-y border-line">
-        <div
-          className={`${container} flex flex-col gap-5 py-7 lg:flex-row lg:items-center lg:justify-between`}
+      <section aria-label="In numbers" className="border-y border-line">
+        <dl
+          className={`${container} grid grid-cols-2 gap-x-6 gap-y-8 py-10 lg:grid-cols-4`}
+          data-spec="proof strip · 4 columns"
         >
-          <p className={label}>Where I’ve worked</p>
-          <ul className="flex flex-wrap items-center gap-x-9 gap-y-4 text-muted">
-            {experience.map((job) => (
-              <li
-                className="flex items-center gap-2.5 text-sm transition-colors hover:text-fg"
-                key={job.company}
-                title={`${job.role} · ${job.years}`}
-              >
-                <BrandIcon name={job.logo} size={18} />
-                {job.company}
-              </li>
-            ))}
-          </ul>
-        </div>
+          {proof.map(([value, caption]) => (
+            <div key={caption}>
+              <dt className="sr-only">{caption}</dt>
+              <dd className="text-3xl font-light tracking-tight tabular-nums sm:text-4xl">
+                {value}
+              </dd>
+              <dd className="mt-2 font-mono text-[11px] uppercase leading-relaxed tracking-[0.08em] text-muted">
+                {caption}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <Section
@@ -263,6 +286,9 @@ export default function HomePage() {
               move. A test checks every puzzle against a real JavaScript engine, and the loop is
               drawn in raw WebGL.
             </p>
+            <div className="mt-2 rounded-xl border border-line bg-bg p-4">
+              <LoopSpecimen />
+            </div>
             <div className="mt-2 flex items-center justify-between gap-6">
               <StackIcons items={['typescript', 'react', 'webgl', 'vitest']} />
               <span className="text-sm text-highlight transition-transform group-hover:translate-x-0.5">
@@ -297,7 +323,7 @@ export default function HomePage() {
         id="writing"
         title="Writing"
       >
-        <ul className="border-t border-line">
+        <ul className="dim-siblings border-t border-line">
           {writing.map((post) => (
             <li className="border-b border-line" key={post.href}>
               <a

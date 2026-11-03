@@ -9,7 +9,7 @@ import { StackIcons } from './work'
 // on the case-study pages; the home page stays content-first.
 export function WorkIndex({ studies }: { studies: CaseStudy[] }) {
   return (
-    <ol className="border-t border-line">
+    <ol className="dim-siblings border-t border-line">
       {studies.map((study) => (
         <li className="border-b border-line" key={study.slug}>
           <Link
@@ -35,9 +35,7 @@ export function WorkIndex({ studies }: { studies: CaseStudy[] }) {
             </span>
             <span className="flex flex-col gap-3 sm:items-end">
               {study.glance?.[0] && (
-                <span className="font-mono text-sm text-highlight tabular-nums">
-                  {study.glance[0]}
-                </span>
+                <span className="font-mono text-sm tabular-nums">{study.glance[0]}</span>
               )}
               <StackIcons items={study.stack?.slice(0, 5)} size={15} />
             </span>

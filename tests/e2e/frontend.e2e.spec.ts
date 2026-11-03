@@ -26,12 +26,16 @@ test.describe('site', () => {
         )
         expect(overflows).toBe(false)
 
-        // Check contrast at rest: wait for the load fade-ins (not the scroll-linked glow).
+        // Check contrast at rest: wait for finite load animations (not the glow or the live pulse).
         await page.evaluate(() =>
           Promise.all(
             document
               .getAnimations()
-              .filter((animation) => animation.timeline === document.timeline)
+              .filter(
+                (animation) =>
+                  animation.timeline === document.timeline &&
+                  animation.effect?.getComputedTiming().endTime !== Infinity,
+              )
               .map((animation) => animation.finished),
           ),
         )

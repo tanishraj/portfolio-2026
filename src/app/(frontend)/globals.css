@@ -264,3 +264,14 @@
   white-space: nowrap;
   pointer-events: none;
 }
+
+/* In a list, hovering one row quietly dims the others. */
+@media (hover: hover) {
+  .dim-siblings > li {
+    transition: opacity 0.3s var(--ease-calm);
+  }
+
+  .dim-siblings:has(> li:hover) > li:not(:hover) {
+    opacity: 0.45;
+  }
+}
