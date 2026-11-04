@@ -2,7 +2,7 @@
 // Case studies live in ./case-studies.ts.
 import type { BrandKey } from '@/components/BrandIcon'
 
-export const alsoBuilt: { title: string; detail: string; href?: string }[] = [
+export const alsoBuilt: { title: string; detail: string; href: string }[] = [
   {
     title: 'Blueprint UI kit',
     detail: 'React components on npm as @tanishraj/ui-kit',
@@ -18,8 +18,6 @@ export const alsoBuilt: { title: string; detail: string; href?: string }[] = [
     detail: 'A JavaScript editor in the browser, on Monaco',
     href: 'https://my-js-editor.vercel.app',
   },
-  { title: 'Wells Fargo', detail: 'jQuery to React and TypeScript, card-loss flows' },
-  { title: 'Banque Saudi Fransi', detail: 'Digital banking on web and mobile, frontend rebrand' },
 ]
 
 export const principles = [
@@ -44,7 +42,7 @@ export const experience = [
     logo: 'liquidity' as BrandKey,
     role: 'Senior Frontend Engineer',
     place: 'Abu Dhabi',
-    note: 'Private-credit platforms. A design system, a legacy migration to React and TypeScript, and an internal AI assistant.',
+    note: 'Private-credit platforms: a design system, a legacy migration to React and TypeScript, and an internal AI assistant on LibreChat.',
   },
   {
     years: '2022 — 2024',
@@ -88,27 +86,67 @@ export const experience = [
   },
 ]
 
-export const skills = [
+/** The three things the site has to sell, in the order a hiring manager reads them. */
+export const stack: { heading: string; items: { label: string; logo?: BrandKey }[] }[] = [
   {
-    heading: 'Every day',
-    items: ['React', 'TypeScript', 'Design systems', 'Storybook', 'System design'],
-  },
-  {
-    heading: 'Shipped with',
+    heading: 'Frontend, ten years',
     items: [
-      'Next.js',
-      'Vue',
-      'React Native',
-      'GraphQL and Apollo',
-      'Redux Toolkit',
-      'Jest, Vitest, RTL',
-      'Accessibility',
-      'Web performance',
+      { label: 'React', logo: 'react' },
+      { label: 'TypeScript', logo: 'typescript' },
+      { label: 'Next.js', logo: 'nextjs' },
+      { label: 'Design systems' },
+      { label: 'Storybook', logo: 'storybook' },
+      { label: 'Tailwind', logo: 'tailwind' },
+      { label: 'Accessibility' },
+      { label: 'Performance' },
     ],
   },
   {
-    heading: 'Learning now',
-    items: ['Payload CMS', 'PostgreSQL', 'AI-assisted development', 'LLM interfaces'],
+    heading: 'Backend, in production',
+    items: [
+      { label: 'Node', logo: 'node' },
+      { label: 'PostgreSQL', logo: 'postgres' },
+      { label: 'Prisma', logo: 'prisma' },
+      { label: 'Payload CMS', logo: 'payload' },
+      { label: 'SQLite', logo: 'sqlite' },
+      { label: 'GraphQL', logo: 'graphql' },
+      { label: 'Docker', logo: 'docker' },
+      { label: 'CI/CD', logo: 'githubactions' },
+    ],
+  },
+  {
+    heading: 'AI, every day',
+    items: [
+      { label: 'Claude API', logo: 'anthropic' },
+      { label: 'LibreChat', logo: 'librechat' },
+      { label: 'Claude Code and agents' },
+      { label: 'RAG and citations' },
+      { label: 'Agent-ready codebases' },
+    ],
+  },
+]
+
+/** How I use AI, as things that shipped rather than tools I have heard of. */
+export const ai = [
+  {
+    title: 'An internal AI assistant for a private-credit firm',
+    body: 'At Liquidity Capital I am taking LibreChat, the open-source chat platform, from a stock deployment to an assistant the firm can actually use. Shared with a code.',
+    href: '/work/librechat',
+  },
+  {
+    title: 'A production app in ten days, with an agent as pair programmer',
+    body: 'Anubhav went from first commit to a medical college’s production server in ten days with Claude Code. I wrote the brief, the design system and six decision records; the agent typed; I reviewed every change against them.',
+    href: '/work/anubhav',
+  },
+  {
+    title: 'Answers with receipts, on this site',
+    body: 'The “Ask about my work” box streams answers from the Claude API over this site’s own content, with a citation chip on every claim, prompt caching on the corpus, and rate limits in Postgres.',
+    href: '/#ask',
+  },
+  {
+    title: 'Codebases agents can work in',
+    body: 'My CMS platform keeps a generated inventory of every block and a set of project skills for agents, checked by tests after every change, so an agent gets correct context instead of guessing.',
+    href: '/work/institutional-cms',
   },
 ]
 

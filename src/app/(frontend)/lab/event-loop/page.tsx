@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
-import { container, label } from '@/components/styles'
+import { containerWide as container, label } from '@/components/styles'
 import { EventLoopLab } from '@/lab/event-loop/EventLoopLab'
 
 export const metadata: Metadata = {

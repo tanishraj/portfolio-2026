@@ -7,10 +7,10 @@ import { revision, updatedOn } from '@/lib/site'
 
 export function SiteFooter() {
   return (
-    <footer className={`${container} mt-8 print:hidden`} id="contact">
-      <div className="border-t border-line py-16">
+    <footer className={`${container} mt-16 print:hidden`} id="contact">
+      <div className="border-t border-line py-14">
         <p className={label}>Contact</p>
-        <p className="mt-4 max-w-[30ch] text-2xl font-light leading-snug tracking-tight text-balance sm:text-3xl">
+        <p className="mt-4 max-w-[34ch] text-xl font-light leading-snug tracking-tight text-balance sm:text-2xl">
           If you&apos;re building something complicated and want it to feel calm, let&apos;s talk.
         </p>
         <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
