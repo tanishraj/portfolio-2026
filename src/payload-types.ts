@@ -200,7 +200,27 @@ export interface CaseStudy {
         id?: string | null;
       }[]
     | null;
+  constraints?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  architecture?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
   decisions?:
+    | {
+        title: string;
+        body: string;
+        tradeoff?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  stories?:
     | {
         title: string;
         body: string;
@@ -215,6 +235,12 @@ export interface CaseStudy {
       }[]
     | null;
   process?: string | null;
+  next?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -430,7 +456,27 @@ export interface CaseStudiesSelect<T extends boolean = true> {
         paragraph?: T;
         id?: T;
       };
+  constraints?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  architecture?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
   decisions?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        tradeoff?: T;
+        id?: T;
+      };
+  stories?:
     | T
     | {
         title?: T;
@@ -445,6 +491,12 @@ export interface CaseStudiesSelect<T extends boolean = true> {
         id?: T;
       };
   process?: T;
+  next?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

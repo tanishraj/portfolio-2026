@@ -4,12 +4,22 @@
 
 import type { BrandKey } from '@/components/BrandIcon'
 
+import { employerStudies } from './employer-studies'
+
 export type CaseStudy = {
   slug: string
   title: string
   summary: string
   meta: string
+  /** Selected work is independent or current; employer studies are earlier roles. */
+  kind: 'selected' | 'employer'
   locked?: boolean
+  company?: string
+  logo?: BrandKey
+  role?: string
+  period?: string
+  /** For a protected study: what can be said publicly, as short points. */
+  publicPoints?: string[]
   stack?: BrandKey[]
   glance?: string[]
   cover?: { src: string; alt: string }
@@ -31,18 +41,31 @@ export type CaseStudy = {
   next?: string[]
 }
 
-export const caseStudies: CaseStudy[] = [
+export const selectedStudies: CaseStudy[] = [
   {
+    kind: 'selected',
     slug: 'librechat',
-    title: 'LibreChat for LiquidityOne',
+    title: 'A chat-based AI platform for private credit',
     summary:
-      'Taking LibreChat from open-source to an internal AI assistant for a private-credit firm.',
-    meta: 'AI · Liquidity Capital',
+      'LibreChat as the foundation, a design system whose blocks render inside the chat as generative UI, and live data from the LiquidityOne platform behind every answer.',
+    meta: 'AI · Liquidity Capital · 2024 — now',
     locked: true,
-    stack: ['react', 'node', 'mongodb', 'anthropic'],
-    glance: ['Open source → internal', 'Private credit'],
+    company: 'Liquidity Capital',
+    logo: 'liquidity',
+    role: 'Senior Frontend Engineer',
+    period: 'Jul 2024 — now',
+    stack: ['librechat', 'react', 'typescript', 'node', 'mongodb', 'anthropic'],
+    glance: ['Generative UI in chat', 'Own design system', 'Live platform data'],
+    tagline: 'Letting people ask the platform a question and get an answer drawn as UI.',
+    publicPoints: [
+      'LibreChat, the open-source chat platform, chosen over building a chat UI from scratch: multi-provider models, agents, tools and MCP already solved, so the work went into what is specific to the firm.',
+      'A design system built in-house: tokens, components and larger blocks that cover how the platform presents credit and portfolio information.',
+      'Generative UI: LibreChat renders those same blocks inside the conversation, so an answer about a facility or a portfolio arrives as a chart, a table or a card with live data, not as a paragraph describing one.',
+      'The detailed write-up covers how the blocks are described to the model, how live data flows into them safely, and what was learnt about reliability. It is shared with a code because it concerns my current employer’s internal tools.',
+    ],
   },
   {
+    kind: 'selected',
     slug: 'anubhav',
     title: 'Anubhav',
     summary:
@@ -156,6 +179,7 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
+    kind: 'selected',
     slug: 'notivo',
     title: 'Notivo',
     summary:
@@ -262,6 +286,7 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
+    kind: 'selected',
     slug: 'institutional-cms',
     title: 'An institutional CMS, built to be copied',
     summary:
@@ -366,5 +391,7 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
 ]
+
+export const caseStudies: CaseStudy[] = [...selectedStudies, ...employerStudies]
 
 export const getCaseStudy = (slug: string) => caseStudies.find((study) => study.slug === slug)

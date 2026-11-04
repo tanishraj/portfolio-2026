@@ -40,8 +40,29 @@ export const CaseStudies: CollectionConfig = {
       fields: [{ name: 'paragraph', type: 'textarea', required: true }],
     },
     {
+      name: 'constraints',
+      type: 'array',
+      fields: [{ name: 'text', type: 'textarea', required: true }],
+    },
+    {
+      name: 'architecture',
+      label: 'How it works',
+      type: 'array',
+      fields: [{ name: 'text', type: 'textarea', required: true }],
+    },
+    {
       name: 'decisions',
       label: 'What I did',
+      type: 'array',
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'body', type: 'textarea', required: true },
+        { name: 'tradeoff', type: 'textarea' },
+      ],
+    },
+    {
+      name: 'stories',
+      label: 'Hard problems',
       type: 'array',
       fields: [
         { name: 'title', type: 'text', required: true },
@@ -59,5 +80,11 @@ export const CaseStudies: CollectionConfig = {
       ],
     },
     { name: 'process', label: 'How I built it', type: 'textarea' },
+    {
+      name: 'next',
+      label: 'What’s next',
+      type: 'array',
+      fields: [{ name: 'text', type: 'textarea', required: true }],
+    },
   ],
 }

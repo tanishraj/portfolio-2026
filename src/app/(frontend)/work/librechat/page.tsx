@@ -37,6 +37,16 @@ export default async function ProtectedStudyPage() {
             {teaser.title}
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted">{teaser.summary}</p>
+          {teaser.publicPoints && (
+            <ul className="mt-10 grid gap-4 border-t border-line pt-8">
+              {teaser.publicPoints.map((point) => (
+                <li className="flex gap-3 leading-relaxed text-muted" key={point.slice(0, 24)}>
+                  <span aria-hidden="true" className="mt-[0.7em] h-px w-3 shrink-0 bg-highlight" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          )}
           <div className="mt-12 rounded-2xl border border-line bg-surface p-6 sm:p-8">
             <p className={`${label} text-accent`}>Shared on request</p>
             <p className="mt-4 leading-relaxed">

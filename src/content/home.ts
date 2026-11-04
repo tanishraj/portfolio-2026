@@ -35,11 +35,20 @@ export const principles = [
   },
 ]
 
-export const experience = [
+export const experience: {
+  years: string
+  company: string
+  study?: string
+  logo: BrandKey
+  role: string
+  place: string
+  note: string
+}[] = [
   {
     years: '2024 — now',
     company: 'Liquidity Capital',
-    logo: 'liquidity' as BrandKey,
+    study: 'librechat',
+    logo: 'liquidity',
     role: 'Senior Frontend Engineer',
     place: 'Abu Dhabi',
     note: 'Private-credit platforms: a design system, a legacy migration to React and TypeScript, and an internal AI assistant on LibreChat.',
@@ -47,7 +56,8 @@ export const experience = [
   {
     years: '2022 — 2024',
     company: 'Banque Saudi Fransi',
-    logo: 'bsf' as BrandKey,
+    study: 'bsf-digital-bank',
+    logo: 'bsf',
     role: 'Senior Frontend Engineer',
     place: 'Dubai',
     note: 'Digital banking on web and mobile. Led the frontend rebrand across legacy platforms and worked on performance and CI/CD.',
@@ -55,15 +65,26 @@ export const experience = [
   {
     years: '2021 — 2022',
     company: 'Wells Fargo',
-    logo: 'wellsfargo' as BrandKey,
+    study: 'wells-fargo-card-replacement',
+    logo: 'wellsfargo',
     role: 'Frontend Engineer II',
     place: 'Bangalore',
     note: 'Moved a legacy jQuery customer portal to React and TypeScript, including lost and stolen card flows.',
   },
   {
+    years: '2021',
+    company: 'Ola Electric',
+    study: 'ola-electric-reservations',
+    logo: 'ola',
+    role: 'Frontend Engineer',
+    place: 'Bangalore',
+    note: 'Four months building the reservation portal and feature pages ahead of the first scooter launch.',
+  },
+  {
     years: '2020 — 2021',
     company: 'Rakuten',
-    logo: 'rakuten' as BrandKey,
+    study: 'rakuten-card-apply',
+    logo: 'rakuten',
     role: 'Frontend Engineer I',
     place: 'Bangalore',
     note: 'Responsive React components, built test-first, and a lot of code review.',
@@ -71,7 +92,8 @@ export const experience = [
   {
     years: '2019 — 2020',
     company: 'CGI',
-    logo: 'cgi' as BrandKey,
+    study: 'shell-wells-digitalisation',
+    logo: 'cgi',
     role: 'Frontend Engineer I',
     place: 'Bangalore',
     note: 'Enterprise Vue applications for the oil and gas industry.',
@@ -79,7 +101,8 @@ export const experience = [
   {
     years: '2016 — 2018',
     company: 'Thomson Reuters',
-    logo: 'thomsonreuters' as BrandKey,
+    study: 'thomson-reuters',
+    logo: 'thomsonreuters',
     role: 'Associate Frontend Engineer',
     place: 'Bangalore',
     note: 'Where it started. Built an internal Snippet Portal for other developers, and received several awards for creativity and ownership.',
@@ -130,7 +153,7 @@ export const stack: { heading: string; items: { label: string; logo?: BrandKey }
 export const ai = [
   {
     title: 'An internal AI assistant for a private-credit firm',
-    body: 'At Liquidity Capital I am taking LibreChat, the open-source chat platform, from a stock deployment to an assistant the firm can actually use. Shared with a code.',
+    body: 'At Liquidity Capital I am building a chat-based platform on LibreChat: a design system of our own whose blocks render inside the chat as generative UI, with live data from the LiquidityOne platform behind every answer. Shared with a code.',
     href: '/work/librechat',
   },
   {

@@ -20,6 +20,9 @@ export const cvBullets: Record<string, string[]> = {
     'Moved a legacy jQuery application to a React and TypeScript customer portal.',
     'Built lost and stolen card replacement flows with end-to-end request tracking.',
   ],
+  'Ola Electric': [
+    'Built the reservation portal and feature pages for the first Ola scooter ahead of the July 2021 launch, which took more than 100,000 reservations in 24 hours.',
+  ],
   Rakuten: [
     'Built responsive React components test-first with strong unit and integration coverage, and reviewed code for the team.',
   ],

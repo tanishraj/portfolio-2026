@@ -18,7 +18,22 @@ describe('case studies', () => {
   // The protected study's body belongs in Payload, never in this public repo.
   it('keep protected studies to a title and summary', () => {
     for (const study of lockedStudies) {
-      const allowed = ['glance', 'locked', 'meta', 'slug', 'stack', 'summary', 'title']
+      const allowed = [
+        'company',
+        'glance',
+        'kind',
+        'locked',
+        'logo',
+        'meta',
+        'period',
+        'publicPoints',
+        'role',
+        'slug',
+        'stack',
+        'summary',
+        'tagline',
+        'title',
+      ]
       for (const key of Object.keys(study)) expect(allowed, key).toContain(key)
     }
   })
@@ -29,7 +44,8 @@ describe('case studies', () => {
       expect(study.facts?.length, study.slug).toBeGreaterThan(0)
       expect(study.problem?.length, study.slug).toBeGreaterThan(0)
       expect(study.decisions?.length, study.slug).toBeGreaterThan(0)
-      expect(study.numbers?.length, study.slug).toBeGreaterThan(0)
+      // Employer studies only quote numbers that are public or Tanish's own measures.
+      if (study.kind === 'selected') expect(study.numbers?.length, study.slug).toBeGreaterThan(0)
       expect(study.process, study.slug).toBeTruthy()
     }
   })

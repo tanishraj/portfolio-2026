@@ -5,7 +5,7 @@ import { getPayload } from 'payload'
 
 import config from '@payload-config'
 import { hashCode, hashIp, signAccess, verifyAccess } from '@/lib/access-crypto'
-import type { CaseStudy } from '@/content/case-studies'
+import { getCaseStudy, type CaseStudy } from '@/content/case-studies'
 
 const COOKIE_DAYS = 7
 const MAX_FAILURES = 5
@@ -118,16 +118,27 @@ export async function getUnlockedStudy(slug: string): Promise<CaseStudy | null> 
     data: { lastUsedAt: new Date().toISOString() },
   })
 
+  const teaser = getCaseStudy(slug)
   return {
+    kind: 'selected',
     slug: study.slug,
     title: study.title,
-    summary: '',
-    meta: '',
-    tagline: study.tagline ?? undefined,
+    summary: teaser?.summary ?? '',
+    meta: teaser?.meta ?? '',
+    stack: teaser?.stack,
     facts: study.facts?.map(({ label, value }) => ({ label, value })),
+    tagline: study.tagline ?? undefined,
     problem: study.problem?.map(({ paragraph }) => paragraph),
-    decisions: study.decisions?.map(({ title, body }) => ({ title, body })),
+    constraints: study.constraints?.map(({ text }) => text),
+    architecture: study.architecture?.map(({ text }) => text),
+    decisions: study.decisions?.map(({ title, body, tradeoff }) => ({
+      title,
+      body,
+      tradeoff: tradeoff ?? undefined,
+    })),
+    stories: study.stories?.map(({ title, body }) => ({ title, body })),
     numbers: study.stats?.map(({ value, label }) => ({ value, label })),
     process: study.process ?? undefined,
+    next: study.next?.map(({ text }) => text),
   }
 }

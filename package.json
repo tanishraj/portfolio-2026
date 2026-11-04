@@ -18,7 +18,8 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "brand": "node scripts/brand.mjs",
     "cv": "node scripts/cv-pdf.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed:private": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" node scripts/seed-private.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.4.0",

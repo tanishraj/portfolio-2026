@@ -7,7 +7,8 @@ import { LedgerRow } from '@/components/Ledger'
 import { LiveStatus } from '@/components/LiveStatus'
 import { container, label } from '@/components/styles'
 import { WorkIndex } from '@/components/WorkIndex'
-import { caseStudies } from '@/content/case-studies'
+import { employerStudies } from '@/content/employer-studies'
+import { selectedStudies } from '@/content/case-studies'
 import { ai, alsoBuilt, experience, links, stack, writing } from '@/content/home'
 import { person, siteUrl } from '@/lib/site'
 
@@ -110,15 +111,45 @@ export default function HomePage() {
         </LedgerRow>
 
         <LedgerRow id="work" title="Work">
-          <WorkIndex studies={caseStudies} />
+          <WorkIndex studies={selectedStudies} />
+
+          <h3 className={`${label} mt-12`}>Earlier work, by employer</h3>
+          <ol className="dim-siblings mt-4 border-t border-line">
+            {employerStudies.map((study) => (
+              <li className="border-b border-line" key={study.slug}>
+                <Link
+                  className="group grid gap-x-6 gap-y-1 py-4 text-[15px] sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:items-baseline"
+                  href={`/work/${study.slug}`}
+                >
+                  <span className="font-mono text-[11px] text-muted tabular-nums">
+                    {study.period?.split(/ — | · /)[0]}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="text-fg transition-colors group-hover:text-highlight">
+                      {study.title}
+                    </span>
+                    <span className="block text-[13px] text-muted">
+                      {study.logo && (
+                        <BrandIcon
+                          className="mr-1.5 inline-block align-[-2px]"
+                          name={study.logo}
+                          size={13}
+                        />
+                      )}
+                      {study.company}
+                    </span>
+                  </span>
+                  <span className="hidden font-mono text-[11px] text-muted sm:block">→</span>
+                </Link>
+              </li>
+            ))}
+          </ol>
           <ul className="mt-6 grid gap-x-10 sm:grid-cols-2">
             {alsoBuilt.map((item) => (
               <li className="min-w-0 text-[15px]" key={item.title}>
                 <a className={rowLink} href={item.href} rel="noopener noreferrer" target="_blank">
-                  <span className="truncate">{item.title}</span>
-                  <span className="shrink-0 truncate font-mono text-[11px] text-muted">
-                    {item.detail} ↗
-                  </span>
+                  <span className="shrink-0">{item.title}</span>
+                  <span className="truncate font-mono text-[11px] text-muted">{item.detail} ↗</span>
                 </a>
               </li>
             ))}
@@ -153,29 +184,41 @@ export default function HomePage() {
 
         <LedgerRow id="experience" title="Experience">
           <ol className="border-t border-line">
-            {experience.map((job) => (
-              <li
-                className="grid gap-x-5 gap-y-1 border-b border-line py-4 text-[15px] sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:items-baseline"
-                key={job.company}
-              >
-                <span className="font-mono text-[11px] text-muted tabular-nums">{job.years}</span>
-                <span className="min-w-0">
-                  <span className="text-fg">
-                    <BrandIcon
-                      className="mr-1.5 inline-block align-[-2px] text-muted"
-                      name={job.logo}
-                      size={15}
-                    />
-                    {job.company}
+            {experience.map((job) => {
+              const inner = (
+                <>
+                  <span className="font-mono text-[11px] text-muted tabular-nums">{job.years}</span>
+                  <span className="min-w-0">
+                    <span className="text-fg transition-colors group-hover:text-highlight">
+                      <BrandIcon
+                        className="mr-1.5 inline-block align-[-2px] text-muted"
+                        name={job.logo}
+                        size={15}
+                      />
+                      {job.company}
+                    </span>
+                    <span className="text-muted"> · {job.role}</span>
                   </span>
-                  <span className="text-muted"> · {job.role}</span>
-                </span>
-                <span className="hidden text-[13px] text-muted sm:block">{job.place}</span>
-              </li>
-            ))}
+                  <span className="hidden text-[13px] text-muted sm:block">{job.place}</span>
+                </>
+              )
+              const row =
+                'grid gap-x-5 gap-y-1 py-4 text-[15px] sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:items-baseline'
+              return (
+                <li className="border-b border-line" key={`${job.company}-${job.years}`}>
+                  {job.study ? (
+                    <Link className={`group ${row}`} href={`/work/${job.study}`}>
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div className={row}>{inner}</div>
+                  )}
+                </li>
+              )
+            })}
           </ol>
           <p className="mt-4 text-[13px] text-muted">
-            Role by role, with what each one taught me, on the{' '}
+            Each role links to its case study. The one-page version is the{' '}
             <Link className="underline underline-offset-4 hover:text-fg" href="/cv">
               CV
             </Link>
