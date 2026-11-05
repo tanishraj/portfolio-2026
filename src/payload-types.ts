@@ -59,116 +59,117 @@ export type SupportedTimezones =
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | 'Pacific/Fiji'
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
-  };
-  blocks: {};
+    users: UserAuthOperations
+  }
+  blocks: {}
   collections: {
-    users: User;
-    media: Media;
-    'case-studies': CaseStudy;
-    'access-codes': AccessCode;
-    'access-events': AccessEvent;
-    'ask-events': AskEvent;
-    'payload-kv': PayloadKv;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  collectionsJoins: {};
+    users: User
+    media: Media
+    'case-studies': CaseStudy
+    'access-codes': AccessCode
+    'access-events': AccessEvent
+    'ask-events': AskEvent
+    'payload-kv': PayloadKv
+    'payload-locked-documents': PayloadLockedDocument
+    'payload-preferences': PayloadPreference
+    'payload-migrations': PayloadMigration
+  }
+  collectionsJoins: {}
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
-    'access-codes': AccessCodesSelect<false> | AccessCodesSelect<true>;
-    'access-events': AccessEventsSelect<false> | AccessEventsSelect<true>;
-    'ask-events': AskEventsSelect<false> | AskEventsSelect<true>;
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
+    users: UsersSelect<false> | UsersSelect<true>
+    media: MediaSelect<false> | MediaSelect<true>
+    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>
+    'access-codes': AccessCodesSelect<false> | AccessCodesSelect<true>
+    'access-events': AccessEventsSelect<false> | AccessEventsSelect<true>
+    'ask-events': AskEventsSelect<false> | AskEventsSelect<true>
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
+    'payload-locked-documents':
+      PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
+  }
   db: {
-    defaultIDType: number;
-  };
-  fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
-  locale: null;
+    defaultIDType: number
+  }
+  fallbackLocale: null
+  globals: {}
+  globalsSelect: {}
+  locale: null
   widgets: {
-    collections: CollectionsWidget;
-  };
-  user: User;
+    collections: CollectionsWidget
+  }
+  user: User
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
-  };
+    tasks: unknown
+    workflows: unknown
+  }
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   login: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   registerFirstUser: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   unlock: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  resetPasswordRequestedAt?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
+  id: number
+  updatedAt: string
+  createdAt: string
+  email: string
+  resetPasswordToken?: string | null
+  resetPasswordExpiration?: string | null
+  salt?: string | null
+  hash?: string | null
+  resetPasswordRequestedAt?: string | null
+  loginAttempts?: number | null
+  lockUntil?: string | null
   sessions?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
+        id: string
+        createdAt?: string | null
+        expiresAt: string
       }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
+    | null
+  password?: string | null
+  collection: 'users'
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+  id: number
+  alt: string
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+  focalX?: number | null
+  focalY?: number | null
 }
 /**
  * Protected case studies. Shown only to visitors with a valid access code. The title and summary on the public site come from the code repo.
@@ -177,72 +178,72 @@ export interface Media {
  * via the `definition` "case-studies".
  */
 export interface CaseStudy {
-  id: number;
-  title: string;
+  id: number
+  title: string
   /**
    * Must match the slug on the public site, e.g. librechat.
    */
-  slug: string;
-  tagline?: string | null;
+  slug: string
+  tagline?: string | null
   /**
    * Role, when, status, stack.
    */
   facts?:
     | {
-        label: string;
-        value: string;
-        id?: string | null;
+        label: string
+        value: string
+        id?: string | null
       }[]
-    | null;
+    | null
   problem?:
     | {
-        paragraph: string;
-        id?: string | null;
+        paragraph: string
+        id?: string | null
       }[]
-    | null;
+    | null
   constraints?:
     | {
-        text: string;
-        id?: string | null;
+        text: string
+        id?: string | null
       }[]
-    | null;
+    | null
   architecture?:
     | {
-        text: string;
-        id?: string | null;
+        text: string
+        id?: string | null
       }[]
-    | null;
+    | null
   decisions?:
     | {
-        title: string;
-        body: string;
-        tradeoff?: string | null;
-        id?: string | null;
+        title: string
+        body: string
+        tradeoff?: string | null
+        id?: string | null
       }[]
-    | null;
+    | null
   stories?:
     | {
-        title: string;
-        body: string;
-        id?: string | null;
+        title: string
+        body: string
+        id?: string | null
       }[]
-    | null;
+    | null
   stats?:
     | {
-        value: string;
-        label: string;
-        id?: string | null;
+        value: string
+        label: string
+        id?: string | null
       }[]
-    | null;
-  process?: string | null;
+    | null
+  process?: string | null
   next?:
     | {
-        text: string;
-        id?: string | null;
+        text: string
+        id?: string | null
       }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * Give one code to each company you share a protected case study with.
@@ -251,25 +252,25 @@ export interface CaseStudy {
  * via the `definition` "access-codes".
  */
 export interface AccessCode {
-  id: number;
+  id: number
   /**
    * Who it’s for, e.g. "Tabby, Nov 2026".
    */
-  label: string;
+  label: string
   /**
    * Copy this before saving and send it to the company. It is never shown again: only a hash is stored. To replace a code, type a new one here.
    */
-  code?: string | null;
-  codeHash?: string | null;
-  study: number | CaseStudy;
-  expiresAt: string;
+  code?: string | null
+  codeHash?: string | null
+  study: number | CaseStudy
+  expiresAt: string
   /**
    * Stops the code working immediately, even for visitors already in.
    */
-  revoked?: boolean | null;
-  lastUsedAt?: string | null;
-  updatedAt: string;
-  createdAt: string;
+  revoked?: boolean | null
+  lastUsedAt?: string | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * Views of protected case studies, and failed code attempts.
@@ -278,17 +279,17 @@ export interface AccessCode {
  * via the `definition` "access-events".
  */
 export interface AccessEvent {
-  id: number;
-  type: 'view' | 'failed';
-  code?: (number | null) | AccessCode;
+  id: number
+  type: 'view' | 'failed'
+  code?: (number | null) | AccessCode
   /**
    * Slug of the case study.
    */
-  study?: string | null;
-  ipHash?: string | null;
-  userAgent?: string | null;
-  updatedAt: string;
-  createdAt: string;
+  study?: string | null
+  ipHash?: string | null
+  userAgent?: string | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * Questions asked in the “Ask about my work” box.
@@ -297,287 +298,287 @@ export interface AccessEvent {
  * via the `definition` "ask-events".
  */
 export interface AskEvent {
-  id: number;
-  question: string;
-  outcome: 'answered' | 'limited';
-  ipHash?: string | null;
-  updatedAt: string;
-  createdAt: string;
+  id: number
+  question: string
+  outcome: 'answered' | 'limited'
+  ipHash?: string | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: number;
-  key: string;
+  id: number
+  key: string
   data:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
+    | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: number
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'users'
+        value: number | User
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
+        relationTo: 'media'
+        value: number | Media
       } | null)
     | ({
-        relationTo: 'case-studies';
-        value: number | CaseStudy;
+        relationTo: 'case-studies'
+        value: number | CaseStudy
       } | null)
     | ({
-        relationTo: 'access-codes';
-        value: number | AccessCode;
+        relationTo: 'access-codes'
+        value: number | AccessCode
       } | null)
     | ({
-        relationTo: 'access-events';
-        value: number | AccessEvent;
+        relationTo: 'access-events'
+        value: number | AccessEvent
       } | null)
     | ({
-        relationTo: 'ask-events';
-        value: number | AskEvent;
-      } | null);
-  globalSlug?: string | null;
+        relationTo: 'ask-events'
+        value: number | AskEvent
+      } | null)
+  globalSlug?: string | null
   user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  updatedAt: string;
-  createdAt: string;
+    relationTo: 'users'
+    value: number | User
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: number
   user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  key?: string | null;
+    relationTo: 'users'
+    value: number | User
+  }
+  key?: string | null
   value?:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: number
+  name?: string | null
+  batch?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  resetPasswordRequestedAt?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  resetPasswordRequestedAt?: T
+  loginAttempts?: T
+  lockUntil?: T
   sessions?:
     | T
     | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
+        id?: T
+        createdAt?: T
+        expiresAt?: T
+      }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
+  alt?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
+  focalX?: T
+  focalY?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "case-studies_select".
  */
 export interface CaseStudiesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  tagline?: T;
+  title?: T
+  slug?: T
+  tagline?: T
   facts?:
     | T
     | {
-        label?: T;
-        value?: T;
-        id?: T;
-      };
+        label?: T
+        value?: T
+        id?: T
+      }
   problem?:
     | T
     | {
-        paragraph?: T;
-        id?: T;
-      };
+        paragraph?: T
+        id?: T
+      }
   constraints?:
     | T
     | {
-        text?: T;
-        id?: T;
-      };
+        text?: T
+        id?: T
+      }
   architecture?:
     | T
     | {
-        text?: T;
-        id?: T;
-      };
+        text?: T
+        id?: T
+      }
   decisions?:
     | T
     | {
-        title?: T;
-        body?: T;
-        tradeoff?: T;
-        id?: T;
-      };
+        title?: T
+        body?: T
+        tradeoff?: T
+        id?: T
+      }
   stories?:
     | T
     | {
-        title?: T;
-        body?: T;
-        id?: T;
-      };
+        title?: T
+        body?: T
+        id?: T
+      }
   stats?:
     | T
     | {
-        value?: T;
-        label?: T;
-        id?: T;
-      };
-  process?: T;
+        value?: T
+        label?: T
+        id?: T
+      }
+  process?: T
   next?:
     | T
     | {
-        text?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
+        text?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "access-codes_select".
  */
 export interface AccessCodesSelect<T extends boolean = true> {
-  label?: T;
-  code?: T;
-  codeHash?: T;
-  study?: T;
-  expiresAt?: T;
-  revoked?: T;
-  lastUsedAt?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  label?: T
+  code?: T
+  codeHash?: T
+  study?: T
+  expiresAt?: T
+  revoked?: T
+  lastUsedAt?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "access-events_select".
  */
 export interface AccessEventsSelect<T extends boolean = true> {
-  type?: T;
-  code?: T;
-  study?: T;
-  ipHash?: T;
-  userAgent?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  type?: T
+  code?: T
+  study?: T
+  ipHash?: T
+  userAgent?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ask-events_select".
  */
 export interface AskEventsSelect<T extends boolean = true> {
-  question?: T;
-  outcome?: T;
-  ipHash?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  question?: T
+  outcome?: T
+  ipHash?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
-  key?: T;
-  data?: T;
+  key?: T
+  data?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  document?: T
+  globalSlug?: T
+  user?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  user?: T
+  key?: T
+  value?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  batch?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -585,18 +586,17 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface CollectionsWidget {
   data?: {
-    [k: string]: unknown;
-  };
-  width: 'full';
+    [k: string]: unknown
+  }
+  width: 'full'
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+  [k: string]: unknown
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

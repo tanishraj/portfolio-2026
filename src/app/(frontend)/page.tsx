@@ -193,13 +193,13 @@ export default function HomePage() {
                   <span className="text-base transition-colors group-hover:text-highlight">
                     {job.role}
                   </span>
-                  <span className="flex items-center sm:justify-end">
+                  <span className="flex items-center">
                     <BrandLogo label={job.company} name={job.logo} scale={0.8} />
                   </span>
                 </>
               )
               const row =
-                'grid gap-x-6 gap-y-2 py-4 sm:grid-cols-[8rem_minmax(0,1fr)_12rem] sm:items-center'
+                'grid gap-x-6 gap-y-2 py-4 sm:grid-cols-[8rem_16rem_minmax(0,1fr)] sm:items-center'
               return (
                 <li className="border-b border-line" key={`${job.company}-${job.years}`}>
                   {job.study ? (
