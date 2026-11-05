@@ -46,9 +46,9 @@ export default function AboutPage() {
               <dt className="text-muted">Based in</dt>
               <dd>Abu Dhabi, UAE</dd>
               <dt className="text-muted">Experience</dt>
-              <dd>Almost ten years, six companies</dd>
+              <dd>Ten years, seven companies</dd>
               <dt className="text-muted">Best at</dt>
-              <dd>React, TypeScript, design systems, system design</dd>
+              <dd>React, TypeScript, design systems, and lately the backend</dd>
               <dt className="text-muted">Education</dt>
               <dd>MCA, Bangalore University</dd>
             </dl>

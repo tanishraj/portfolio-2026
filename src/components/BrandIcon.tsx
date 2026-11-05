@@ -49,9 +49,19 @@ import {
   type SimpleIcon,
 } from 'simple-icons'
 
-// Brand marks come from Simple Icons (CC0) as inline SVG paths. Brands without
-// a public mark get a small lettered tile, so every row still lines up.
-const marks: Record<string, { label: string; icon?: SimpleIcon; letters?: string }> = {
+// Brand marks come from Simple Icons (CC0) as inline SVG paths. Brands they
+// don't cover use the company's own wordmark from public/brand/logos, drawn as
+// a CSS mask so it takes the current text colour. A few tools get a lettered tile.
+type Mark = {
+  label: string
+  icon?: SimpleIcon
+  letters?: string
+  /** A wordmark file and its width ÷ height, rendered through a mask. */
+  file?: string
+  ratio?: number
+}
+
+const marks: Record<string, Mark> = {
   anthropic: { label: 'Claude API', icon: siAnthropic },
   apollo: { label: 'Apollo', icon: siApollographql },
   betterauth: { label: 'Better Auth', icon: siBetterauth },
@@ -100,20 +110,27 @@ const marks: Record<string, { label: string; icon?: SimpleIcon; letters?: string
   playwright: { label: 'Playwright', letters: 'PW' },
   linkedin: { label: 'LinkedIn', letters: 'in' },
   lexical: { label: 'Lexical', letters: 'Lx' },
+  kendo: { label: 'Kendo UI', letters: 'K' },
   librechat: { label: 'LibreChat', letters: 'LC' },
   // Employers.
-  liquidity: { label: 'Liquidity Capital', letters: 'LQ' },
-  bsf: { label: 'Banque Saudi Fransi', letters: 'BSF' },
+  liquidity: { label: 'Liquidity Capital', file: '/brand/logos/liquidity.svg', ratio: 5.68 },
+  bsf: { label: 'Banque Saudi Fransi', file: '/brand/logos/bsf.svg', ratio: 3.22 },
   wellsfargo: { label: 'Wells Fargo', icon: siWellsfargo },
   rakuten: { label: 'Rakuten', icon: siRakuten },
-  cgi: { label: 'CGI', letters: 'CGI' },
-  ola: { label: 'Ola Electric', letters: 'OLA' },
-  thomsonreuters: { label: 'Thomson Reuters', letters: 'TR' },
+  cgi: { label: 'CGI', file: '/brand/logos/cgi.svg', ratio: 2.13 },
+  ola: { label: 'Ola Electric', file: '/brand/logos/ola-electric.svg', ratio: 9.04 },
+  thomsonreuters: {
+    label: 'Thomson Reuters',
+    file: '/brand/logos/thomson-reuters.svg',
+    ratio: 7.15,
+  },
 }
 
 export type BrandKey = keyof typeof marks
 
 export const brandLabel = (key: BrandKey) => marks[key].label
+/** True when the mark is a wordmark that already spells the name. */
+export const isWordmark = (key: BrandKey) => Boolean(marks[key].file)
 
 /** A monochrome brand mark that follows the text colour. Decorative unless `title` is set. */
 export function BrandIcon({
@@ -129,6 +146,28 @@ export function BrandIcon({
 }) {
   const mark = marks[name]
   const a11y = title ? { role: 'img', 'aria-label': mark.label } : { 'aria-hidden': true as const }
+
+  if (mark.file) {
+    const url = `url(${mark.file})`
+    return (
+      <span
+        {...a11y}
+        className={`inline-block shrink-0 bg-current align-middle ${className}`}
+        style={{
+          height: size,
+          width: Math.round(size * (mark.ratio ?? 1)),
+          maskImage: url,
+          WebkitMaskImage: url,
+          maskRepeat: 'no-repeat',
+          WebkitMaskRepeat: 'no-repeat',
+          maskSize: 'contain',
+          WebkitMaskSize: 'contain',
+          maskPosition: 'center',
+          WebkitMaskPosition: 'center',
+        }}
+      />
+    )
+  }
 
   if (!mark.icon) {
     return (

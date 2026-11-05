@@ -5,17 +5,17 @@ import type { BrandKey } from '@/components/BrandIcon'
 export const alsoBuilt: { title: string; detail: string; href: string }[] = [
   {
     title: 'Blueprint UI kit',
-    detail: 'React components on npm as @tanishraj/ui-kit',
+    detail: 'on npm',
     href: 'https://tanishraj.github.io/ui-kit',
   },
   {
     title: 'Barebones UI',
-    detail: '40 accessible React components, Tailwind v4',
+    detail: '40 components',
     href: 'https://tanishraj.github.io/barebones-ui',
   },
   {
     title: 'CodeCraft Pro',
-    detail: 'A JavaScript editor in the browser, on Monaco',
+    detail: 'Monaco in the browser',
     href: 'https://my-js-editor.vercel.app',
   },
 ]
@@ -51,7 +51,7 @@ export const experience: {
     logo: 'liquidity',
     role: 'Senior Frontend Engineer',
     place: 'Abu Dhabi',
-    note: 'Private-credit platforms: a design system, a legacy migration to React and TypeScript, and an internal AI assistant on LibreChat.',
+    note: 'A private credit platform: its design system, a legacy migration to React and TypeScript, and the AI assistant on LibreChat.',
   },
   {
     years: '2022 — 2024',
@@ -72,7 +72,7 @@ export const experience: {
     note: 'Moved a legacy jQuery customer portal to React and TypeScript, including lost and stolen card flows.',
   },
   {
-    years: '2021',
+    years: 'Mar — Jul 2021',
     company: 'Ola Electric',
     study: 'ola-electric-reservations',
     logo: 'ola',
@@ -87,7 +87,7 @@ export const experience: {
     logo: 'rakuten',
     role: 'Frontend Engineer I',
     place: 'Bangalore',
-    note: 'Responsive React components, built test-first, and a lot of code review.',
+    note: 'The Rakuten Card online application, in React, built test-first.',
   },
   {
     years: '2019 — 2020',
@@ -96,7 +96,7 @@ export const experience: {
     logo: 'cgi',
     role: 'Frontend Engineer I',
     place: 'Bangalore',
-    note: 'Enterprise Vue applications for the oil and gas industry.',
+    note: 'Two modules of a 35-module Vue platform for Shell’s well engineers.',
   },
   {
     years: '2016 — 2018',
@@ -112,7 +112,7 @@ export const experience: {
 /** The three things the site has to sell, in the order a hiring manager reads them. */
 export const stack: { heading: string; items: { label: string; logo?: BrandKey }[] }[] = [
   {
-    heading: 'Frontend, ten years',
+    heading: 'Frontend (ten years)',
     items: [
       { label: 'React', logo: 'react' },
       { label: 'TypeScript', logo: 'typescript' },
@@ -125,7 +125,7 @@ export const stack: { heading: string; items: { label: string; logo?: BrandKey }
     ],
   },
   {
-    heading: 'Backend, in production',
+    heading: 'Backend (the last two years, in production)',
     items: [
       { label: 'Node', logo: 'node' },
       { label: 'PostgreSQL', logo: 'postgres' },
@@ -138,7 +138,7 @@ export const stack: { heading: string; items: { label: string; logo?: BrandKey }
     ],
   },
   {
-    heading: 'AI, every day',
+    heading: 'AI (most days)',
     items: [
       { label: 'Claude API', logo: 'anthropic' },
       { label: 'LibreChat', logo: 'librechat' },
@@ -150,26 +150,37 @@ export const stack: { heading: string; items: { label: string; logo?: BrandKey }
 ]
 
 /** How I use AI, as things that shipped rather than tools I have heard of. */
-export const ai = [
+export const ai: { title: string; body: string; href: string; needsAsk?: boolean }[] = [
   {
-    title: 'An internal AI assistant for a private-credit firm',
-    body: 'At Liquidity Capital I am building a chat-based platform on LibreChat: a design system of our own whose blocks render inside the chat as generative UI, with live data from the LiquidityOne platform behind every answer. Shared with a code.',
+    title: 'An AI assistant on LibreChat',
+    body: 'For our private credit platform at Liquidity Capital. Built on the open-source chat platform, with our own design system.',
     href: '/work/librechat',
   },
   {
-    title: 'A production app in ten days, with an agent as pair programmer',
-    body: 'Anubhav went from first commit to a medical college’s production server in ten days with Claude Code. I wrote the brief, the design system and six decision records; the agent typed; I reviewed every change against them.',
+    title: 'Generative UI with our own components',
+    body: 'The assistant answers with our components rendered inside the chat, filled with live data. A question about a portfolio gets the chart itself.',
+    href: '/work/librechat',
+  },
+  {
+    title: 'Numbers come from the platform',
+    body: 'The model decides what to show. The platform decides what the numbers are. If a value is missing, the answer says so.',
+    href: '/work/librechat',
+  },
+  {
+    title: 'Ten days to production',
+    body: 'Anubhav, with Claude Code as pair programmer. I wrote the brief and six decision records, and reviewed every change.',
     href: '/work/anubhav',
   },
   {
-    title: 'Answers with receipts, on this site',
-    body: 'The “Ask about my work” box streams answers from the Claude API over this site’s own content, with a citation chip on every claim, prompt caching on the corpus, and rate limits in Postgres.',
-    href: '/#ask',
+    title: 'Rules for the agent',
+    body: 'Each codebase carries its own instructions and a generated inventory of its parts, checked by tests, so an agent starts with the right context.',
+    href: '/work/institutional-cms',
   },
   {
-    title: 'Codebases agents can work in',
-    body: 'My CMS platform keeps a generated inventory of every block and a set of project skills for agents, checked by tests after every change, so an agent gets correct context instead of guessing.',
-    href: '/work/institutional-cms',
+    title: 'The question box on this page',
+    body: 'Ask it anything about my work. It answers only from this site, links to the page each fact came from, and refuses the rest.',
+    href: '/#ask',
+    needsAsk: true,
   },
 ]
 

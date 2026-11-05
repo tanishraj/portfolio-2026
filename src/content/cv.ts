@@ -2,14 +2,14 @@
 // so the site and the CV can't drift apart. Roles come from ./home.ts.
 
 export const cvSummary =
-  'Senior frontend engineer with almost ten years in banking, private credit and enterprise software. I build design systems and calm, accessible interfaces, modernise legacy frontends, and increasingly own the backend as well. I work with AI agents every day and keep ownership of the architecture and the review.'
+  'Frontend engineer with ten years in banking, private credit and enterprise software. I build design systems and accessible interfaces, modernise legacy front ends, and for the last two years I’ve owned the backend as well. I work with AI agents most days and keep ownership of the architecture and the review.'
 
 export const cvBullets: Record<string, string[]> = {
   'Liquidity Capital': [
     'Build finance-domain platforms with React, TypeScript, Vite, Redux, Apollo Client and GraphQL.',
     'Lead the migration of legacy frontend modules to a maintainable React and TypeScript architecture.',
     'Built a reusable design system and component patterns, and contributed to the rebrand across UI foundations.',
-    'Building an internal AI assistant for the firm on LibreChat.',
+    'Building the firm’s AI assistant on LibreChat, with our design-system components rendered inside the chat with live platform data.',
   ],
   'Banque Saudi Fransi': [
     'Built digital banking web and mobile apps, including the Customer Happiness Portal and the Digital Banking app, with React, TypeScript, Next.js and React Native.',
@@ -24,10 +24,10 @@ export const cvBullets: Record<string, string[]> = {
     'Built the reservation portal and feature pages for the first Ola scooter ahead of the July 2021 launch, which took more than 100,000 reservations in 24 hours.',
   ],
   Rakuten: [
-    'Built responsive React components test-first with strong unit and integration coverage, and reviewed code for the team.',
+    'Built the Rakuten Card online application in React, test-first, from reusable form parts and one shared set of validation rules.',
   ],
   CGI: [
-    'Built enterprise Vue, Vuex and Kendo UI applications for the oil and gas industry, to SonarQube quality standards.',
+    'Built two modules of a 35-module Vue, Vuex and Kendo UI platform for Shell’s well engineers, each replacing a manual process, to SonarQube quality standards.',
   ],
   'Thomson Reuters': [
     'Built responsive interfaces with HTML, SCSS and JavaScript, and the Snippet Portal, an internal tool for other developers.',

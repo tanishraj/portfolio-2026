@@ -2,14 +2,14 @@ import Link from 'next/link'
 import React from 'react'
 
 import { AskBox } from '@/components/AskBox'
-import { BrandIcon, type BrandKey } from '@/components/BrandIcon'
+import { BrandIcon, isWordmark, type BrandKey } from '@/components/BrandIcon'
+import { BrandLogo } from '@/components/BrandLogo'
 import { LedgerRow } from '@/components/Ledger'
 import { LiveStatus } from '@/components/LiveStatus'
 import { container, label } from '@/components/styles'
-import { WorkIndex } from '@/components/WorkIndex'
-import { employerStudies } from '@/content/employer-studies'
+import { StackIcons } from '@/components/work'
 import { selectedStudies } from '@/content/case-studies'
-import { ai, alsoBuilt, experience, links, stack, writing } from '@/content/home'
+import { ai, experience, links, stack, writing } from '@/content/home'
 import { person, siteUrl } from '@/lib/site'
 
 // Structured data so search engines know who this site is about.
@@ -38,6 +38,9 @@ const delay = (i: number) => ({ '--i': i }) as React.CSSProperties
 
 /** A company name with its small mark, for use inside sentences. */
 function Company({ name, logo }: { name: string; logo: BrandKey }) {
+  if (isWordmark(logo)) {
+    return <BrandIcon className="mx-0.5 align-[-2px] text-fg" name={logo} size={14} title />
+  }
   return (
     <span className="whitespace-nowrap text-fg">
       <BrandIcon className="mr-1.5 inline-block align-[-2px]" name={logo} size={15} />
@@ -71,25 +74,25 @@ export default function HomePage() {
         type="application/ld+json"
       />
 
-      <header className="max-w-[640px] pb-20 pt-16 sm:pb-24 sm:pt-20">
+      <header className="pb-24 pt-20 sm:pt-28">
         <p className={`${label} rise`}>Senior frontend engineer · Abu Dhabi</p>
         <h1
-          className="mt-6 text-4xl font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-[46px]"
-          data-spec="display · Manrope 300 · 46/49 · −0.035em"
+          className="mt-8 max-w-[20ch] text-[40px] font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-[64px]"
+          data-spec="display · Manrope 300 · 64/68 · −0.035em"
         >
-          Calm interfaces for <span className="text-highlight">complicated</span> products.
+          I build <span className="text-highlight">calm</span> interfaces for complicated products.
         </h1>
         <p
-          className="rise mt-6 max-w-[56ch] text-[17px] leading-relaxed text-muted"
+          className="rise mt-10 max-w-[36rem] text-[19px] leading-[1.6] text-muted"
           style={delay(1)}
         >
-          Ten years of frontend engineering across banking, private credit and medical training, and
-          the last two spent owning the backend and the AI alongside it. Right now at{' '}
-          <Company logo="liquidity" name="Liquidity Capital" />, building tools for private credit.
-          Before that, <Company logo="bsf" name="Banque Saudi Fransi" /> and{' '}
-          <Company logo="wellsfargo" name="Wells Fargo" />.
+          Ten years of building front ends, mostly for banks. Today I&apos;m at{' '}
+          <Company logo="liquidity" name="Liquidity Capital" /> in Abu Dhabi, where I built the
+          design system for a private credit platform and now mostly work on its AI assistant.
+          Evenings go to software for a medical college in Bihar, which is how I ended up running
+          the backend too.
         </p>
-        <p className="rise mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[15px]" style={delay(2)}>
+        <p className="rise mt-7 flex flex-wrap gap-x-6 gap-y-2 text-base" style={delay(2)}>
           <a
             className="text-highlight underline-offset-4 hover:underline"
             href={`mailto:${person.email}`}
@@ -102,78 +105,77 @@ export default function HomePage() {
         </p>
       </header>
 
-      <div className="grid gap-16 pb-8 sm:gap-20">
-        <LedgerRow id="now" title="Now">
-          <LiveStatus now="an internal AI assistant on LibreChat" />
-          <p className="mt-3 max-w-[56ch] text-[15px] leading-relaxed text-muted">
-            Open to senior frontend, design-systems and AI-product roles in the UAE.
-          </p>
-        </LedgerRow>
-
-        <LedgerRow id="work" title="Work">
-          <WorkIndex studies={selectedStudies} />
-
-          <h3 className={`${label} mt-12`}>Earlier work, by employer</h3>
-          <ol className="dim-siblings mt-4 border-t border-line">
-            {employerStudies.map((study) => (
-              <li className="border-b border-line" key={study.slug}>
-                <Link
-                  className="group grid gap-x-6 gap-y-1 py-4 text-[15px] sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:items-baseline"
-                  href={`/work/${study.slug}`}
-                >
-                  <span className="font-mono text-[11px] text-muted tabular-nums">
-                    {study.period?.split(/ — | · /)[0]}
-                  </span>
-                  <span className="min-w-0">
-                    <span className="text-fg transition-colors group-hover:text-highlight">
-                      {study.title}
-                    </span>
-                    <span className="block text-[13px] text-muted">
-                      {study.logo && (
-                        <BrandIcon
-                          className="mr-1.5 inline-block align-[-2px]"
-                          name={study.logo}
-                          size={13}
-                        />
-                      )}
-                      {study.company}
-                    </span>
-                  </span>
-                  <span className="hidden font-mono text-[11px] text-muted sm:block">→</span>
-                </Link>
-              </li>
-            ))}
-          </ol>
-          <ul className="mt-6 grid gap-x-10 sm:grid-cols-2">
-            {alsoBuilt.map((item) => (
-              <li className="min-w-0 text-[15px]" key={item.title}>
-                <a className={rowLink} href={item.href} rel="noopener noreferrer" target="_blank">
-                  <span className="shrink-0">{item.title}</span>
-                  <span className="truncate font-mono text-[11px] text-muted">{item.detail} ↗</span>
-                </a>
+      <div className="grid gap-20 pb-8 sm:gap-28">
+        <LedgerRow id="worked-for" title="Worked for">
+          <ul className="grid grid-cols-2 gap-x-8 gap-y-7 sm:grid-cols-3 lg:grid-cols-4">
+            {experience.map((job) => (
+              <li className="flex h-8 items-center" key={`${job.company}-${job.years}`}>
+                <BrandLogo label={job.company} name={job.logo} />
               </li>
             ))}
           </ul>
         </LedgerRow>
 
-        <LedgerRow id="ai" title="AI">
-          <p className="max-w-[56ch] text-[15px] leading-relaxed text-muted">
-            I treat AI as part of the stack, not a feature. Four things that shipped:
+        <LedgerRow id="now" title="Now">
+          <LiveStatus now="an internal AI assistant on LibreChat" />
+          <p className="mt-3 max-w-[56ch] text-base leading-relaxed text-muted">
+            I&apos;m looking for a senior frontend or design systems role in the UAE. Ideally
+            somewhere the AI work is real.
           </p>
-          <ol className="dim-siblings mt-5 border-t border-line">
-            {ai.map((item) => (
-              <li className="border-b border-line" key={item.title}>
-                <Link className="group grid gap-1.5 py-5" href={item.href}>
-                  <span className="text-[17px] leading-snug tracking-[-0.01em] transition-colors group-hover:text-highlight">
-                    {item.title}
+        </LedgerRow>
+
+        <LedgerRow id="work" title="Work">
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {selectedStudies.map((study) => (
+              <li key={study.slug}>
+                <Link
+                  className="group flex h-full flex-col rounded-2xl border border-line bg-surface p-6 transition duration-500 ease-calm hover:-translate-y-0.5 hover:border-line-strong motion-reduce:hover:translate-y-0"
+                  href={`/work/${study.slug}`}
+                >
+                  <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+                    {study.meta.split(' · ').slice(0, 2).join(' · ')}
+                    {study.locked && <span className="text-highlight"> · on request</span>}
                   </span>
-                  <span className="max-w-[60ch] text-[15px] leading-relaxed text-muted">
-                    {item.body}
+                  <span className="mt-8 text-[22px] leading-snug tracking-[-0.015em] transition-colors group-hover:text-highlight">
+                    {study.title}
+                  </span>
+                  <span className="mt-2 text-base leading-relaxed text-muted">{study.summary}</span>
+                  <span className="mt-auto pt-6">
+                    <StackIcons items={study.stack?.slice(0, 5)} size={14} />
                   </span>
                 </Link>
               </li>
             ))}
-          </ol>
+          </ul>
+          <p className="mt-6 text-sm text-muted">
+            Earlier work, one study per employer, is linked from{' '}
+            <a className="underline underline-offset-4 hover:text-fg" href="#experience">
+              experience
+            </a>
+            .
+          </p>
+        </LedgerRow>
+
+        <LedgerRow id="ai" title="AI">
+          <p className="max-w-[34rem] text-[19px] leading-[1.5] tracking-[-0.01em]">
+            I build with models every day, and I&apos;m careful about where they get the final say.
+          </p>
+          <ul className="mt-8 grid gap-x-10 gap-y-8 border-t border-line pt-8 sm:grid-cols-2">
+            {ai
+              .filter((item) => !item.needsAsk || process.env.ANTHROPIC_API_KEY)
+              .map((item) => (
+                <li key={item.title}>
+                  <Link className="group block" href={item.href}>
+                    <span className="block text-[17px] leading-snug transition-colors group-hover:text-highlight">
+                      {item.title}
+                    </span>
+                    <span className="mt-1.5 block text-base leading-relaxed text-muted">
+                      {item.body}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+          </ul>
         </LedgerRow>
 
         {process.env.ANTHROPIC_API_KEY && (
@@ -189,21 +191,15 @@ export default function HomePage() {
                 <>
                   <span className="font-mono text-[11px] text-muted tabular-nums">{job.years}</span>
                   <span className="min-w-0">
-                    <span className="text-fg transition-colors group-hover:text-highlight">
-                      <BrandIcon
-                        className="mr-1.5 inline-block align-[-2px] text-muted"
-                        name={job.logo}
-                        size={15}
-                      />
-                      {job.company}
+                    <span className="inline-flex items-center align-middle transition-colors group-hover:text-highlight">
+                      <BrandLogo label={job.company} name={job.logo} scale={0.8} />
                     </span>
-                    <span className="text-muted"> · {job.role}</span>
+                    <span className="ml-2 text-muted">· {job.role}</span>
                   </span>
-                  <span className="hidden text-[13px] text-muted sm:block">{job.place}</span>
                 </>
               )
               const row =
-                'grid gap-x-5 gap-y-1 py-4 text-[15px] sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:items-baseline'
+                'grid gap-x-5 gap-y-1 py-4 text-base sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-baseline'
               return (
                 <li className="border-b border-line" key={`${job.company}-${job.years}`}>
                   {job.study ? (
@@ -217,8 +213,8 @@ export default function HomePage() {
               )
             })}
           </ol>
-          <p className="mt-4 text-[13px] text-muted">
-            Each role links to its case study. The one-page version is the{' '}
+          <p className="mt-4 text-sm text-muted">
+            Each role opens its case study. The one-page version is the{' '}
             <Link className="underline underline-offset-4 hover:text-fg" href="/cv">
               CV
             </Link>
@@ -227,14 +223,20 @@ export default function HomePage() {
         </LedgerRow>
 
         <LedgerRow id="stack" title="Stack">
-          <div className="grid gap-7">
+          <div className="grid gap-10 border-t border-line pt-8 sm:grid-cols-3 sm:gap-8">
             {stack.map((group) => (
               <div key={group.heading}>
-                <h3 className="text-[15px]">{group.heading}</h3>
-                <ul className="mt-2.5 flex flex-wrap gap-x-5 gap-y-2 text-[15px] text-muted">
+                <h3 className="text-base">{group.heading}</h3>
+                <ul className="mt-4 grid gap-2 text-base text-muted">
                   {group.items.map((item) => (
-                    <li className="flex items-center gap-1.5" key={item.label}>
-                      {item.logo && <BrandIcon name={item.logo} size={14} />}
+                    <li className="flex items-center gap-2" key={item.label}>
+                      {item.logo ? (
+                        <BrandIcon name={item.logo} size={14} />
+                      ) : (
+                        <span aria-hidden="true" className="inline-block w-3.5 text-center">
+                          ·
+                        </span>
+                      )}
                       {item.label}
                     </li>
                   ))}
@@ -244,50 +246,57 @@ export default function HomePage() {
           </div>
         </LedgerRow>
 
-        <LedgerRow id="lab" title="Lab">
-          <Link className="group block border-y border-line py-5" href="/lab/event-loop">
-            <span className="flex items-baseline justify-between gap-6">
-              <span className="text-[17px] leading-snug tracking-[-0.01em] transition-colors group-hover:text-highlight">
-                The event loop, drawn
-              </span>
-              <span className="shrink-0 font-mono text-[11px] uppercase tracking-[0.08em] text-highlight">
+        <LedgerRow id="writing" title="Lab and writing">
+          <div className="grid gap-4 lg:grid-cols-2">
+            <Link
+              className="group flex flex-col rounded-2xl border border-line bg-surface p-6 transition duration-500 ease-calm hover:-translate-y-0.5 hover:border-line-strong motion-reduce:hover:translate-y-0"
+              href="/lab/event-loop"
+            >
+              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-highlight">
                 Interactive
               </span>
-            </span>
-            <span className="mt-1.5 block max-w-[60ch] text-[15px] leading-relaxed text-muted">
-              Step through promises, timers and async/await. Each puzzle is checked against a real
-              JavaScript engine; the loop itself is drawn in raw WebGL.
-            </span>
-          </Link>
-        </LedgerRow>
-
-        <LedgerRow id="writing" title="Writing">
-          <ul className="dim-siblings border-t border-line">
-            {writing.map((post) => (
-              <li key={post.href}>
-                <a
-                  className={`${rowLink} text-[15px]`}
-                  href={post.href}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <span>{post.title}</span>
-                  <span className="flex shrink-0 items-center gap-2 font-mono text-[11px] text-muted tabular-nums">
-                    {post.date}
-                    <ArrowIcon />
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <a
-            className="mt-4 inline-flex items-center gap-2 text-[13px] text-muted transition-colors hover:text-fg"
-            href="https://medium.com/@tanish_rajput"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <BrandIcon name="medium" size={13} /> All articles on Medium <ArrowIcon />
-          </a>
+              <span className="mt-8 text-[22px] leading-snug tracking-[-0.015em] transition-colors group-hover:text-highlight">
+                The event loop, drawn
+              </span>
+              <span className="mt-2 text-base leading-relaxed text-muted">
+                Step through promises, timers and async/await and watch the queues move. Every
+                puzzle is checked against a real JavaScript engine, so it can&apos;t lie to you.
+              </span>
+              <span className="mt-auto pt-6">
+                <StackIcons items={['typescript', 'react', 'webgl', 'vitest']} size={14} />
+              </span>
+            </Link>
+            <div className="rounded-2xl border border-line p-6">
+              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+                Writing, on Medium
+              </span>
+              <ul className="mt-5 grid gap-3">
+                {writing.map((post) => (
+                  <li key={post.href}>
+                    <a
+                      className="group flex items-baseline justify-between gap-4 text-base transition-colors hover:text-highlight"
+                      href={post.href}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>{post.title}</span>
+                      <span className="shrink-0 font-mono text-[11px] text-muted tabular-nums">
+                        {post.date}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <a
+                className="mt-6 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-fg"
+                href="https://medium.com/@tanish_rajput"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <BrandIcon name="medium" size={13} /> All articles <ArrowIcon />
+              </a>
+            </div>
+          </div>
         </LedgerRow>
       </div>
     </main>

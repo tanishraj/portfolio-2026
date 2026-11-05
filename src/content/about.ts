@@ -1,10 +1,10 @@
 // About page copy. Also part of the corpus the "Ask about my work" box answers from.
 
 export const aboutParagraphs = [
-  'I’m a senior frontend engineer in Abu Dhabi. I started at Thomson Reuters in Bangalore in 2016, and since then I’ve built interfaces for enterprise software, banks and, now, a private-credit firm.',
-  'The work I enjoy most has strict rules and messy data: a banking flow that has to be right, a legacy app nobody wants to touch, a regulator’s website that changes its mind. I like making that kind of thing feel calm for the person using it.',
-  'Outside my job, I build software for a medical college: a logbook for postgraduate residents, a monitor for regulator notices, and the college’s public website. All three are in production.',
+  'I’m a frontend engineer in Abu Dhabi. I started at Thomson Reuters in Bangalore in 2016, writing CSS templates for a very large website, and I’ve mostly worked for banks since: Wells Fargo, Banque Saudi Fransi, and now Liquidity Capital, a private credit firm.',
+  'The work I like has strict rules and messy data. A card replacement flow that has to be right. A legacy app nobody wants to touch. A regulator’s notice board that renumbers its own notices. I enjoy making that kind of thing feel calm for the person using it.',
+  'Evenings and weekends go to a medical college in Bihar: a logbook for its postgraduate doctors, a monitor for regulator notices, and the college website. All three are in production, and they’re the reason I now run Postgres, Docker and a server as well as the front end.',
 ]
 
 export const aiParagraph =
-  'I build with AI agents every day, mostly Claude Code. I write the product brief, the design rules and the architecture decisions; agents do a lot of the typing; I review every change against those rules. It lets one person ship what used to need a team, without giving up ownership of how it works.'
+  'I build with AI most days, mostly Claude Code. I write the brief, the design rules and the decision records. The agent does a lot of the typing. I review every change against those rules. One person can ship what used to need a team, as long as that person keeps owning how it works.'

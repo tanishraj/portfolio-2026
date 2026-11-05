@@ -49,7 +49,7 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
   return (
     <article className="mt-6">
       <header>
-        <h1 className="max-w-[20ch] text-4xl font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-6xl">
+        <h1 className="max-w-[18ch] text-4xl font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-[64px]">
           {study.title}
         </h1>
         {study.tagline && (
@@ -84,7 +84,7 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
         </div>
       </header>
 
-      <div className="mt-20 grid gap-16 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-14">
+      <div className="mt-20 grid gap-16 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-10">
         <aside className="hidden lg:block">
           <div className="sticky top-28">
             <SectionIndex sections={sections} />
@@ -94,7 +94,7 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
         <div className="grid min-w-0 gap-20">
           {!!study.problem?.length && (
             <Block id="problem" title="The problem">
-              <div className="grid max-w-[65ch] gap-5 text-lg leading-relaxed">
+              <div className="grid max-w-[60ch] gap-5 text-[19px] leading-[1.6]">
                 {study.problem.map((paragraph, i) => (
                   <p className={i ? 'text-muted' : undefined} key={paragraph.slice(0, 24)}>
                     {paragraph}
@@ -146,7 +146,7 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
 
           {!!study.stories?.length && (
             <Block id="stories" title="Hard problems">
-              <ul className="grid gap-4 md:grid-cols-2">
+              <ul className="grid gap-4 md:grid-cols-3">
                 {study.stories.map((story) => (
                   <li className="rounded-2xl border border-line bg-surface p-6" key={story.title}>
                     <h3 className="text-lg font-normal tracking-tight">{story.title}</h3>
@@ -159,7 +159,7 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
 
           {!!study.numbers?.length && (
             <Block id="numbers" title="By the numbers">
-              <ul className="grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line pt-8 lg:grid-cols-3">
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line pt-8 lg:grid-cols-4">
                 {study.numbers.map((n) => (
                   <li key={n.label}>
                     <p className="text-4xl font-light tracking-tight text-highlight tabular-nums">
@@ -206,7 +206,7 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
 
           {study.process && (
             <Block id="process" title="How I built it">
-              <p className="max-w-[65ch] text-lg leading-relaxed">{study.process}</p>
+              <p className="max-w-[60ch] text-[17px] leading-relaxed text-muted">{study.process}</p>
             </Block>
           )}
 
