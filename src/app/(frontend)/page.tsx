@@ -5,6 +5,7 @@ import React from 'react'
 import { AskBox } from '@/components/AskBox'
 import { BrandIcon, isWordmark, type BrandKey } from '@/components/BrandIcon'
 import { BrandLogo } from '@/components/BrandLogo'
+import { AiRow } from '@/components/AiRow'
 import { LedgerRow } from '@/components/Ledger'
 import { Logo } from '@/components/Logo'
 import { LiveStatus } from '@/components/LiveStatus'
@@ -12,7 +13,7 @@ import { container, label } from '@/components/styles'
 import { StackIcons } from '@/components/work'
 import { selectedStudies } from '@/content/case-studies'
 import { aboutSections } from '@/content/about'
-import { ai, experience, links, stack, writing } from '@/content/home'
+import { experience, links, stack, writing } from '@/content/home'
 import { person, siteUrl } from '@/lib/site'
 
 import photo from '../../../public/images/tanish.webp'
@@ -159,25 +160,7 @@ export default function HomePage() {
         </LedgerRow>
 
         <LedgerRow id="ai" title="AI">
-          <p className="max-w-[34rem] text-[19px] leading-[1.5] tracking-[-0.01em]">
-            I build with models every day, and I&apos;m careful about where they get the final say.
-          </p>
-          <ul className="mt-8 grid gap-x-10 gap-y-8 border-t border-line pt-8 sm:grid-cols-2">
-            {ai
-              .filter((item) => !item.needsAsk || process.env.ANTHROPIC_API_KEY)
-              .map((item) => (
-                <li key={item.title}>
-                  <Link className="group block" href={item.href}>
-                    <span className="block text-[17px] leading-snug transition-colors group-hover:text-highlight">
-                      {item.title}
-                    </span>
-                    <span className="mt-1.5 block text-base leading-relaxed text-muted">
-                      {item.body}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-          </ul>
+          <AiRow />
         </LedgerRow>
 
         {process.env.ANTHROPIC_API_KEY && (

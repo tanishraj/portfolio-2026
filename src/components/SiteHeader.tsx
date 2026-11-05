@@ -9,6 +9,7 @@ import { SpecMode } from '@/components/SpecMode'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
 const nav = [
+  { label: 'AI', href: '/#ai', always: true },
   { label: 'Work', href: '/#work', always: true },
   { label: 'Writing', href: '/#writing', always: false },
   { label: 'About', href: '/#about', always: true },
