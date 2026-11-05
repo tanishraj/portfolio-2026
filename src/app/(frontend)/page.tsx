@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -5,13 +6,16 @@ import { AskBox } from '@/components/AskBox'
 import { BrandIcon, isWordmark, type BrandKey } from '@/components/BrandIcon'
 import { BrandLogo } from '@/components/BrandLogo'
 import { LedgerRow } from '@/components/Ledger'
+import { Logo } from '@/components/Logo'
 import { LiveStatus } from '@/components/LiveStatus'
 import { container, label } from '@/components/styles'
 import { StackIcons } from '@/components/work'
 import { selectedStudies } from '@/content/case-studies'
-import { aboutFacts, aboutParagraphs } from '@/content/about'
-import { ai, alsoBuilt, experience, links, stack, writing } from '@/content/home'
+import { aboutSections } from '@/content/about'
+import { ai, experience, links, stack, writing } from '@/content/home'
 import { person, siteUrl } from '@/lib/site'
+
+import photo from '../../../public/images/tanish.webp'
 
 // Structured data so search engines know who this site is about.
 const jsonLd = {
@@ -62,9 +66,6 @@ function ArrowIcon() {
     </svg>
   )
 }
-
-const rowLink =
-  'group flex items-baseline justify-between gap-6 border-b border-line py-3.5 transition-colors hover:text-highlight'
 
 export default function HomePage() {
   return (
@@ -186,42 +187,33 @@ export default function HomePage() {
         )}
 
         <LedgerRow id="about" title="About">
-          <div className="grid gap-5 text-[17px] leading-relaxed text-muted">
-            {aboutParagraphs.map((paragraph, i) => (
-              <p
-                className={i === 0 ? 'max-w-[56ch] text-fg' : 'max-w-[56ch]'}
-                key={paragraph.slice(0, 20)}
+          <div className="grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
+            <figure className="relative w-60 max-w-full self-start">
+              <Image
+                alt="Tanish Raj"
+                className="aspect-[4/5] w-full rounded-xl object-cover grayscale"
+                placeholder="blur"
+                sizes="15rem"
+                src={photo}
+              />
+              <span
+                aria-hidden="true"
+                className="absolute bottom-3 right-3 text-highlight drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
               >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-          <dl className="mt-8 grid gap-x-10 gap-y-3 border-t border-line pt-6 text-base sm:grid-cols-3">
-            {aboutFacts.map((fact) => (
-              <div key={fact.label}>
-                <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
-                  {fact.label}
-                </dt>
-                <dd className="mt-1">{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-6 flex flex-wrap gap-x-2 gap-y-1 text-sm text-muted">
-            <span>Also on GitHub:</span>
-            {alsoBuilt.map((item, i) => (
-              <span key={item.title}>
-                <a
-                  className="text-fg underline decoration-line-strong underline-offset-4 hover:decoration-highlight"
-                  href={item.href}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {item.title}
-                </a>
-                {i < alsoBuilt.length - 1 && <span className="ml-2">·</span>}
+                <Logo size={30} />
               </span>
-            ))}
-          </p>
+            </figure>
+            <div className="divide-y divide-line">
+              {aboutSections.map((section, i) => (
+                <section className={i === 0 ? 'pb-7' : 'pt-7'} key={section.title}>
+                  <h3 className="text-[19px] font-light tracking-[-0.01em]">{section.title}</h3>
+                  <p className="mt-3 max-w-[52ch] text-[17px] leading-relaxed text-muted">
+                    {section.body}
+                  </p>
+                </section>
+              ))}
+            </div>
+          </div>
         </LedgerRow>
 
         <LedgerRow id="experience" title="Experience">

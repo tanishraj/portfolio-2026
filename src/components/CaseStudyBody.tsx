@@ -13,6 +13,7 @@ function Block({ id, title, children }: { id: string; title: string; children: R
   return (
     <section aria-labelledby={`${id}-title`} className="scroll-mt-28" id={id}>
       <h2 className={label} id={`${id}-title`}>
+        <span aria-hidden="true" className="mb-3 block h-px w-7 bg-highlight" />
         {title}
       </h2>
       <div className="mt-6">{children}</div>

@@ -23,6 +23,7 @@ export function LedgerRow({
         className="self-start text-[19px] font-light tracking-[-0.01em] sm:sticky sm:top-24"
         id={`${id}-heading`}
       >
+        <span aria-hidden="true" className="mb-3 block h-px w-7 bg-highlight" />
         {title}
       </h2>
       <div className="min-w-0">{children}</div>
