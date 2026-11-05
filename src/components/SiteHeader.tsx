@@ -11,7 +11,7 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 const nav = [
   { label: 'Work', href: '/#work', always: true },
   { label: 'Writing', href: '/#writing', always: false },
-  { label: 'About', href: '/about', always: true },
+  { label: 'About', href: '/#about', always: true },
   { label: 'CV', href: '/cv', always: true },
 ]
 

@@ -9,7 +9,8 @@ import { LiveStatus } from '@/components/LiveStatus'
 import { container, label } from '@/components/styles'
 import { StackIcons } from '@/components/work'
 import { selectedStudies } from '@/content/case-studies'
-import { ai, experience, links, stack, writing } from '@/content/home'
+import { aboutFacts, aboutParagraphs } from '@/content/about'
+import { ai, alsoBuilt, experience, links, stack, writing } from '@/content/home'
 import { person, siteUrl } from '@/lib/site'
 
 // Structured data so search engines know who this site is about.
@@ -183,6 +184,45 @@ export default function HomePage() {
             <AskBox />
           </LedgerRow>
         )}
+
+        <LedgerRow id="about" title="About">
+          <div className="grid gap-5 text-[17px] leading-relaxed text-muted">
+            {aboutParagraphs.map((paragraph, i) => (
+              <p
+                className={i === 0 ? 'max-w-[56ch] text-fg' : 'max-w-[56ch]'}
+                key={paragraph.slice(0, 20)}
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+          <dl className="mt-8 grid gap-x-10 gap-y-3 border-t border-line pt-6 text-base sm:grid-cols-3">
+            {aboutFacts.map((fact) => (
+              <div key={fact.label}>
+                <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+                  {fact.label}
+                </dt>
+                <dd className="mt-1">{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-6 flex flex-wrap gap-x-2 gap-y-1 text-sm text-muted">
+            <span>Also on GitHub:</span>
+            {alsoBuilt.map((item, i) => (
+              <span key={item.title}>
+                <a
+                  className="text-fg underline decoration-line-strong underline-offset-4 hover:decoration-highlight"
+                  href={item.href}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {item.title}
+                </a>
+                {i < alsoBuilt.length - 1 && <span className="ml-2">·</span>}
+              </span>
+            ))}
+          </p>
+        </LedgerRow>
 
         <LedgerRow id="experience" title="Experience">
           <ol className="border-t border-line">

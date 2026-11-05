@@ -10,7 +10,7 @@ describe('ask corpus', () => {
   it('covers every case study, the About page and the CV, each linking to a real page', () => {
     const hrefs = sources.map((s) => s.href)
     for (const study of caseStudies) expect(hrefs).toContain(`/work/${study.slug}`)
-    expect(hrefs).toEqual(expect.arrayContaining(['/about', '/cv']))
+    expect(hrefs).toEqual(expect.arrayContaining(['/#about', '/cv']))
     expect(new Set(hrefs).size).toBe(hrefs.length)
   })
 

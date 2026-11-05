@@ -47,7 +47,7 @@ export function buildSources(): Source[] {
 
   const about: Source = {
     title: 'About Tanish',
-    href: '/about',
+    href: '/#about',
     text: [
       ...aboutParagraphs,
       `How I use AI: ${aiParagraph}`,
