@@ -26,7 +26,7 @@ export function Logo({ size = 24, className = '' }: Props) {
         className="signature-crossbar"
         d={signature.crossbar}
         pathLength={1}
-        stroke="var(--accent)"
+        stroke="var(--highlight)"
       />
     </svg>
   )

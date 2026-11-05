@@ -51,7 +51,7 @@ export async function renderCard({
             strokeLinejoin="round"
             strokeWidth="2"
           />
-          <path d={signature.crossbar} stroke="#86cfc1" strokeLinecap="round" strokeWidth="2" />
+          <path d={signature.crossbar} stroke="#f5b544" strokeLinecap="round" strokeWidth="2" />
         </svg>
         <span style={{ fontSize: 28, fontWeight: 400 }}>Tanish Raj</span>
       </div>

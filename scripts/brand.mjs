@@ -11,7 +11,7 @@ const line = pick('line')
 const crossbar = pick('crossbar')
 
 const ink = '#e3e8ea'
-const accent = '#86cfc1'
+const accent = '#f5b544' // the marigold highlight, as in the site's dark theme
 const tile = '#0d1013'
 
 // A dark rounded tile reads on every tab bar and home screen, light or dark.

@@ -152,7 +152,7 @@
   }
 }
 
-/* The signature writes itself once, then the crossbar is struck through. */
+/* The signature writes itself once, then the highlight crossbar is struck through. */
 @keyframes write {
   from {
     stroke-dashoffset: 1;

@@ -189,17 +189,17 @@ export default function HomePage() {
             {experience.map((job) => {
               const inner = (
                 <>
-                  <span className="font-mono text-[11px] text-muted tabular-nums">{job.years}</span>
-                  <span className="min-w-0">
-                    <span className="inline-flex items-center align-middle transition-colors group-hover:text-highlight">
-                      <BrandLogo label={job.company} name={job.logo} scale={0.8} />
-                    </span>
-                    <span className="ml-2 text-muted">· {job.role}</span>
+                  <span className="font-mono text-[13px] text-muted tabular-nums">{job.years}</span>
+                  <span className="text-base transition-colors group-hover:text-highlight">
+                    {job.role}
+                  </span>
+                  <span className="flex items-center sm:justify-end">
+                    <BrandLogo label={job.company} name={job.logo} scale={0.8} />
                   </span>
                 </>
               )
               const row =
-                'grid gap-x-5 gap-y-1 py-4 text-base sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-baseline'
+                'grid gap-x-6 gap-y-2 py-4 sm:grid-cols-[8rem_minmax(0,1fr)_12rem] sm:items-center'
               return (
                 <li className="border-b border-line" key={`${job.company}-${job.years}`}>
                   {job.study ? (
