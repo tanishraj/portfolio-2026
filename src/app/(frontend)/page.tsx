@@ -80,15 +80,14 @@ export default function HomePage() {
       <header className="hero-drift pb-24 pt-20 sm:pt-28">
         <p className={`${label} rise`}>Senior frontend engineer · Abu Dhabi</p>
         <h1
-          className="mt-8 text-[40px] font-light leading-[1.06] tracking-[-0.035em] sm:text-[64px]"
+          className="mt-8 text-[40px] font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-[64px]"
           data-spec="display · Manrope 300 · 64/68 · −0.035em"
         >
-          <span className="block">I build fast, accessible front ends,</span>
-          <span className="block">design systems from the ground up,</span>
-          <span className="block">and the systems underneath,</span>
+          <span className="block">I build scalable interfaces,</span>
           <span className="block">
-            shipped faster with <span className="text-highlight">AI</span>.
+            integrate <span className="text-highlight">AI</span> into apps &amp;
           </span>
+          <span className="block">work across the stack.</span>
         </h1>
         <p
           className="rise mt-10 max-w-[36rem] text-[19px] leading-[1.6] text-muted"

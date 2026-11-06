@@ -7,7 +7,6 @@ export const contentType = 'image/png'
 export default function Image() {
   return renderCard({
     eyebrow: 'Senior frontend engineer · Abu Dhabi',
-    title:
-      'I build fast, accessible front ends, design systems from the ground up, and the systems underneath, shipped faster with AI.',
+    title: 'I build scalable interfaces, integrate AI into apps & work across the stack,',
   })
 }
