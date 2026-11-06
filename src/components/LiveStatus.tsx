@@ -21,10 +21,7 @@ export function LiveStatus({ now }: { now: string }) {
   }, [])
 
   return (
-    <p
-      className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-[0.08em] text-muted"
-      data-spec="status · Geist Mono 11 · +0.08em"
-    >
+    <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
       <span className="flex items-center gap-2">
         <span className="relative flex size-2">
           <span className="absolute inline-flex size-full animate-ping rounded-full bg-highlight opacity-60 motion-reduce:hidden" />

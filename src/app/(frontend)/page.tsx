@@ -79,10 +79,7 @@ export default function HomePage() {
 
       <header className="hero-drift pb-24 pt-20 sm:pt-28">
         <p className={`${label} rise`}>Senior frontend engineer · Abu Dhabi</p>
-        <h1
-          className="mt-8 text-[40px] font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-[64px]"
-          data-spec="display · Manrope 300 · 64/68 · −0.035em"
-        >
+        <h1 className="mt-8 text-[40px] font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-[64px]">
           <span className="block">I build scalable interfaces,</span>
           <span className="block">
             integrate <span className="text-highlight">AI</span> into apps &amp;

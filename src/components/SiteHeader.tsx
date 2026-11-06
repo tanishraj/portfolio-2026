@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 
 import { Logo } from '@/components/Logo'
 import { container } from '@/components/styles'
-import { SpecMode } from '@/components/SpecMode'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
 const nav = [
@@ -72,7 +71,6 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <SpecMode />
           <ThemeToggle />
         </nav>
       </div>

@@ -282,59 +282,6 @@
   }
 }
 
-/* Spec mode: the column grid plus labels on annotated elements. */
-.spec-grid {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-}
-
-.spec-grid span {
-  background: color-mix(in oklab, var(--highlight) 7%, transparent);
-  border-inline: 1px dashed color-mix(in oklab, var(--highlight) 35%, transparent);
-}
-
-.spec-legend {
-  position: fixed;
-  left: 50%;
-  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  transform: translateX(-50%);
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: var(--highlight);
-  color: var(--highlight-ink);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  white-space: nowrap;
-}
-
-:root[data-spec-mode] [data-spec] {
-  position: relative;
-  outline: 1px dashed var(--highlight);
-  outline-offset: 4px;
-}
-
-:root[data-spec-mode] [data-spec]::after {
-  content: attr(data-spec);
-  position: absolute;
-  left: -1px;
-  top: -26px;
-  z-index: 61;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: var(--highlight);
-  color: var(--highlight-ink);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.4;
-  text-transform: none;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
 /* In a list, hovering one row quietly dims the others. */
 @media (hover: hover) {
   .dim-siblings > li {
