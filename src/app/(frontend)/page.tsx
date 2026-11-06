@@ -3,17 +3,18 @@ import Link from 'next/link'
 import React from 'react'
 
 import { AskBox } from '@/components/AskBox'
-import { BrandIcon, isWordmark, type BrandKey } from '@/components/BrandIcon'
+import { BrandIcon } from '@/components/BrandIcon'
+import { CopyEmail } from '@/components/CopyEmail'
 import { BrandLogo } from '@/components/BrandLogo'
 import { AiRow } from '@/components/AiRow'
 import { LedgerRow } from '@/components/Ledger'
 import { Logo } from '@/components/Logo'
-import { LiveStatus } from '@/components/LiveStatus'
-import { container, label } from '@/components/styles'
+import { container } from '@/components/styles'
 import { StackIcons } from '@/components/work'
+import { WorkGrid } from '@/components/WorkGrid'
 import { selectedStudies } from '@/content/case-studies'
 import { aboutSections } from '@/content/about'
-import { experience, links, stack, writing } from '@/content/home'
+import { experience, links, stack, workIntro, writing } from '@/content/home'
 import { person, siteUrl } from '@/lib/site'
 
 import photo from '../../../public/images/tanish.webp'
@@ -42,19 +43,6 @@ const jsonLd = {
 
 const delay = (i: number) => ({ '--i': i }) as React.CSSProperties
 
-/** A company name with its small mark, for use inside sentences. */
-function Company({ name, logo }: { name: string; logo: BrandKey }) {
-  if (isWordmark(logo)) {
-    return <BrandIcon className="mx-0.5 align-[-2px] text-fg" name={logo} size={14} title />
-  }
-  return (
-    <span className="whitespace-nowrap text-fg">
-      <BrandIcon className="mr-1.5 inline-block align-[-2px]" name={logo} size={15} />
-      {name}
-    </span>
-  )
-}
-
 function ArrowIcon() {
   return (
     <svg aria-hidden="true" fill="none" height="12" viewBox="0 0 12 12" width="12">
@@ -77,88 +65,63 @@ export default function HomePage() {
         type="application/ld+json"
       />
 
-      <header className="hero-drift pb-24 pt-20 sm:pt-28">
-        <p className={`${label} rise`}>Senior frontend engineer · Abu Dhabi</p>
-        <h1 className="mt-8 text-[40px] font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-[64px]">
-          <span className="block">I build scalable interfaces,</span>
-          <span className="block">
-            integrate <span className="text-highlight">AI</span> into apps &amp;
-          </span>
-          <span className="block">work across the stack.</span>
-        </h1>
-        <p
-          className="rise mt-10 max-w-[36rem] text-[19px] leading-[1.6] text-muted"
-          style={delay(1)}
-        >
-          Ten years, most of them on products where a mistake costs money: card and banking apps for
-          three banks, a platform for Shell&apos;s well engineers, Ola Electric&apos;s first scooter
-          launch, and websites for law firms. Today I&apos;m at{' '}
-          <Company logo="liquidity" name="Liquidity Capital" /> in Abu Dhabi, where I built the
-          private credit platform&apos;s design system and the AI assistant that answers with those
-          same components and live numbers.
-        </p>
-        <p className="rise mt-7 flex flex-wrap gap-x-6 gap-y-2 text-base" style={delay(2)}>
-          <a
-            className="text-highlight underline-offset-4 hover:underline"
-            href={`mailto:${person.email}`}
+      <div className="flex min-h-[calc(100svh-76px)] flex-col">
+        <header className="hero-drift flex flex-1 flex-col justify-center py-12">
+          <h1 className="text-[44px] font-extralight leading-[1.08] tracking-[-0.03em] text-balance sm:text-[72px]">
+            <span className="block">I build scalable interfaces,</span>
+            <span className="block">
+              integrate <span className="text-highlight">AI</span> into apps &amp;
+            </span>
+            <span className="block">work across the stack.</span>
+          </h1>
+          <p
+            className="rise mt-10 max-w-[40rem] text-[19px] leading-[1.6] text-muted"
+            style={delay(1)}
           >
-            {person.email}
-          </a>
-          <Link className="text-muted underline-offset-4 hover:text-fg hover:underline" href="/cv">
-            Read the CV →
-          </Link>
-        </p>
-      </header>
-
-      <div className="grid gap-20 pb-8 sm:gap-28">
-        <LedgerRow id="worked-for" title="Worked for">
-          <ul className="grid grid-cols-2 gap-x-8 gap-y-7 sm:grid-cols-3 lg:grid-cols-4">
-            {experience.map((job) => (
-              <li className="flex h-8 items-center" key={`${job.company}-${job.years}`}>
-                <BrandLogo label={job.company} name={job.logo} />
-              </li>
-            ))}
-          </ul>
-        </LedgerRow>
-
-        <LedgerRow id="now" title="Now">
-          <LiveStatus now="an internal AI assistant on LibreChat" />
-          <p className="mt-3 max-w-[56ch] text-base leading-relaxed text-muted">
-            I&apos;m looking for a senior frontend or design systems role in the UAE. Ideally
-            somewhere the AI work is real.
+            For over a decade, I&apos;ve turned complex requirements into intuitive, reliable
+            interfaces across finance, energy, and mobility. From banking platforms to enterprise
+            applications, my focus has always been on performance, usability, and maintainable code.
+            Today, I&apos;m extending that craft into{' '}
+            <span className="whitespace-nowrap">AI-powered</span> experiences at Liquidity Capital.
           </p>
-        </LedgerRow>
+          <p
+            className="rise mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-base"
+            style={delay(2)}
+          >
+            <span className="inline-flex items-center gap-1.5">
+              <a
+                className="text-highlight underline-offset-4 hover:underline"
+                href={`mailto:${person.email}`}
+              >
+                {person.email}
+              </a>
+              <CopyEmail email={person.email} variant="icon" />
+            </span>
+            <Link
+              className="text-muted underline-offset-4 hover:text-fg hover:underline"
+              href="/cv"
+            >
+              Read the CV →
+            </Link>
+          </p>
+        </header>
 
+        <div className="pb-10">
+          <LedgerRow id="worked-for" reveal={false} title="Worked for">
+            <ul className="flex flex-wrap items-center gap-x-10 gap-y-4">
+              {experience.map((job) => (
+                <li className="flex h-6 items-center" key={`${job.company}-${job.years}`}>
+                  <BrandLogo label={job.company} name={job.logo} variant="mark" />
+                </li>
+              ))}
+            </ul>
+          </LedgerRow>
+        </div>
+      </div>
+
+      <div className="grid gap-20 pb-8 pt-20 sm:gap-28 sm:pt-28">
         <LedgerRow id="work" title="Work">
-          <ul className="grid gap-4 sm:grid-cols-2">
-            {selectedStudies.map((study) => (
-              <li key={study.slug}>
-                <Link
-                  className="group flex h-full flex-col rounded-2xl border border-line bg-surface p-6 transition duration-500 ease-calm hover:-translate-y-0.5 hover:border-line-strong motion-reduce:hover:translate-y-0"
-                  href={`/work/${study.slug}`}
-                >
-                  <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
-                    {study.meta.split(' · ').slice(0, 2).join(' · ')}
-                    {study.locked && <span className="text-highlight"> · on request</span>}
-                  </span>
-                  <span className="mt-8 text-[22px] leading-snug tracking-[-0.015em] transition-colors group-hover:text-highlight">
-                    {study.title}
-                  </span>
-                  <span className="mt-2 text-base leading-relaxed text-muted">{study.summary}</span>
-                  <span className="mt-auto pt-6">
-                    <StackIcons items={study.stack?.slice(0, 5)} size={14} />
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-6 text-sm text-muted">
-            Earlier work, one study per employer, is linked from{' '}
-            <a className="underline underline-offset-4 hover:text-fg" href="#experience">
-              experience
-            </a>
-            .
-          </p>
+          <WorkGrid intro={workIntro} studies={selectedStudies} />
         </LedgerRow>
 
         <LedgerRow id="ai" title="AI">
@@ -194,7 +157,7 @@ export default function HomePage() {
                   className={i === 0 ? 'pb-7' : i === aboutSections.length - 1 ? 'pt-7' : 'py-7'}
                   key={section.title}
                 >
-                  <h3 className="text-[19px] font-light tracking-[-0.01em]">{section.title}</h3>
+                  <h3 className="text-[20px] font-light text-fg">{section.title}</h3>
                   <p className="mt-3 max-w-[52ch] text-[17px] leading-relaxed text-muted">
                     {section.body}
                   </p>
@@ -246,7 +209,7 @@ export default function HomePage() {
           <div className="grid gap-10 border-t border-line pt-8 sm:grid-cols-3 sm:gap-8">
             {stack.map((group) => (
               <div key={group.heading}>
-                <h3 className="text-base">{group.heading}</h3>
+                <h3 className="text-[17px] font-normal text-fg">{group.heading}</h3>
                 <ul className="mt-4 grid gap-2 text-base text-muted">
                   {group.items.map((item) => (
                     <li className="flex items-center gap-2" key={item.label}>
@@ -275,7 +238,7 @@ export default function HomePage() {
               <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-highlight">
                 Interactive
               </span>
-              <span className="mt-8 text-[22px] leading-snug tracking-[-0.015em] transition-colors group-hover:text-highlight">
+              <span className="mt-8 text-[20px] font-light leading-snug tracking-[-0.01em] transition-colors group-hover:text-highlight">
                 The event loop, drawn
               </span>
               <span className="mt-2 text-base leading-relaxed text-muted">

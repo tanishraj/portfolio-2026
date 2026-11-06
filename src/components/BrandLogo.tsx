@@ -28,6 +28,21 @@ const wordmarks: Partial<Record<BrandKey, Wordmark>> = {
   thomsonreuters: { file: 'thomson-reuters.svg', ink: ['#404040'], height: 24 },
 }
 
+/** Symbol-only cuts of the wordmark files, and heights for the one-line row. */
+const markFiles: Partial<Record<BrandKey, Wordmark>> = {
+  liquidity: { file: 'liquidity.svg', ink: ['currentColor'], height: 13 },
+  bsf: { file: 'bsf-mark.svg', ink: ['#002A30', '#002a30'], height: 24 },
+  cgi: { file: 'cgi.svg', ink: [], height: 16 },
+  ola: { file: 'ola-electric.svg', ink: ['#000000', '#000'], height: 11 },
+  thomsonreuters: { file: 'thomson-reuters-mark.svg', ink: ['#404040'], height: 24 },
+}
+
+const markSymbolHeights: Partial<Record<BrandKey, number>> = {
+  wellsfargo: 22,
+  rakuten: 20,
+  shell: 22,
+}
+
 const symbols: Partial<Record<BrandKey, Symbol>> = {
   wellsfargo: { icon: siWellsfargo, label: 'Wells Fargo', height: 26 },
   rakuten: { icon: siRakuten, label: 'Rakuten', height: 24 },
@@ -67,6 +82,7 @@ export async function BrandLogo({
   label,
   scale = 1,
   showName = true,
+  variant = 'full',
 }: {
   name: BrandKey
   label: string
@@ -74,8 +90,11 @@ export async function BrandLogo({
   scale?: number
   /** For symbol marks, whether to print the company name beside the symbol. */
   showName?: boolean
+  /** "mark": the symbol only, in colour, for the one-line row. */
+  variant?: 'full' | 'mark'
 }) {
-  const word = wordmarks[name]
+  const isMark = variant === 'mark'
+  const word = isMark ? markFiles[name] : wordmarks[name]
   if (word) {
     const svg = await loadSvg(word)
     return (
@@ -91,7 +110,10 @@ export async function BrandLogo({
 
   const symbol = symbols[name]
   if (symbol) {
-    const size = Math.round(symbol.height * scale)
+    if (isMark) showName = false
+    const size = Math.round(
+      (isMark ? (markSymbolHeights[name] ?? symbol.height) : symbol.height) * scale,
+    )
     return (
       <span className="inline-flex items-center gap-2.5 text-fg">
         <svg

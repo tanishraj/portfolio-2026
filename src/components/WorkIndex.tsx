@@ -20,7 +20,7 @@ export function WorkIndex({ studies }: { studies: CaseStudy[] }) {
               {study.meta}
               {study.locked && <span className="text-highlight"> · on request</span>}
             </span>
-            <span className="row-start-2 text-[22px] leading-snug tracking-[-0.015em] transition-colors duration-300 group-hover:text-highlight">
+            <span className="row-start-2 text-[20px] font-light leading-snug tracking-[-0.01em] transition-colors duration-300 group-hover:text-highlight">
               {study.title}
             </span>
             <span className="row-start-3 max-w-[58ch] text-base leading-relaxed text-muted">

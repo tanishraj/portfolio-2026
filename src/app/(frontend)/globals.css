@@ -77,7 +77,8 @@
   --color-highlight: var(--highlight);
   --color-highlight-ink: var(--highlight-ink);
 
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans:
+    var(--font-albert-sans), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --ease-calm: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -91,6 +92,9 @@
 
   body {
     font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -152,40 +156,47 @@
   }
 }
 
-/* The header backdrop: solid behind the nav, then a long eased fade below it,
+/* The header's veil: a tint behind the nav with a long eased fade below it,
    so content dissolves well before it reaches the nav. It appears over the
    first 4rem of scroll, driven by scroll position where supported so a fast
    scroll can't outrun it, and goes away gently. */
-.header-backdrop {
+.header-veil {
   opacity: 0;
   transition: opacity 0.4s var(--ease-calm);
-  --fade: linear-gradient(
-    to bottom,
-    #000 calc(100% - 12rem),
-    rgb(0 0 0 / 0.92) calc(100% - 10rem),
-    rgb(0 0 0 / 0.76) calc(100% - 8rem),
-    rgb(0 0 0 / 0.55) calc(100% - 6rem),
-    rgb(0 0 0 / 0.32) calc(100% - 4rem),
-    rgb(0 0 0 / 0.12) calc(100% - 2rem),
-    transparent
-  );
-  -webkit-mask-image: var(--fade);
-  mask-image: var(--fade);
 }
 
-.header-backdrop[data-visible='true'] {
+.header-veil[data-visible='true'] {
   opacity: 1;
   transition-duration: 0s;
 }
 
 @supports (animation-timeline: scroll()) {
-  .header-backdrop,
-  .header-backdrop[data-visible='true'] {
+  .header-veil,
+  .header-veil[data-visible='true'] {
     transition: none;
     animation: header-backdrop-in linear both;
     animation-timeline: scroll(root);
     animation-range: 0 4rem;
   }
+}
+
+.header-fade {
+  --fade: linear-gradient(
+    to bottom,
+    #000 calc(100% - 3.5rem),
+    rgb(0 0 0 / 0.97) calc(100% - 3.15rem),
+    rgb(0 0 0 / 0.9) calc(100% - 2.8rem),
+    rgb(0 0 0 / 0.78) calc(100% - 2.45rem),
+    rgb(0 0 0 / 0.63) calc(100% - 2.1rem),
+    rgb(0 0 0 / 0.47) calc(100% - 1.75rem),
+    rgb(0 0 0 / 0.32) calc(100% - 1.4rem),
+    rgb(0 0 0 / 0.19) calc(100% - 1.05rem),
+    rgb(0 0 0 / 0.09) calc(100% - 0.7rem),
+    rgb(0 0 0 / 0.03) calc(100% - 0.35rem),
+    transparent
+  );
+  -webkit-mask-image: var(--fade);
+  mask-image: var(--fade);
 }
 
 @keyframes header-backdrop-in {
@@ -203,8 +214,7 @@
    moves under prefers-reduced-motion or without scroll timelines. */
 @keyframes reveal {
   from {
-    opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
   }
 }
 
@@ -232,6 +242,26 @@
       animation-range: 0 720px;
     }
   }
+}
+
+/* Work rows: the large numerals are decoration drawn by the list itself, so
+   the order lives in the <ol> and the soft colour carries no meaning. */
+.work-rows {
+  counter-reset: work;
+}
+
+.work-rows > li {
+  counter-increment: work;
+}
+
+.work-numeral::before {
+  content: counter(work, decimal-leading-zero);
+  display: block;
+  font-size: 56px;
+  font-weight: 200;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: var(--line-strong);
 }
 
 /* The signature writes itself once, then the highlight crossbar is struck through. */

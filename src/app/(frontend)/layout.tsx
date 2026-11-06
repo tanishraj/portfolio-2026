@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist_Mono, Manrope } from 'next/font/google'
+import { Albert_Sans, Geist_Mono } from 'next/font/google'
 import Script from 'next/script'
 import React from 'react'
 
@@ -9,7 +9,12 @@ import { siteUrl } from '@/lib/site'
 
 import './globals.css'
 
-const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap' })
+const albertSans = Albert_Sans({
+  subsets: ['latin'],
+  weight: ['200', '300', '400'],
+  variable: '--font-albert-sans',
+  display: 'swap',
+})
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
 
 export const metadata: Metadata = {
@@ -27,7 +32,7 @@ const themeScript = `try{var t=localStorage.getItem('theme');if(t==='light'||t==
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      className={`${manrope.variable} ${geistMono.variable}`}
+      className={`${albertSans.variable} ${geistMono.variable}`}
       data-scroll-behavior="smooth"
       lang="en"
       suppressHydrationWarning

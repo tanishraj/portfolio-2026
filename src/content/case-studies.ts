@@ -22,6 +22,8 @@ export type CaseStudy = {
   publicPoints?: string[]
   stack?: BrandKey[]
   glance?: string[]
+  /** One short line for the study's tile on the home page. */
+  blurb?: string
   cover?: { src: string; alt: string }
   tagline?: string
   facts?: { label: string; value: string }[]
@@ -56,6 +58,7 @@ export const selectedStudies: CaseStudy[] = [
     period: 'Jul 2024 — now',
     stack: ['librechat', 'react', 'typescript', 'node', 'mongodb', 'anthropic'],
     glance: ['Generative UI in chat', 'Own design system', 'Live platform data'],
+    blurb: 'A chat assistant on LibreChat that answers with our own components and live numbers.',
     tagline: 'Ask the platform a question and get the answer drawn as UI.',
     publicPoints: [
       'We built on LibreChat, the open-source chat platform, instead of writing a chat UI from scratch. Models, agents, tools and MCP were already solved, so the work went into what’s specific to the firm.',
@@ -74,6 +77,8 @@ export const selectedStudies: CaseStudy[] = [
     meta: 'Healthtech · In production',
     stack: ['nextjs', 'react', 'typescript', 'postgres', 'prisma', 'tailwind', 'docker'],
     glance: ['7 roles', '4.7 MB → 189 KB', '100k activities < 2 s'],
+    blurb:
+      'A digital logbook for postgraduate doctors, with monthly sign-off and a PDF that can’t be quietly changed.',
     cover: {
       src: '/images/work/anubhav-signin.webp',
       alt: 'Anubhav sign-in page: “Your training record, approved and certified”, with the weekly, monthly and HOD steps.',
@@ -171,6 +176,8 @@ export const selectedStudies: CaseStudy[] = [
     meta: 'Healthtech · In production',
     stack: ['node', 'sqlite', 'react', 'vite', 'tailwind', 'betterauth', 'resend', 'docker'],
     glance: ['58,510 → 520 rows', '1,017 notices watched', '~40 MB memory'],
+    blurb:
+      'Emails each new notice from the medical regulator exactly once, from a board that renumbers itself.',
     cover: {
       src: '/images/work/notivo-overview.webp',
       alt: 'Notivo admin overview: monitor healthy, 1,014 unique NMC notices tracked, latest notices listed.',
@@ -264,6 +271,8 @@ export const selectedStudies: CaseStudy[] = [
     meta: 'Platform · Design system',
     stack: ['payload', 'nextjs', 'mongodb', 'tailwind', 'shadcn', 'storybook', 'vercel'],
     glance: ['61 blocks', '2,934 integration tests', '0 high-severity deps'],
+    blurb:
+      'A website platform on Payload, copied once per client, that staff publish on without asking me.',
     cover: {
       src: '/images/work/snmih-home.webp',
       alt: 'snmih.in home page: “Learn Medicine. Serve Humanity.” hero for a medical college, built on the platform.',

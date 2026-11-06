@@ -20,6 +20,7 @@ describe('case studies', () => {
     for (const study of lockedStudies) {
       const allowed = [
         'company',
+        'blurb',
         'glance',
         'kind',
         'locked',

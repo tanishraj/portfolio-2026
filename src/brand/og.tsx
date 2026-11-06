@@ -9,8 +9,9 @@ export const ogSize = { width: 1200, height: 630 }
 
 const fontDir = join(process.cwd(), 'node_modules/@fontsource')
 const fonts = Promise.all([
-  readFile(join(fontDir, 'manrope/files/manrope-latin-300-normal.woff')),
-  readFile(join(fontDir, 'manrope/files/manrope-latin-400-normal.woff')),
+  readFile(join(fontDir, 'albert-sans/files/albert-sans-latin-200-normal.woff')),
+  readFile(join(fontDir, 'albert-sans/files/albert-sans-latin-300-normal.woff')),
+  readFile(join(fontDir, 'albert-sans/files/albert-sans-latin-400-normal.woff')),
   readFile(join(fontDir, 'geist-mono/files/geist-mono-latin-400-normal.woff')),
 ])
 
@@ -24,7 +25,7 @@ export async function renderCard({
   title: string
   subtitle?: string
 }) {
-  const [light, regular, mono] = await fonts
+  const [thin, light, regular, mono] = await fonts
 
   return new ImageResponse(
     <div
@@ -39,7 +40,7 @@ export async function renderCard({
         backgroundImage:
           'radial-gradient(circle at 85% 0%, rgba(134,207,193,0.16), rgba(13,16,19,0) 55%)',
         color: '#e3e8ea',
-        fontFamily: 'Manrope',
+        fontFamily: 'Albert Sans',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
@@ -71,7 +72,7 @@ export async function renderCard({
         <span
           style={{
             fontSize: title.length > 40 ? 64 : 76,
-            fontWeight: 300,
+            fontWeight: 200,
             lineHeight: 1.08,
             letterSpacing: -2,
             maxWidth: 980,
@@ -91,8 +92,9 @@ export async function renderCard({
     {
       ...ogSize,
       fonts: [
-        { name: 'Manrope', data: light, weight: 300, style: 'normal' },
-        { name: 'Manrope', data: regular, weight: 400, style: 'normal' },
+        { name: 'Albert Sans', data: thin, weight: 200, style: 'normal' },
+        { name: 'Albert Sans', data: light, weight: 300, style: 'normal' },
+        { name: 'Albert Sans', data: regular, weight: 400, style: 'normal' },
         { name: 'Geist Mono', data: mono, weight: 400, style: 'normal' },
       ],
     },

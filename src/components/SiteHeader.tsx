@@ -37,31 +37,39 @@ export function SiteHeader() {
     }
   }, [])
 
+  const veil =
+    'pointer-events-none absolute bg-bg/90 backdrop-blur-md supports-[backdrop-filter]:bg-bg/80'
+
   return (
     <header
       className="sticky top-0 z-30 print:hidden"
       style={{ top: 'env(safe-area-inset-top, 0px)' }}
     >
-      {/* A solid backdrop behind the nav, then a strip below it that fades to
-          nothing, so content scrolling underneath dissolves before it reaches
-          the nav instead of being cut off by an edge. */}
+      {/* A tint behind the nav that reaches well below it and fades to nothing,
+          so content scrolling underneath dissolves instead of being cut off. */}
       <div
         aria-hidden="true"
-        className="header-backdrop pointer-events-none absolute inset-x-0 top-0 -bottom-48 bg-bg/90 backdrop-blur-md supports-[backdrop-filter]:bg-bg/80"
+        className={`header-veil header-fade ${veil} inset-x-0 top-0 -bottom-12`}
         data-visible={compact}
       />
       <div
-        className={`${container} relative flex items-center justify-between transition-[padding] duration-300 motion-reduce:transition-none ${
+        className={`${container} relative flex items-center justify-between gap-4 transition-[padding] duration-300 motion-reduce:transition-none ${
           compact ? 'py-4' : 'py-6'
         }`}
       >
-        <Link className="flex items-center gap-2.5 text-sm font-semibold tracking-tight" href="/">
+        <Link
+          className="flex shrink-0 items-center gap-2.5 whitespace-nowrap text-[15px] font-normal sm:text-[17px]"
+          href="/"
+        >
           <span className={`transition-transform duration-300 ${compact ? 'scale-[0.8]' : ''}`}>
             <Logo size={28} />
           </span>
           Tanish Raj
         </Link>
-        <nav aria-label="Main" className="flex items-center gap-5 text-sm text-muted sm:gap-6">
+        <nav
+          aria-label="Main"
+          className="flex items-center gap-3.5 text-sm font-normal text-muted sm:gap-6 sm:text-[15px]"
+        >
           {nav.map((item) => (
             <Link
               className={`${item.always ? '' : 'hidden sm:inline'} transition-colors hover:text-fg`}
