@@ -26,7 +26,7 @@ export function LedgerRow({
         <span aria-hidden="true" className="mb-3 block h-px w-7 bg-highlight" />
         {title}
       </h2>
-      <div className="min-w-0">{children}</div>
+      <div className="reveal min-w-0">{children}</div>
     </section>
   )
 }

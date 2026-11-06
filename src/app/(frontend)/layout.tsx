@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: 'Tanish Raj · Senior Frontend Engineer', template: '%s · Tanish Raj' },
   description:
-    'Senior frontend engineer in Abu Dhabi. Design systems and calm interfaces for banking, credit, and medical training.',
+    'Senior frontend engineer in Abu Dhabi. Ten years of design systems and interfaces for banking, energy, EVs and legal, the backends behind them, and AI that uses both.',
   openGraph: { type: 'website', siteName: 'Tanish Raj', locale: 'en' },
   twitter: { card: 'summary_large_image' },
 }
@@ -28,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       className={`${manrope.variable} ${geistMono.variable}`}
+      data-scroll-behavior="smooth"
       lang="en"
       suppressHydrationWarning
     >

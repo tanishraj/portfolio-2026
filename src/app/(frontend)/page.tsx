@@ -77,23 +77,29 @@ export default function HomePage() {
         type="application/ld+json"
       />
 
-      <header className="pb-24 pt-20 sm:pt-28">
+      <header className="hero-drift pb-24 pt-20 sm:pt-28">
         <p className={`${label} rise`}>Senior frontend engineer · Abu Dhabi</p>
         <h1
-          className="mt-8 max-w-[20ch] text-[40px] font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-[64px]"
+          className="mt-8 text-[40px] font-light leading-[1.06] tracking-[-0.035em] sm:text-[64px]"
           data-spec="display · Manrope 300 · 64/68 · −0.035em"
         >
-          I build <span className="text-highlight">calm</span> interfaces for complicated products.
+          <span className="block">I build fast, accessible front ends,</span>
+          <span className="block">design systems from the ground up,</span>
+          <span className="block">and the systems underneath,</span>
+          <span className="block">
+            shipped faster with <span className="text-highlight">AI</span>.
+          </span>
         </h1>
         <p
           className="rise mt-10 max-w-[36rem] text-[19px] leading-[1.6] text-muted"
           style={delay(1)}
         >
-          Ten years of building front ends, mostly for banks. Today I&apos;m at{' '}
+          Ten years, most of them on products where a mistake costs money: card and banking apps for
+          three banks, a platform for Shell&apos;s well engineers, Ola Electric&apos;s first scooter
+          launch, and websites for law firms. Today I&apos;m at{' '}
           <Company logo="liquidity" name="Liquidity Capital" /> in Abu Dhabi, where I built the
-          design system for a private credit platform and now mostly work on its AI assistant.
-          Evenings go to software for a medical college in Bihar, which is how I ended up running
-          the backend too.
+          private credit platform&apos;s design system and the AI assistant that answers with those
+          same components and live numbers.
         </p>
         <p className="rise mt-7 flex flex-wrap gap-x-6 gap-y-2 text-base" style={delay(2)}>
           <a
@@ -188,7 +194,10 @@ export default function HomePage() {
             </figure>
             <div className="divide-y divide-line">
               {aboutSections.map((section, i) => (
-                <section className={i === 0 ? 'pb-7' : 'pt-7'} key={section.title}>
+                <section
+                  className={i === 0 ? 'pb-7' : i === aboutSections.length - 1 ? 'pt-7' : 'py-7'}
+                  key={section.title}
+                >
                   <h3 className="text-[19px] font-light tracking-[-0.01em]">{section.title}</h3>
                   <p className="mt-3 max-w-[52ch] text-[17px] leading-relaxed text-muted">
                     {section.body}

@@ -60,6 +60,7 @@ export const selectedStudies: CaseStudy[] = [
     publicPoints: [
       'We built on LibreChat, the open-source chat platform, instead of writing a chat UI from scratch. Models, agents, tools and MCP were already solved, so the work went into what’s specific to the firm.',
       'We built our own design system: tokens, components and larger blocks for how the platform shows credit and portfolio information.',
+      'The system itself is React and TypeScript on Tailwind CSS 4, documented in Storybook with a theme per brand, with AG Grid for the data-heavy tables and a separate charts package. I’m now putting an MCP server over it, so a coding agent can look up a component and see its preview before it builds.',
       'LibreChat renders those same blocks inside the conversation. An answer about a facility or a portfolio arrives as a chart, a table or a card with live data.',
       'The full write-up covers how the blocks are described to the model, how live data gets into them safely, and what we learnt about reliability. It’s shared with a code because it concerns my current employer’s internal tools.',
     ],

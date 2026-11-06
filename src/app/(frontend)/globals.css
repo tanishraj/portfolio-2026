@@ -152,6 +152,88 @@
   }
 }
 
+/* The header backdrop: solid behind the nav, then a long eased fade below it,
+   so content dissolves well before it reaches the nav. It appears over the
+   first 4rem of scroll, driven by scroll position where supported so a fast
+   scroll can't outrun it, and goes away gently. */
+.header-backdrop {
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-calm);
+  --fade: linear-gradient(
+    to bottom,
+    #000 calc(100% - 12rem),
+    rgb(0 0 0 / 0.92) calc(100% - 10rem),
+    rgb(0 0 0 / 0.76) calc(100% - 8rem),
+    rgb(0 0 0 / 0.55) calc(100% - 6rem),
+    rgb(0 0 0 / 0.32) calc(100% - 4rem),
+    rgb(0 0 0 / 0.12) calc(100% - 2rem),
+    transparent
+  );
+  -webkit-mask-image: var(--fade);
+  mask-image: var(--fade);
+}
+
+.header-backdrop[data-visible='true'] {
+  opacity: 1;
+  transition-duration: 0s;
+}
+
+@supports (animation-timeline: scroll()) {
+  .header-backdrop,
+  .header-backdrop[data-visible='true'] {
+    transition: none;
+    animation: header-backdrop-in linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 4rem;
+  }
+}
+
+@keyframes header-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Scroll-linked depth. Each ledger row's content rises into place as it enters
+   the viewport, and the hero drifts up a little slower than the page. Both
+   follow the scroll position itself, so they can never play late. Nothing
+   moves under prefers-reduced-motion or without scroll timelines. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes hero-drift {
+  to {
+    transform: translateY(48px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0 entry 220px;
+    }
+
+    .hero-drift {
+      animation: hero-drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 720px;
+    }
+  }
+}
+
 /* The signature writes itself once, then the highlight crossbar is struck through. */
 @keyframes write {
   from {

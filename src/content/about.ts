@@ -10,6 +10,10 @@ export const aboutSections = [
     title: 'How I use AI',
     body: 'I build with AI most days, mostly Claude Code. I write the brief, the design rules and the decision records. The agent does a lot of the typing. I review every change against those rules. One person can ship what used to need a team, as long as that person keeps owning how it works.',
   },
+  {
+    title: 'Outside work',
+    body: 'I build software for a medical college in Bihar: a logbook that postgraduate doctors and their guides sign every month, and a monitor for the regulator’s notice board. Both are in production with real users, and both are why I now run the backend as well as the front end.',
+  },
 ]
 
 export const aboutParagraphs = aboutSections.map((section) => section.body)

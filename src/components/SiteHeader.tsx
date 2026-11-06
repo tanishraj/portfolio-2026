@@ -40,16 +40,20 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-30 border-b transition-[background-color,border-color,backdrop-filter] duration-300 print:hidden ${
-        compact
-          ? 'border-line bg-bg/85 backdrop-blur-md supports-[backdrop-filter]:bg-bg/70'
-          : 'border-transparent bg-transparent'
-      }`}
+      className="sticky top-0 z-30 print:hidden"
       style={{ top: 'env(safe-area-inset-top, 0px)' }}
     >
+      {/* A solid backdrop behind the nav, then a strip below it that fades to
+          nothing, so content scrolling underneath dissolves before it reaches
+          the nav instead of being cut off by an edge. */}
       <div
-        className={`${container} flex items-center justify-between transition-[padding] duration-300 ${
-          compact ? 'py-3' : 'py-6'
+        aria-hidden="true"
+        className="header-backdrop pointer-events-none absolute inset-x-0 top-0 -bottom-48 bg-bg/90 backdrop-blur-md supports-[backdrop-filter]:bg-bg/80"
+        data-visible={compact}
+      />
+      <div
+        className={`${container} relative flex items-center justify-between transition-[padding] duration-300 motion-reduce:transition-none ${
+          compact ? 'py-4' : 'py-6'
         }`}
       >
         <Link className="flex items-center gap-2.5 text-sm font-semibold tracking-tight" href="/">

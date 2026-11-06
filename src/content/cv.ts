@@ -6,15 +6,15 @@ export const cvSummary =
 
 export const cvBullets: Record<string, string[]> = {
   'Liquidity Capital': [
-    'Build finance-domain platforms with React, TypeScript, Vite, Redux, Apollo Client and GraphQL.',
-    'Lead the migration of legacy frontend modules to a maintainable React and TypeScript architecture.',
-    'Built a reusable design system and component patterns, and contributed to the rebrand across UI foundations.',
-    'Building the firm’s AI assistant on LibreChat, with our design-system components rendered inside the chat with live platform data.',
+    'Build a private credit platform in React, TypeScript, Vite, Redux and Apollo GraphQL; lead the migration of its legacy modules.',
+    'Built the UI kit it runs on: Tailwind CSS 4, Storybook with a theme per brand, AG Grid Enterprise and a charts package. Carried the rebrand through it.',
+    'Building the firm’s AI assistant on LibreChat; our own components render inside the chat with live platform data.',
+    'Building an MCP server over the design system, so coding agents can look up components and previews before they build.',
   ],
   'Banque Saudi Fransi': [
-    'Built digital banking web and mobile apps, including the Customer Happiness Portal and the Digital Banking app, with React, TypeScript, Next.js and React Native.',
+    'Built the Customer Happiness Portal and the Digital Banking app with React, TypeScript, Next.js and React Native.',
     'Led the frontend rebrand across legacy banking platforms with one design language.',
-    'Improved performance with code splitting, lazy loading and render optimisation, and set up CI/CD, monitoring and alerting with DevOps.',
+    'Sped up pages with code splitting and lazy loading, and set up CI/CD, monitoring and alerting with DevOps.',
   ],
   'Wells Fargo': [
     'Moved a legacy jQuery application to a React and TypeScript customer portal.',
@@ -30,8 +30,8 @@ export const cvBullets: Record<string, string[]> = {
     'Built two modules of a 35-module Vue, Vuex and Kendo UI platform for Shell’s well engineers, each replacing a manual process, to SonarQube quality standards.',
   ],
   'Thomson Reuters': [
-    'Built responsive interfaces with HTML, SCSS and JavaScript, and the Snippet Portal, an internal tool for other developers.',
-    'Received several awards for creativity, problem-solving, ownership and delivery.',
+    'Trainee to senior in three years. Built responsive sites in HTML, SCSS and JavaScript, and the award-winning Snippet Portal in Vue.',
+    'Cut page weight with shared CSS templates and image sprites, and wrote browser automation with Selenium WebDriver in Java.',
   ],
 }
 
@@ -56,7 +56,7 @@ export const cvProjects = [
 export const cvSkills = [
   {
     heading: 'Frontend',
-    items: 'React, TypeScript, Next.js, Vue, React Native, HTML, CSS, Tailwind',
+    items: 'React, TypeScript, Next.js, Vue, React Native, HTML, CSS, Tailwind, AG Grid',
   },
   {
     heading: 'Architecture',
@@ -71,7 +71,10 @@ export const cvSkills = [
     heading: 'Quality and delivery',
     items: 'Jest, Vitest, Testing Library, Playwright, CI/CD, Docker, code review, mentoring',
   },
-  { heading: 'AI', items: 'Claude Code and AI agents in daily work, LLM interfaces' },
+  {
+    heading: 'AI',
+    items: 'Claude Code and AI agents in daily work, LLM interfaces, generative UI, MCP servers',
+  },
 ]
 
 export const cvEducation = [
