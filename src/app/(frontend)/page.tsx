@@ -4,6 +4,7 @@ import React from 'react'
 import { AskBox } from '@/components/AskBox'
 import { CopyEmail } from '@/components/CopyEmail'
 import { ExperienceChapters } from '@/components/ExperienceChapters'
+import { SideProjects } from '@/components/SideProjects'
 import { StackChips } from '@/components/StackChips'
 import { BrandLogo } from '@/components/BrandLogo'
 import { AiRow } from '@/components/AiRow'
@@ -154,6 +155,10 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+        </LedgerRow>
+
+        <LedgerRow id="beyond" title="Beyond 9–5">
+          <SideProjects />
         </LedgerRow>
 
         <LedgerRow id="experience" title="Experience">
