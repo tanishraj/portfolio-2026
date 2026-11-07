@@ -12,7 +12,7 @@ import { LedgerRow } from '@/components/Ledger'
 import { Logo } from '@/components/Logo'
 import { container } from '@/components/styles'
 import { WorkGrid } from '@/components/WorkGrid'
-import { selectedStudies } from '@/content/case-studies'
+import { workStudies } from '@/content/case-studies'
 import { aboutSections } from '@/content/about'
 import { experience, links, workIntro } from '@/content/home'
 import { cvPdfPath, person, siteUrl } from '@/lib/site'
@@ -114,7 +114,7 @@ export default function HomePage() {
         </LedgerRow>
 
         <LedgerRow id="work" title="Work">
-          <WorkGrid intro={workIntro} studies={selectedStudies} />
+          <WorkGrid intro={workIntro} studies={workStudies} />
         </LedgerRow>
 
         {process.env.ANTHROPIC_API_KEY && (

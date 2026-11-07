@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import robots from '@/app/robots'
 import sitemap from '@/app/sitemap'
-import { caseStudies } from '@/content/case-studies'
+import { caseStudies, workStudies } from '@/content/case-studies'
 import { cvBullets } from '@/content/cv'
 import { experience } from '@/content/home'
 
@@ -48,6 +48,16 @@ describe('case studies', () => {
       // Employer studies only quote numbers that are public or Tanish's own measures.
       if (study.kind === 'selected') expect(study.numbers?.length, study.slug).toBeGreaterThan(0)
       expect(study.process, study.slug).toBeTruthy()
+    }
+  })
+})
+
+describe('Work section', () => {
+  it('lists four studies, all real, with a line for each tile', () => {
+    expect(workStudies).toHaveLength(4)
+    for (const study of workStudies) {
+      expect(study, 'missing study').toBeTruthy()
+      expect(study.blurb ?? study.summary, study.slug).toBeTruthy()
     }
   })
 })

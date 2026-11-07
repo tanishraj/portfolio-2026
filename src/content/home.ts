@@ -22,7 +22,7 @@ export const alsoBuilt: { title: string; detail: string; href: string }[] = [
 
 /** The paragraph above the Work grid. */
 export const workIntro =
-  'Four projects worth your time: the AI platform I’m building at Liquidity Capital, and three products I designed, built and run myself, all in production with real users.'
+  'The AI platform I’m building at Liquidity Capital, and three earlier products: one for a bank, one for an electric scooter launch, and one for Shell’s well engineers.'
 
 export const principles = [
   {

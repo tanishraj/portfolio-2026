@@ -37,6 +37,7 @@ function Bullets({ items }: { items: string[] }) {
 export function CaseStudyBody({ study }: { study: CaseStudy }) {
   const sections = [
     study.problem?.length && { id: 'problem', label: 'The problem' },
+    study.ownership?.length && { id: 'ownership', label: 'What I owned' },
     study.constraints?.length && { id: 'constraints', label: 'Constraints' },
     study.architecture?.length && { id: 'architecture', label: 'How it works' },
     study.decisions?.length && { id: 'decisions', label: 'Decisions' },
@@ -44,7 +45,9 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
     study.numbers?.length && { id: 'numbers', label: 'By the numbers' },
     study.gallery?.length && { id: 'screens', label: 'Screens' },
     study.process && { id: 'process', label: 'How I built it' },
+    study.lessons?.length && { id: 'lessons', label: 'Looking back' },
     study.next?.length && { id: 'next', label: 'What’s next' },
+    study.sources?.length && { id: 'sources', label: 'Sources' },
   ].filter(Boolean) as { id: string; label: string }[]
 
   return (
@@ -102,6 +105,12 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
                   </p>
                 ))}
               </div>
+            </Block>
+          )}
+
+          {!!study.ownership?.length && (
+            <Block id="ownership" title="What I owned">
+              <Bullets items={study.ownership} />
             </Block>
           )}
 
@@ -211,9 +220,34 @@ export function CaseStudyBody({ study }: { study: CaseStudy }) {
             </Block>
           )}
 
+          {!!study.lessons?.length && (
+            <Block id="lessons" title="Looking back">
+              <Bullets items={study.lessons} />
+            </Block>
+          )}
+
           {!!study.next?.length && (
             <Block id="next" title="What’s next">
               <Bullets items={study.next} />
+            </Block>
+          )}
+
+          {!!study.sources?.length && (
+            <Block id="sources" title="Sources">
+              <ul className="grid max-w-[68ch] gap-2 text-sm">
+                {study.sources.map((source) => (
+                  <li key={source.href}>
+                    <a
+                      className="text-muted underline decoration-line-strong underline-offset-4 transition-colors hover:text-fg hover:decoration-fg"
+                      href={source.href}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {source.label} ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </Block>
           )}
         </div>

@@ -30,6 +30,8 @@ export type CaseStudy = {
   link?: { label: string; href: string }
   /** The situation and why it was hard. */
   problem?: string[]
+  /** What I was personally responsible for, one line each. */
+  ownership?: string[]
   /** The limits the design had to respect. */
   constraints?: string[]
   /** How it fits together, one line each. */
@@ -40,14 +42,18 @@ export type CaseStudy = {
   numbers?: { value: string; label: string }[]
   gallery?: { src: string; alt: string; caption: string }[]
   process?: string
+  /** What I'd keep or change, written after the fact. */
+  lessons?: string[]
   next?: string[]
+  /** Public sources for the facts quoted about the company or product. */
+  sources?: { label: string; href: string }[]
 }
 
 export const selectedStudies: CaseStudy[] = [
   {
     kind: 'selected',
     slug: 'librechat',
-    title: 'A chat-based AI platform for private credit',
+    title: 'AI chat for private credit',
     summary:
       'A chat assistant for our private credit platform, built on LibreChat. Ask about a portfolio and you get the chart itself, drawn with our components and live numbers.',
     meta: 'AI · Liquidity Capital · 2024 — now',
@@ -360,5 +366,17 @@ export const selectedStudies: CaseStudy[] = [
 ]
 
 export const caseStudies: CaseStudy[] = [...selectedStudies, ...employerStudies]
+
+// The home page's Work section: the current AI platform, then four earlier
+// products. The independent projects live in the Beyond 9–5 row instead.
+const workSlugs = [
+  'librechat',
+  'wells-fargo-card-replacement',
+  'ola-electric-reservations',
+  'shell-wells-digitalisation',
+]
+export const workStudies: CaseStudy[] = workSlugs.map((slug) =>
+  caseStudies.find((study) => study.slug === slug)!,
+)
 
 export const getCaseStudy = (slug: string) => caseStudies.find((study) => study.slug === slug)
