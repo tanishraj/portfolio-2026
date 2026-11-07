@@ -30,7 +30,7 @@ export const cvBullets: Record<string, string[]> = {
     'Built two modules of a 35-module Vue, Vuex and Kendo UI platform for Shell’s well engineers, each replacing a manual process, to SonarQube quality standards.',
   ],
   'Thomson Reuters': [
-    'Trainee to senior in three years. Built responsive sites in HTML, SCSS and JavaScript, and the award-winning Snippet Portal in Vue.',
+    'Associate to senior in a year. Built responsive sites in HTML, SCSS and JavaScript, and the award-winning Snippet Portal in Vue.',
     'Cut page weight with shared CSS templates and image sprites, and wrote browser automation with Selenium WebDriver in Java.',
   ],
 }

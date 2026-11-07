@@ -290,15 +290,15 @@ export const employerStudies: CaseStudy[] = [
     slug: 'thomson-reuters',
     title: 'Templates, sprites and the first single-page apps',
     summary:
-      'Three and a half years at Thomson Reuters’ Bangalore technology centre, from trainee to senior developer: CSS templates and page-weight work, then single-page apps in Vue and React, and an internal tool that won awards.',
+      'Three years at Thomson Reuters’ Bangalore technology centre, from associate to senior developer: CSS templates and page-weight work, then single-page apps in Vue and React, and an internal tool that won awards.',
     meta: 'Enterprise · Bangalore',
     company: 'Thomson Reuters',
     logo: 'thomsonreuters',
-    role: 'Trainee to Senior Web Developer',
-    period: 'Aug 2015 — Dec 2018',
+    role: 'Associate to Senior Web Developer',
+    period: '2016 — Dec 2018',
     stack: ['html5', 'css', 'javascript', 'vue', 'react', 'reactrouter'],
     glance: [
-      'Trainee to senior in 3 years',
+      'Associate to senior in a year',
       'Site-wide CSS templates',
       'Awards for Snippet Portal',
     ],
@@ -306,14 +306,14 @@ export const employerStudies: CaseStudy[] = [
     facts: [
       {
         label: 'Role',
-        value: 'Trainee in 2015, associate in 2016, senior web developer from August 2018',
+        value: 'Associate web developer from 2016, senior web developer from 2017',
       },
-      { label: 'When', value: 'August 2015 to December 2018' },
+      { label: 'When', value: '2016 to December 2018' },
       { label: 'Where', value: 'Thomson Reuters, Bangalore technology centre' },
       { label: 'Built with', value: 'HTML, CSS, JavaScript, Vue and Flux, React, React Router' },
     ],
     problem: [
-      'Thomson Reuters’ Bangalore campus was one of its largest technology centres, serving the financial, legal and tax businesses in the years before the 2018 split that created Refinitiv. I joined as a trainee in 2015, was made an associate within the year and a senior developer in 2018, and spent those years on the fundamentals of frontend work at scale.',
+      'Thomson Reuters’ Bangalore campus was one of its largest technology centres, serving the financial, legal and tax businesses in the years before the 2018 split that created Refinitiv. I joined as an associate web developer in 2016, was made a senior developer in 2017, and spent those years on the fundamentals of frontend work at scale.',
       'That meant CSS templates used on every page of a very large site, where a careless rule breaks something you can’t see. Page-weight work, combining images into sprites to cut requests. Then the move to single-page applications, first in Vue with Flux, then React with React Router, talking to SOAP and REST services that moved large XML and JSON payloads.',
     ],
     constraints: [
@@ -342,7 +342,7 @@ export const employerStudies: CaseStudy[] = [
       },
     ],
     numbers: [
-      { value: '3½ yrs', label: 'from trainee to senior web developer' },
+      { value: '1 yr', label: 'from associate to senior web developer' },
       { value: 'Several', label: 'awards for the Snippet Portal' },
     ],
     process:

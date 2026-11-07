@@ -5,6 +5,7 @@ import React from 'react'
 import { AskBox } from '@/components/AskBox'
 import { BrandIcon } from '@/components/BrandIcon'
 import { CopyEmail } from '@/components/CopyEmail'
+import { ExperienceChapters } from '@/components/ExperienceChapters'
 import { BrandLogo } from '@/components/BrandLogo'
 import { AiRow } from '@/components/AiRow'
 import { LedgerRow } from '@/components/Ledger'
@@ -169,41 +170,7 @@ export default function HomePage() {
         </LedgerRow>
 
         <LedgerRow id="experience" title="Experience">
-          <ol className="border-t border-line">
-            {experience.map((job) => {
-              const inner = (
-                <>
-                  <span className="font-mono text-[13px] text-muted tabular-nums">{job.years}</span>
-                  <span className="text-base transition-colors group-hover:text-highlight">
-                    {job.role}
-                  </span>
-                  <span className="flex items-center">
-                    <BrandLogo label={job.company} name={job.logo} scale={0.8} />
-                  </span>
-                </>
-              )
-              const row =
-                'grid gap-x-6 gap-y-2 py-4 sm:grid-cols-[8rem_16rem_minmax(0,1fr)] sm:items-center'
-              return (
-                <li className="border-b border-line" key={`${job.company}-${job.years}`}>
-                  {job.study ? (
-                    <Link className={`group ${row}`} href={`/work/${job.study}`}>
-                      {inner}
-                    </Link>
-                  ) : (
-                    <div className={row}>{inner}</div>
-                  )}
-                </li>
-              )
-            })}
-          </ol>
-          <p className="mt-4 text-sm text-muted">
-            Each role opens its case study. The one-page version is the{' '}
-            <Link className="underline underline-offset-4 hover:text-fg" href="/cv">
-              CV
-            </Link>
-            .
-          </p>
+          <ExperienceChapters />
         </LedgerRow>
 
         <LedgerRow id="stack" title="Stack">

@@ -45,6 +45,8 @@ export const experience: {
   study?: string
   logo: BrandKey
   role: string
+  /** Every designation held, newest first, when there was more than one. */
+  roles?: { title: string; years: string }[]
   place: string
   note: string
 }[] = [
@@ -103,14 +105,24 @@ export const experience: {
     note: 'Two modules of a 35-module Vue platform for Shell’s well engineers.',
   },
   {
-    years: '2015 — 2018',
+    years: '2016 — 2018',
     company: 'Thomson Reuters',
     study: 'thomson-reuters',
     logo: 'thomsonreuters',
-    role: 'Trainee to Senior Web Developer',
+    role: 'Associate to Senior Web Developer',
+    roles: [
+      { title: 'Senior Web Developer', years: '2017 — 2018' },
+      { title: 'Associate Web Developer', years: '2016 — 2017' },
+    ],
     place: 'Bangalore',
-    note: 'Where it started: trainee to senior in three years. Built an internal Snippet Portal for other developers, and received several awards for creativity and ownership.',
+    note: 'Where it started: associate to senior in a year. Built an internal Snippet Portal for other developers, and received several awards for creativity and ownership.',
   },
+]
+
+/** How the Experience row groups roles: by where they were, newest first. */
+export const experienceChapters: { title: string; places: string[] }[] = [
+  { title: 'UAE', places: ['Abu Dhabi', 'Dubai'] },
+  { title: 'India', places: ['Bangalore'] },
 ]
 
 /** The three things the site has to sell, in the order a hiring manager reads them. */
