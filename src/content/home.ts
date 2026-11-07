@@ -125,44 +125,49 @@ export const experienceChapters: { title: string; places: string[] }[] = [
   { title: 'India', places: ['Bangalore'] },
 ]
 
-/** The three things the site has to sell, in the order a hiring manager reads them. */
-export const stack: { heading: string; items: { label: string; logo?: BrandKey }[] }[] = [
+/** The Stack row: three areas, each a set of chips. */
+export const stack: { heading: string; items: string[] }[] = [
   {
-    heading: 'Frontend (ten years)',
+    heading: 'Frontend',
     items: [
-      { label: 'React', logo: 'react' },
-      { label: 'TypeScript', logo: 'typescript' },
-      { label: 'Next.js', logo: 'nextjs' },
-      { label: 'Design systems' },
-      { label: 'Storybook', logo: 'storybook' },
-      { label: 'Tailwind', logo: 'tailwind' },
-      { label: 'AG Grid' },
-      { label: 'Accessibility' },
-      { label: 'Performance' },
+      'React',
+      'TypeScript',
+      'JavaScript',
+      'Next.js',
+      'Vue.js',
+      'Tailwind CSS',
+      'Storybook',
+      'AG Grid',
+      'Highcharts',
+      'Redux',
+      'Apollo GraphQL',
+      'Performance',
+      'Accessibility',
     ],
   },
   {
-    heading: 'Backend (the last two years, in production)',
+    heading: 'Backend & Cloud',
     items: [
-      { label: 'Node', logo: 'node' },
-      { label: 'PostgreSQL', logo: 'postgres' },
-      { label: 'Prisma', logo: 'prisma' },
-      { label: 'Payload CMS', logo: 'payload' },
-      { label: 'SQLite', logo: 'sqlite' },
-      { label: 'GraphQL', logo: 'graphql' },
-      { label: 'Docker', logo: 'docker' },
-      { label: 'CI/CD', logo: 'githubactions' },
+      'Node.js',
+      'Next.js',
+      'Payload CMS',
+      'MongoDB',
+      'Docker',
+      'Coolify',
+      'Cloudflare R2',
+      'Vercel',
+      'VPS hosting',
     ],
   },
   {
-    heading: 'AI (most days)',
+    heading: 'AI & Tooling',
     items: [
-      { label: 'Claude API', logo: 'anthropic' },
-      { label: 'LibreChat', logo: 'librechat' },
-      { label: 'Claude Code and agents' },
-      { label: 'RAG and citations' },
-      { label: 'MCP servers' },
-      { label: 'Agent-ready codebases' },
+      'MCP servers',
+      'LLM integration',
+      'AI-powered interfaces',
+      'LibreChat',
+      'Claude Code',
+      'AI agents',
     ],
   },
 ]
@@ -199,29 +204,6 @@ export const ai: { title: string; body: string; href: string; needsAsk?: boolean
     body: 'Ask it anything about my work. It answers only from this site, links to the page each fact came from, and refuses the rest.',
     href: '/#ask',
     needsAsk: true,
-  },
-]
-
-export const writing = [
-  {
-    title: 'TypeScript Generics',
-    date: 'Mar 2026',
-    href: 'https://medium.com/@tanish_rajput/typescript-generics-095668cf190e',
-  },
-  {
-    title: '‘this’ in JavaScript',
-    date: 'Feb 2024',
-    href: 'https://medium.com/@tanish_rajput/this-in-javascript-edba94741d9d',
-  },
-  {
-    title: 'CSS Specificity',
-    date: 'Jan 2024',
-    href: 'https://medium.com/@tanish_rajput/css-specificity-6499f2b7e27b',
-  },
-  {
-    title: 'Tilde (~) vs Caret (^) in package.json',
-    date: 'Jan 2024',
-    href: 'https://medium.com/@tanish_rajput/tilde-vs-caret-in-package-json-a73e02033bfc',
   },
 ]
 

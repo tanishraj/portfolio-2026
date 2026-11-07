@@ -3,19 +3,18 @@ import Link from 'next/link'
 import React from 'react'
 
 import { AskBox } from '@/components/AskBox'
-import { BrandIcon } from '@/components/BrandIcon'
 import { CopyEmail } from '@/components/CopyEmail'
 import { ExperienceChapters } from '@/components/ExperienceChapters'
+import { StackChips } from '@/components/StackChips'
 import { BrandLogo } from '@/components/BrandLogo'
 import { AiRow } from '@/components/AiRow'
 import { LedgerRow } from '@/components/Ledger'
 import { Logo } from '@/components/Logo'
 import { container } from '@/components/styles'
-import { StackIcons } from '@/components/work'
 import { WorkGrid } from '@/components/WorkGrid'
 import { selectedStudies } from '@/content/case-studies'
 import { aboutSections } from '@/content/about'
-import { experience, links, stack, workIntro, writing } from '@/content/home'
+import { experience, links, workIntro } from '@/content/home'
 import { person, siteUrl } from '@/lib/site'
 
 import photo from '../../../public/images/tanish.webp'
@@ -43,19 +42,6 @@ const jsonLd = {
 }
 
 const delay = (i: number) => ({ '--i': i }) as React.CSSProperties
-
-function ArrowIcon() {
-  return (
-    <svg aria-hidden="true" fill="none" height="12" viewBox="0 0 12 12" width="12">
-      <path
-        d="M3.5 8.5l5-5M4.5 3.5h4v4"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.2"
-      />
-    </svg>
-  )
-}
 
 export default function HomePage() {
   return (
@@ -174,80 +160,7 @@ export default function HomePage() {
         </LedgerRow>
 
         <LedgerRow id="stack" title="Stack">
-          <div className="grid gap-10 border-t border-line pt-8 sm:grid-cols-3 sm:gap-8">
-            {stack.map((group) => (
-              <div key={group.heading}>
-                <h3 className="text-[17px] font-normal text-fg">{group.heading}</h3>
-                <ul className="mt-4 grid gap-2 text-base text-muted">
-                  {group.items.map((item) => (
-                    <li className="flex items-center gap-2" key={item.label}>
-                      {item.logo ? (
-                        <BrandIcon name={item.logo} size={14} />
-                      ) : (
-                        <span aria-hidden="true" className="inline-block w-3.5 text-center">
-                          ·
-                        </span>
-                      )}
-                      {item.label}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </LedgerRow>
-
-        <LedgerRow id="writing" title="Lab and writing">
-          <div className="grid gap-4 lg:grid-cols-2">
-            <Link
-              className="group flex flex-col rounded-2xl border border-line bg-surface p-6 transition duration-500 ease-calm hover:-translate-y-0.5 hover:border-line-strong motion-reduce:hover:translate-y-0"
-              href="/lab/event-loop"
-            >
-              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-highlight">
-                Interactive
-              </span>
-              <span className="mt-8 text-[20px] font-light leading-snug tracking-[-0.01em] transition-colors group-hover:text-highlight">
-                The event loop, drawn
-              </span>
-              <span className="mt-2 text-base leading-relaxed text-muted">
-                Step through promises, timers and async/await and watch the queues move. Every
-                puzzle is checked against a real JavaScript engine, so it can&apos;t lie to you.
-              </span>
-              <span className="mt-auto pt-6">
-                <StackIcons items={['typescript', 'react', 'webgl', 'vitest']} size={14} />
-              </span>
-            </Link>
-            <div className="rounded-2xl border border-line p-6">
-              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
-                Writing, on Medium
-              </span>
-              <ul className="mt-5 grid gap-3">
-                {writing.map((post) => (
-                  <li key={post.href}>
-                    <a
-                      className="group flex items-baseline justify-between gap-4 text-base transition-colors hover:text-highlight"
-                      href={post.href}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <span>{post.title}</span>
-                      <span className="shrink-0 font-mono text-[11px] text-muted tabular-nums">
-                        {post.date}
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <a
-                className="mt-6 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-fg"
-                href="https://medium.com/@tanish_rajput"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <BrandIcon name="medium" size={13} /> All articles <ArrowIcon />
-              </a>
-            </div>
-          </div>
+          <StackChips />
         </LedgerRow>
       </div>
     </main>
