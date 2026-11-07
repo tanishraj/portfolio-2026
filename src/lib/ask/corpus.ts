@@ -1,4 +1,5 @@
-import { aboutParagraphs, aiParagraph } from '@/content/about'
+import { aboutParagraphs } from '@/content/about'
+import { aiGroups, aiIntro } from '@/content/ai'
 import { caseStudies } from '@/content/case-studies'
 import { cvBullets, cvEducation, cvSkills, cvSummary } from '@/content/cv'
 import { experience, principles } from '@/content/home'
@@ -50,7 +51,10 @@ export function buildSources(): Source[] {
     href: '/#about',
     text: [
       ...aboutParagraphs,
-      `How I use AI: ${aiParagraph}`,
+      `How I work with AI: ${aiIntro}`,
+      ...aiGroups.flatMap((group) =>
+        group.items.map((item) => `${group.title}, ${item.title}: ${item.body}`),
+      ),
       ...principles.map((p) => `${p.title} ${p.body}`),
     ].join('\n'),
   }

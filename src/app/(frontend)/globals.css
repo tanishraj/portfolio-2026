@@ -264,6 +264,17 @@
   color: var(--line-strong);
 }
 
+/* Icon tile: a see-through tint of the soft line colour with a hairline
+   border, and the icon in a deeper shade of the same colour. No shadow, no
+   gradient, no highlight. Both colours follow the theme. */
+.glass-tile {
+  color: color-mix(in oklab, var(--line-strong), var(--fg) 55%);
+  background: color-mix(in oklab, var(--line-strong) 18%, transparent);
+  border: 1px solid color-mix(in oklab, var(--line-strong) 45%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
 /* The signature writes itself once, then the highlight crossbar is struck through. */
 @keyframes write {
   from {

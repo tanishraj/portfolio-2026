@@ -1,28 +1,42 @@
-// The AI row on the home page: how I use models day to day and what it buys.
+// The AI row on the home page: what I build for AI, and how I build with it.
 
-export const aiLede =
-  'Most of my day runs through Claude Code. I write the brief and the rules, the agent does the typing, and I review everything before it ships. One engineer now covers frontend, backend and tests at the pace a small team used to. Anubhav went from brief to production in ten days this way.'
+export const aiIntro =
+  "I don't just build with AI. I build tools for AI to work with. From AI-assisted development to MCP integrations and intelligent product experiences, I use a decade of engineering experience to make AI practical, productive, and reliable."
 
-export const loop = [
-  { title: 'Brief', body: 'What it’s for, what done looks like.' },
-  { title: 'Rules', body: 'Tokens, lint, CLAUDE.md in the repo.' },
-  { title: 'Build', body: 'The agent types, in small steps.' },
-  { title: 'Review', body: 'Every diff, as if from a new hire.' },
-  { title: 'Prove', body: 'Tests in CI, in both themes.' },
-]
+export type AiIcon = 'design-system' | 'app' | 'code' | 'thinking'
 
-export const payoff = [
+export const aiGroups: {
+  title: string
+  items: { icon: AiIcon; title: string; body: string }[]
+}[] = [
   {
-    title: 'Frontend',
-    body: 'Components, states and motion built from a brief, inside the design tokens.',
+    title: 'Building for AI',
+    items: [
+      {
+        icon: 'design-system',
+        title: 'Design system meets AI',
+        body: 'Built an MCP server that exposes our UI library, component APIs, and usage patterns to compatible AI tools, helping them generate interfaces using our existing components.',
+      },
+      {
+        icon: 'app',
+        title: 'AI-powered applications',
+        body: 'Building conversational experiences that turn AI responses into interactive interfaces using reusable components and live financial data.',
+      },
+    ],
   },
   {
-    title: 'Backend',
-    body: 'Payload collections, migrations and APIs drafted by the agent, proven by tests.',
-  },
-  {
-    title: 'In the product',
-    body: 'At Liquidity the assistant answers with our own components and live numbers.',
-    href: '/work/librechat',
+    title: 'Building with AI',
+    items: [
+      {
+        icon: 'code',
+        title: 'AI-assisted development',
+        body: 'Using AI to explore solutions, write and refactor code, debug issues, and accelerate implementation while maintaining control over technical decisions.',
+      },
+      {
+        icon: 'thinking',
+        title: 'Thinking with AI',
+        body: 'Using AI as a technical thought partner to evaluate approaches, investigate unfamiliar technologies, and challenge architectural decisions before writing code.',
+      },
+    ],
   },
 ]

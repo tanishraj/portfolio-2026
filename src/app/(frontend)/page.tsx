@@ -120,12 +120,12 @@ export default function HomePage() {
       </div>
 
       <div className="grid gap-20 pb-8 pt-20 sm:gap-28 sm:pt-28">
-        <LedgerRow id="work" title="Work">
-          <WorkGrid intro={workIntro} studies={selectedStudies} />
+        <LedgerRow id="ai" title="Engineering with AI">
+          <AiRow />
         </LedgerRow>
 
-        <LedgerRow id="ai" title="AI">
-          <AiRow />
+        <LedgerRow id="work" title="Work">
+          <WorkGrid intro={workIntro} studies={selectedStudies} />
         </LedgerRow>
 
         {process.env.ANTHROPIC_API_KEY && (
@@ -135,13 +135,14 @@ export default function HomePage() {
         )}
 
         <LedgerRow id="about" title="About">
-          <div className="grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
-            <figure className="relative w-60 max-w-full self-start">
+          <div className="grid gap-10 xl:grid-cols-[318px_26rem] xl:gap-12">
+            <figure className="relative aspect-[4/5] w-60 max-w-full self-start overflow-hidden xl:w-full">
               <Image
                 alt="Tanish Raj"
-                className="aspect-[4/5] w-full rounded-xl object-cover grayscale"
+                className="object-cover object-top"
+                fill
                 placeholder="blur"
-                sizes="15rem"
+                sizes="(min-width: 1280px) 318px, 15rem"
                 src={photo}
               />
               <span
