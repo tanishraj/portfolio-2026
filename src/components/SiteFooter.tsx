@@ -40,7 +40,7 @@ const linkClass =
 /** Contact, at the foot of every page: a lead line, availability, then one row per way in. */
 export function SiteFooter() {
   return (
-    <footer className={`${container} mt-16 print:hidden`} id="contact">
+    <footer className={`${container} mt-16 scroll-mt-28 print:hidden`} id="contact">
       <div className={`grid gap-4 border-t border-line pb-16 pt-14 sm:gap-10 ${ledgerCols}`}>
         <h2 className="flex items-center gap-3 self-start text-[17px] font-normal text-muted">
           <span aria-hidden="true" className="h-[1.1em] w-px shrink-0 bg-highlight" />

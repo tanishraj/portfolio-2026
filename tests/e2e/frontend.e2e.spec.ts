@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 
 import { caseStudies } from '@/content/case-studies'
 
-const pages = ['/', '/cv', '/lab/event-loop', ...caseStudies.map((study) => `/work/${study.slug}`)]
+const pages = ['/', '/lab/event-loop', ...caseStudies.map((study) => `/work/${study.slug}`)]
 
 test.describe('site', () => {
   for (const path of pages) {

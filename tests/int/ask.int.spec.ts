@@ -2,15 +2,16 @@ import { describe, expect, it } from 'vitest'
 
 import { caseStudies } from '@/content/case-studies'
 import { buildSources } from '@/lib/ask/corpus'
+import { cvPdfPath } from '@/lib/site'
 import { createEventParser, encodeEvent, reduceAnswer, type AskEvent } from '@/lib/ask/events'
 
 describe('ask corpus', () => {
   const sources = buildSources()
 
-  it('covers every case study, the About page and the CV, each linking to a real page', () => {
+  it('covers every case study, the About section and the CV, each linking to a real page or file', () => {
     const hrefs = sources.map((s) => s.href)
     for (const study of caseStudies) expect(hrefs).toContain(`/work/${study.slug}`)
-    expect(hrefs).toEqual(expect.arrayContaining(['/#about', '/cv']))
+    expect(hrefs).toEqual(expect.arrayContaining(['/#about', cvPdfPath]))
     expect(new Set(hrefs).size).toBe(hrefs.length)
   })
 

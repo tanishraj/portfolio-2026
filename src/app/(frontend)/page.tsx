@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 
 import { AskBox } from '@/components/AskBox'
@@ -15,7 +14,7 @@ import { WorkGrid } from '@/components/WorkGrid'
 import { selectedStudies } from '@/content/case-studies'
 import { aboutSections } from '@/content/about'
 import { experience, links, workIntro } from '@/content/home'
-import { person, siteUrl } from '@/lib/site'
+import { cvPdfPath, person, siteUrl } from '@/lib/site'
 
 import photo from '../../../public/images/tanish.webp'
 
@@ -84,12 +83,14 @@ export default function HomePage() {
               </a>
               <CopyEmail email={person.email} variant="icon" />
             </span>
-            <Link
+            <a
               className="text-muted underline-offset-4 hover:text-fg hover:underline"
-              href="/cv"
+              href={cvPdfPath}
+              rel="noopener"
+              target="_blank"
             >
               Read the CV →
-            </Link>
+            </a>
           </p>
         </header>
 

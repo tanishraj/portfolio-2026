@@ -17,7 +17,6 @@
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "brand": "node scripts/brand.mjs",
-    "cv": "node scripts/cv-pdf.mjs",
     "typecheck": "tsc --noEmit",
     "seed:private": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" node scripts/seed-private.mts"
   },

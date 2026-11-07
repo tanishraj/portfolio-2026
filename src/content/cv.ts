@@ -1,5 +1,5 @@
-// CV content. The /cv page renders it, and `pnpm cv` prints that page to PDF,
-// so the site and the CV can't drift apart. Roles come from ./home.ts.
+// CV content. It feeds the Ask corpus; the downloadable PDF in public/ was
+// printed from it. Roles come from ./home.ts.
 
 export const cvSummary =
   'Frontend engineer with ten years in banking, private credit and enterprise software. I build design systems and accessible interfaces, modernise legacy front ends, and for the last two years I’ve owned the backend as well. I work with AI agents most days and keep ownership of the architecture and the review.'

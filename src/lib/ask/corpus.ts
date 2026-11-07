@@ -3,6 +3,7 @@ import { aiGroups, aiIntro } from '@/content/ai'
 import { caseStudies } from '@/content/case-studies'
 import { cvBullets, cvEducation, cvSkills, cvSummary } from '@/content/cv'
 import { experience, principles } from '@/content/home'
+import { cvPdfPath } from '@/lib/site'
 
 // The public material the "Ask about my work" box may answer from. Each source
 // becomes one document with citations on, so answers can link back to a page.
@@ -61,7 +62,7 @@ export function buildSources(): Source[] {
 
   const cv: Source = {
     title: 'CV',
-    href: '/cv',
+    href: cvPdfPath,
     text: [
       cvSummary,
       ...experience.map((job) =>

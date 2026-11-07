@@ -11,7 +11,7 @@ const nav = [
   { label: 'AI', href: '/#ai', always: true },
   { label: 'Work', href: '/#work', always: true },
   { label: 'About', href: '/#about', always: true },
-  { label: 'CV', href: '/cv', always: true },
+  { label: 'Contact', href: '/#contact', always: true },
 ]
 
 // The header stays at the top of the page and gets a little smaller once the
