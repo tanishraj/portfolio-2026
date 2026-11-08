@@ -22,7 +22,7 @@ export const alsoBuilt: { title: string; detail: string; href: string }[] = [
 
 /** The paragraph above the Work grid. */
 export const workIntro =
-  'The AI platform I’m building at Liquidity Capital, and three earlier products: one for a bank, one for an electric scooter launch, and one for Shell’s well engineers.'
+  "Different industries, different challenges, and plenty of lessons along the way. Here are four projects that reflect the kind of engineering I've worked on over the years."
 
 export const principles = [
   {

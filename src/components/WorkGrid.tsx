@@ -27,7 +27,7 @@ function Row({ study }: { study: CaseStudy }) {
         href={`/work/${study.slug}`}
       >
         {study.locked && <LockIcon />}
-        {study.locked ? 'Request access' : 'Read the case study'}
+        {study.locked ? 'Request access' : 'Read case study'}
         <span
           aria-hidden="true"
           className="transition-transform duration-300 group-hover/link:translate-x-1 motion-reduce:transition-none"

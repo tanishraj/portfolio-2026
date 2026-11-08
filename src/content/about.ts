@@ -4,11 +4,11 @@
 export const aboutSections = [
   {
     title: 'Taking ownership',
-    body: 'I like to understand the problem before writing code: ask questions, challenge assumptions, and care about what happens after a feature ships. Ten years of complex products taught me when to push for quality and when to keep it simple.',
+    body: 'I like understanding the bigger picture before writing code. Years of working on enterprise products have taught me to question assumptions, make practical trade-offs, and think beyond the immediate task.',
   },
   {
     title: 'Always curious',
-    body: 'Frontend is what I know best, but I enjoy figuring out what happens behind it. Lately that means backend, infrastructure and AI. I learn by building things, breaking them and making them better.',
+    body: "Frontend is where I've built my expertise, but my curiosity doesn't stop there. I enjoy exploring the engineering behind the interface. Most of what I learn comes from building real products and figuring things out along the way.",
   },
 ]
 

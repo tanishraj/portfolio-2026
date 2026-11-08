@@ -53,7 +53,7 @@ export const selectedStudies: CaseStudy[] = [
   {
     kind: 'selected',
     slug: 'librechat',
-    title: 'AI chat for private credit',
+    title: 'Bringing AI into private credit',
     summary:
       'A chat assistant for our private credit platform, built on LibreChat. Ask about a portfolio and you get the chart itself, drawn with our components and live numbers.',
     meta: 'AI · Liquidity Capital · 2024 — now',
@@ -64,7 +64,8 @@ export const selectedStudies: CaseStudy[] = [
     period: 'Jul 2024 — now',
     stack: ['librechat', 'react', 'typescript', 'node', 'mongodb', 'anthropic'],
     glance: ['Generative UI in chat', 'Own design system', 'Live platform data'],
-    blurb: 'A chat assistant on LibreChat that answers with our own components and live numbers.',
+    blurb:
+      'A conversational AI platform built on LibreChat, combining live financial data with reusable UI components and interactive visualizations.',
     tagline: 'Ask the platform a question and get the answer drawn as UI.',
     publicPoints: [
       'We built on LibreChat, the open-source chat platform, instead of writing a chat UI from scratch. Models, agents, tools and MCP were already solved, so the work went into what’s specific to the firm.',

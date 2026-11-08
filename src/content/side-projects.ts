@@ -15,27 +15,30 @@ export type SideProject = {
   slug: string
 }
 
+export const sideProjectsIntro =
+  'Outside my day job, I build software for real-world problems. These projects are where I explore new technologies, work across the stack, and take ideas from development to deployment.'
+
 export const sideProjects: SideProject[] = [
   {
-    title: 'Website on Payload CMS',
+    title: 'Websites powered by Payload CMS',
     blurb:
-      'A website platform on Payload, copied once per client, that staff publish on without asking me.',
+      'A reusable website foundation that combines modern frontend development with a CMS, giving clients control over their own content.',
     image: snmih,
     alt: 'The snmih.in home page for a medical college, in grayscale.',
     slug: 'institutional-cms',
   },
   {
-    title: 'Anubhav',
+    title: 'Anubhav — Digital Logbook',
     blurb:
-      'A digital logbook for postgraduate doctors, with monthly sign-off and a PDF that can’t be quietly changed.',
+      'A digital logbook for postgraduate medical training, bringing clinical records, monthly approvals, and downloadable reports into one place.',
     image: anubhav,
     alt: 'The Anubhav sign-in page, in grayscale.',
     slug: 'anubhav',
   },
   {
-    title: 'Notivo',
+    title: 'Notivo — Notice Monitoring',
     blurb:
-      'Emails each new notice from the medical regulator exactly once, from a board that renumbers itself.',
+      'An automated notification service that tracks regulatory notices, identifies new updates, and delivers timely email alerts without duplicate notifications.',
     image: notivo,
     alt: 'The Notivo sign-in page, in grayscale.',
     slug: 'notivo',

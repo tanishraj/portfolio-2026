@@ -120,7 +120,7 @@ export const employerStudies: CaseStudy[] = [
   {
     kind: 'employer',
     slug: 'wells-fargo-card-replacement',
-    title: 'Replacing a lost card online',
+    title: 'Modernizing the card replacement experience',
     summary:
       'The self-service flow that lets Wells Fargo customers replace a lost or stolen card online, and knows when to hand them to a person instead.',
     meta: 'Banking · Bangalore',
@@ -131,7 +131,7 @@ export const employerStudies: CaseStudy[] = [
     stack: ['react', 'reduxsaga', 'typescript', 'testinglibrary', 'jest'],
     glance: ['Single contributor', 'jQuery → React', 'Tested with RTL'],
     blurb:
-      'The online flow for replacing a lost or stolen card, moved from jQuery to React by one engineer.',
+      'Rebuilding a lost and stolen card replacement flow from jQuery to React, bringing a legacy banking experience onto a modern frontend.',
     tagline: 'One engineer, one flow that a lot of people need on a bad day.',
     facts: [
       { label: 'Role', value: 'Senior frontend engineer, single contributor on the module' },
@@ -230,7 +230,7 @@ export const employerStudies: CaseStudy[] = [
   {
     kind: 'employer',
     slug: 'ola-electric-reservations',
-    title: 'Reservations for Ola’s first scooter',
+    title: 'Launching Ola Electric’s first scooter',
     summary:
       'Four months in 2021 building the pre-booking portal and feature pages for Ola Electric’s first scooter, ahead of a launch that took 100,000 reservations in a day.',
     meta: 'Consumer · Bangalore',
@@ -241,7 +241,7 @@ export const employerStudies: CaseStudy[] = [
     stack: ['react', 'mui', 'javascript'],
     glance: ['100k reservations in 24 h', '₹499 refundable', '4-step flow'],
     blurb:
-      'The pre-booking portal for Ola’s first scooter, which took over 100,000 reservations in its first day.',
+      'Frontend development for the pre-booking experience behind Ola’s debut electric scooter, launched to significant customer demand.',
     tagline: 'Four months to build a flow the whole country would try on the same evening.',
     facts: [
       { label: 'Role', value: 'Senior frontend engineer on the reservation portal and site' },
@@ -391,7 +391,7 @@ export const employerStudies: CaseStudy[] = [
   {
     kind: 'employer',
     slug: 'shell-wells-digitalisation',
-    title: 'Tools for Shell’s well engineers',
+    title: 'Simplifying workflows for Shell’s well engineers',
     summary:
       'Two modules of a 35-module platform CGI built for Shell’s well engineers, replacing manual, error-prone processes with Vue.',
     meta: 'Energy · Bangalore',
@@ -402,7 +402,7 @@ export const employerStudies: CaseStudy[] = [
     stack: ['vue', 'kendo', 'sass', 'javascript'],
     glance: ['35 modules, 2 mine', 'Manual → automated', 'Vue + Kendo UI'],
     blurb:
-      'Two modules of a platform for Shell’s well engineers, each replacing a manual process with a guided flow.',
+      'Built two modules for a well-engineering platform, turning complex operational processes into structured, data-heavy interfaces.',
     tagline: 'Spreadsheets and email, replaced one module at a time.',
     facts: [
       { label: 'Role', value: 'Frontend engineer on two of the platform’s modules' },

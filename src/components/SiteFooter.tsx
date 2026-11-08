@@ -44,19 +44,18 @@ export function SiteFooter() {
       <div className={`grid gap-4 border-t border-line pb-16 pt-14 sm:gap-10 ${ledgerCols}`}>
         <h2 className="flex items-center gap-3 self-start text-[17px] font-normal text-muted">
           <span aria-hidden="true" className="h-[1.1em] w-px shrink-0 bg-highlight" />
-          Contact
+          Get in touch
         </h2>
         <div className="min-w-0">
           <p className="max-w-[34ch] text-[22px] font-light leading-[1.5] tracking-[-0.01em] text-balance">
-            Hiring for a senior frontend role, or building something complicated? Email me, I read
-            everything.
+            Building something challenging, or looking for an experienced engineer? Let&apos;s talk.
           </p>
           <p className="mt-5 flex items-center gap-3 text-[15px] text-muted">
             <span aria-hidden="true" className="relative flex size-1.5">
               <span className="absolute inset-0 animate-ping rounded-full bg-highlight opacity-70 motion-reduce:animate-none" />
               <span className="relative size-1.5 rounded-full bg-highlight" />
             </span>
-            Open to senior frontend roles in the UAE
+            Open to senior frontend opportunities in the UAE
           </p>
 
           <dl className="mt-10 border-t border-line">

@@ -1,7 +1,7 @@
 // The AI row on the home page: what I build for AI, and how I build with it.
 
 export const aiIntro =
-  "I don't just build with AI. I build tools for AI to work with. From AI-assisted development to MCP integrations and intelligent product experiences, I use a decade of engineering experience to make AI practical, productive, and reliable."
+  "I don't just build with AI. I build tools that make AI more useful. From connecting our UI library to AI tools through MCP to developing intelligent financial applications, I combine a decade of engineering experience with new ways of building software."
 
 export type AiIcon = 'design-system' | 'app' | 'code' | 'thinking'
 
@@ -14,13 +14,13 @@ export const aiGroups: {
     items: [
       {
         icon: 'design-system',
-        title: 'Design system meets AI',
-        body: 'Built an MCP server that exposes our UI library, component APIs, and usage patterns to compatible AI tools, helping them generate interfaces using our existing components.',
+        title: 'Connecting UI with AI',
+        body: 'Built an MCP server that makes our UI components, APIs, and usage patterns accessible to compatible AI tools, helping them work with our existing design system.',
       },
       {
         icon: 'app',
-        title: 'AI-powered applications',
-        body: 'Building conversational experiences that turn AI responses into interactive interfaces using reusable components and live financial data.',
+        title: 'AI-powered interfaces',
+        body: 'Building a private-credit AI assistant that presents financial insights through reusable UI components, interactive visualizations, and live data.',
       },
     ],
   },
@@ -29,13 +29,13 @@ export const aiGroups: {
     items: [
       {
         icon: 'code',
-        title: 'AI-assisted development',
-        body: 'Using AI to explore solutions, write and refactor code, debug issues, and accelerate implementation while maintaining control over technical decisions.',
+        title: 'AI-assisted engineering',
+        body: 'Using AI coding agents to accelerate implementation, refactoring, testing, and debugging, while reviewing the output for correctness, performance, and maintainability.',
       },
       {
         icon: 'thinking',
-        title: 'Thinking with AI',
-        body: 'Using AI as a technical thought partner to evaluate approaches, investigate unfamiliar technologies, and challenge architectural decisions before writing code.',
+        title: 'AI as a thought partner',
+        body: 'Using AI to explore unfamiliar technologies, compare approaches, and challenge technical decisions. Experience guides what I trust, question, and ultimately ship.',
       },
     ],
   },
