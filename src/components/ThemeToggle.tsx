@@ -4,10 +4,9 @@ import React from 'react'
 
 type Theme = 'light' | 'dark'
 
+// Light unless the visitor has switched to dark.
 function resolvedTheme(): Theme {
-  const explicit = document.documentElement.dataset.theme
-  if (explicit === 'light' || explicit === 'dark') return explicit
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
 }
 
 export function ThemeToggle() {
@@ -24,7 +23,7 @@ export function ThemeToggle() {
   return (
     <button
       aria-label="Switch between light and dark theme"
-      className="grid size-9 place-items-center rounded-full border border-line text-muted transition-colors duration-300 hover:border-line-strong hover:text-fg"
+      className="grid size-9 cursor-pointer place-items-center rounded-full border border-line text-muted transition-colors duration-300 hover:border-line-strong hover:text-fg"
       onClick={toggle}
       type="button"
     >

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react'
 
 import { experience, experienceChapters } from '@/content/home'
@@ -25,7 +24,7 @@ function Row({ job }: { job: Job }) {
             className={`flex items-center gap-2.5 text-[17px] [grid-row-start:calc(var(--line)+1)] sm:col-start-2 sm:[grid-row-start:var(--line)] ${i === 0 ? 'text-fg' : 'text-muted'}`}
             style={{ '--line': i + 1 } as React.CSSProperties}
           >
-            <span className="relative transition-colors duration-300 group-hover:text-highlight">
+            <span className="relative">
               {role.title}
               {current && i === 0 && (
                 <span
@@ -46,15 +45,7 @@ function Row({ job }: { job: Job }) {
   const row =
     'grid grid-cols-[7.75rem_minmax(0,1fr)] gap-x-5 gap-y-3 py-5 sm:grid-cols-[10rem_minmax(0,1fr)_11rem] sm:gap-y-3.5'
   return (
-    <li className="border-b border-line">
-      {job.study ? (
-        <Link className={`group ${row}`} href={`/work/${job.study}`}>
-          {inner}
-        </Link>
-      ) : (
-        <div className={row}>{inner}</div>
-      )}
-    </li>
+    <li className={`border-b border-line ${row}`}>{inner}</li>
   )
 }
 

@@ -161,8 +161,6 @@ export function LoopRing({ phase }: { phase: Phase }) {
     themeObserver.observe(document.documentElement, {
       attributeFilter: ['data-theme'],
     })
-    const scheme = window.matchMedia('(prefers-color-scheme: dark)')
-    scheme.addEventListener('change', recolor)
     const sizeObserver = new ResizeObserver(resize)
     sizeObserver.observe(canvas)
 
@@ -173,7 +171,6 @@ export function LoopRing({ phase }: { phase: Phase }) {
       cancelAnimationFrame(frame)
       themeObserver.disconnect()
       sizeObserver.disconnect()
-      scheme.removeEventListener('change', recolor)
       kickRef.current = () => {}
     }
   }, [])

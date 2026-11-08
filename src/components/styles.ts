@@ -6,3 +6,8 @@ export const containerWide = 'mx-auto w-full max-w-[1280px] px-6 sm:px-8'
 export const label = 'text-sm font-light text-muted'
 /** Ledger proportions: a wide label column beside the reading column. */
 export const ledgerCols = 'sm:grid-cols-[18rem_minmax(0,1fr)]'
+/** Outlined button: hairline border, 44px tall, highlight on hover. Wrap the label in `buttonLabel`. */
+export const outlineButton =
+  'inline-flex h-11 cursor-pointer items-center gap-2.5 rounded-full border border-line-strong px-5 text-[15px] transition-colors hover:border-highlight hover:text-highlight'
+/** Albert Sans sits about 1.5px high in its line box; this centres the letters. */
+export const buttonLabel = 'translate-y-[1.5px]'

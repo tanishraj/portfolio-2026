@@ -10,7 +10,7 @@ import { BrandLogo } from '@/components/BrandLogo'
 import { AiRow } from '@/components/AiRow'
 import { LedgerRow } from '@/components/Ledger'
 import { Logo } from '@/components/Logo'
-import { container } from '@/components/styles'
+import { buttonLabel, container, outlineButton } from '@/components/styles'
 import { WorkGrid } from '@/components/WorkGrid'
 import { workStudies } from '@/content/case-studies'
 import { aboutSections } from '@/content/about'
@@ -65,32 +65,38 @@ export default function HomePage() {
             className="rise mt-10 max-w-[40rem] text-[19px] leading-[1.6] text-muted"
             style={delay(1)}
           >
-            For over a decade, I&apos;ve turned complex requirements into intuitive, reliable
-            interfaces across finance, energy, and mobility. From banking platforms to enterprise
-            applications, my focus has always been on performance, usability, and maintainable code.
-            Today, I&apos;m extending that craft into{' '}
-            <span className="whitespace-nowrap">AI-powered</span> experiences at Liquidity Capital.
+            For over a decade, I&apos;ve built enterprise web applications across finance, energy,
+            and mobility. I enjoy solving challenging problems, creating scalable interfaces, and
+            writing code that stands the test of time. Today, I&apos;m taking that experience beyond
+            the frontend, building across the stack and integrating AI into modern applications.
           </p>
           <p
-            className="rise mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-base"
+            className="rise mt-8 flex flex-wrap items-center gap-3"
             style={delay(2)}
           >
-            <span className="inline-flex items-center gap-1.5">
-              <a
-                className="text-highlight underline-offset-4 hover:underline"
-                href={`mailto:${person.email}`}
-              >
-                {person.email}
-              </a>
-              <CopyEmail email={person.email} variant="icon" />
-            </span>
+            <CopyEmail email={person.email} variant="button" />
             <a
-              className="text-muted underline-offset-4 hover:text-fg hover:underline"
+              className={`group/cv ${outlineButton} text-fg`}
+              download
               href={cvPdfPath}
-              rel="noopener"
-              target="_blank"
             >
-              Read the CV →
+              <span className={buttonLabel}>Download CV</span>
+              <svg
+                aria-hidden="true"
+                className="text-muted transition-transform duration-300 group-hover/cv:translate-y-0.5 group-hover/cv:text-highlight motion-reduce:transition-none"
+                fill="none"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
+              >
+                <path
+                  d="M8 2v8.5M4.5 7 8 10.5 11.5 7M2.5 13.5h11"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.3"
+                />
+              </svg>
             </a>
           </p>
         </header>
@@ -125,7 +131,7 @@ export default function HomePage() {
 
         <LedgerRow id="about" title="About">
           <div className="grid gap-10 xl:grid-cols-[318px_26rem] xl:gap-12">
-            <figure className="relative aspect-[4/5] w-60 max-w-full self-start overflow-hidden xl:w-full">
+            <figure className="relative aspect-4/5 w-60 max-w-full self-start overflow-hidden xl:w-full">
               <Image
                 alt="Tanish Raj"
                 className="object-cover object-top"
@@ -134,9 +140,11 @@ export default function HomePage() {
                 sizes="(min-width: 1280px) 318px, 15rem"
                 src={photo}
               />
+              {/* The brand mark in its light-theme colours (ink line, orange crossbar),
+                  whatever the site theme, since the photo itself never changes. */}
               <span
                 aria-hidden="true"
-                className="absolute bottom-3 right-3 text-highlight drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
+                className="absolute bottom-3 right-3 text-[#1b1915] [--highlight:#c2410c]"
               >
                 <Logo size={30} />
               </span>

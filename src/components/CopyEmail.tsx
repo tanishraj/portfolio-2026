@@ -2,12 +2,41 @@
 
 import React, { useState } from 'react'
 
+import { buttonLabel, outlineButton } from '@/components/styles'
+
+const CheckIcon = () => (
+  <svg aria-hidden="true" fill="none" height="14" viewBox="0 0 16 16" width="14">
+    <path
+      d="M3 8.5l3 3 7-7"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+    />
+  </svg>
+)
+
+const CopyIcon = () => (
+  <svg aria-hidden="true" fill="none" height="14" viewBox="0 0 16 16" width="14">
+    <rect height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3" width="9" x="5.5" y="5.5" />
+    <path
+      d="M10.5 5.5v-2a2 2 0 0 0-2-2h-5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h2"
+      stroke="currentColor"
+      strokeWidth="1.3"
+    />
+  </svg>
+)
+
+/**
+ * Copies the email address. `button` is an outlined button showing the address,
+ * `icon` a bare icon beside it, `pill` a small "Copy email" label.
+ */
 export function CopyEmail({
   email,
   variant = 'pill',
 }: {
   email: string
-  variant?: 'pill' | 'icon'
+  variant?: 'pill' | 'icon' | 'button'
 }) {
   const [copied, setCopied] = useState(false)
 
@@ -21,6 +50,30 @@ export function CopyEmail({
     }
   }
 
+  const status = (
+    <span aria-live="polite" className="sr-only">
+      {copied ? 'Copied' : ''}
+    </span>
+  )
+
+  if (variant === 'button') {
+    return (
+      <button
+        aria-label={copied ? 'Email copied' : `Copy email address ${email}`}
+        className={`group/copy ${outlineButton} text-fg`}
+        onClick={copy}
+        title="Copy email"
+        type="button"
+      >
+        <span className={buttonLabel}>{email}</span>
+        <span className={copied ? 'text-highlight' : 'text-muted group-hover/copy:text-highlight'}>
+          {copied ? <CheckIcon /> : <CopyIcon />}
+        </span>
+        {status}
+      </button>
+    )
+  }
+
   if (variant === 'icon') {
     return (
       <button
@@ -30,37 +83,8 @@ export function CopyEmail({
         title="Copy email"
         type="button"
       >
-        {copied ? (
-          <svg aria-hidden="true" fill="none" height="14" viewBox="0 0 16 16" width="14">
-            <path
-              d="M3 8.5l3 3 7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.5"
-            />
-          </svg>
-        ) : (
-          <svg aria-hidden="true" fill="none" height="14" viewBox="0 0 16 16" width="14">
-            <rect
-              height="9"
-              rx="1.5"
-              stroke="currentColor"
-              strokeWidth="1.3"
-              width="9"
-              x="5.5"
-              y="5.5"
-            />
-            <path
-              d="M10.5 5.5v-2a2 2 0 0 0-2-2h-5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h2"
-              stroke="currentColor"
-              strokeWidth="1.3"
-            />
-          </svg>
-        )}
-        <span aria-live="polite" className="sr-only">
-          {copied ? 'Copied' : ''}
-        </span>
+        {copied ? <CheckIcon /> : <CopyIcon />}
+        {status}
       </button>
     )
   }

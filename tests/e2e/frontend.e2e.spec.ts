@@ -50,12 +50,21 @@ test.describe('site', () => {
     expect(response?.status()).toBe(404)
   })
 
-  test('theme toggle switches and remembers the theme', async ({ page }) => {
+  test('light by default, even when the OS prefers dark', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark' })
     await page.goto('/')
+    await expect(page.locator('html')).not.toHaveAttribute('data-theme', /.+/)
+    const bg = await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor)
+    expect(bg).toBe('rgb(250, 247, 240)')
+  })
+
+  test('theme toggle switches and remembers the theme', async ({ page }) => {
+    await page.goto('/')
     await page.getByRole('button', { name: /light and dark/i }).click()
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
     await page.reload()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+    await page.getByRole('button', { name: /light and dark/i }).click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
   })
 

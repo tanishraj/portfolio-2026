@@ -62,9 +62,7 @@ export function SiteFooter() {
           <dl className="mt-10 border-t border-line">
             <Row label="Email">
               <span className="inline-flex flex-wrap items-center gap-1.5">
-                <a className={linkClass} href={`mailto:${person.email}`}>
-                  {person.email}
-                </a>
+                <span className="min-w-0 break-all">{person.email}</span>
                 <CopyEmail email={person.email} variant="icon" />
               </span>
             </Row>

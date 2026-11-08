@@ -2,47 +2,13 @@
 
 /*
  * Direction C · Soft Product
- * Dark-first with a designed light mode, one sea-glass teal accent,
+ * A warm light theme with a designed dark mode, one sea-glass teal accent,
  * light display type with mono metadata, and a single ambient glow.
  *
- * Theme resolution: dark by default, light when the OS prefers it,
- * and an explicit [data-theme] (set by the toggle) always wins.
+ * Theme resolution: light by default, whatever the OS prefers. Dark only when
+ * the visitor picks it with the toggle, which sets [data-theme] and remembers it.
  */
 :root {
-  --bg: #0d1013;
-  --surface: #13171b;
-  --surface-raised: #181d22;
-  --line: #242b31;
-  --line-strong: #34404a;
-  --fg: #e3e8ea;
-  --muted: #8a959b;
-  --accent: #86cfc1;
-  --glow: 134 207 193;
-  --glow-alpha: 0.11;
-  --highlight: #f5b544;
-  --highlight-ink: #1a1305;
-  color-scheme: dark;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme='dark']) {
-    --bg: #faf7f0;
-    --surface: #fffdf8;
-    --surface-raised: #ffffff;
-    --line: #e9e3d6;
-    --line-strong: #d1c8b6;
-    --fg: #1b1915;
-    --muted: #5f5a50;
-    --accent: #2a7a6e;
-    --glow: 82 170 155;
-    --glow-alpha: 0.14;
-    --highlight: #c2410c;
-    --highlight-ink: #ffffff;
-    color-scheme: light;
-  }
-}
-
-:root[data-theme='light'] {
   --bg: #faf7f0;
   --surface: #fffdf8;
   --surface-raised: #ffffff;
@@ -56,6 +22,22 @@
   --highlight: #c2410c;
   --highlight-ink: #ffffff;
   color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg: #0d1013;
+  --surface: #13171b;
+  --surface-raised: #181d22;
+  --line: #242b31;
+  --line-strong: #34404a;
+  --fg: #e3e8ea;
+  --muted: #8a959b;
+  --accent: #86cfc1;
+  --glow: 134 207 193;
+  --glow-alpha: 0.11;
+  --highlight: #f5b544;
+  --highlight-ink: #1a1305;
+  color-scheme: dark;
 }
 
 /*
@@ -88,6 +70,11 @@
   html {
     background: var(--bg);
     color: var(--fg);
+  }
+
+  /* Tailwind v4 leaves buttons with the default arrow; every button here is clickable. */
+  button:not(:disabled) {
+    cursor: pointer;
   }
 
   body {
