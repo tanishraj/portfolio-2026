@@ -90,7 +90,7 @@ export default function HomePage() {
                 width="14"
               >
                 <path
-                  d="M8 2v8.5M4.5 7 8 10.5 11.5 7M2.5 13.5h11"
+                  d="M8 2.25v8.5M4.5 7.25 8 10.75 11.5 7.25M2.5 13.75h11"
                   stroke="currentColor"
                   strokeLinecap="round"
                   strokeLinejoin="round"

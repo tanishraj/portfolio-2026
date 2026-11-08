@@ -8,6 +8,6 @@ export const label = 'text-sm font-light text-muted'
 export const ledgerCols = 'sm:grid-cols-[18rem_minmax(0,1fr)]'
 /** Outlined button: hairline border, 44px tall, highlight on hover. Wrap the label in `buttonLabel`. */
 export const outlineButton =
-  'inline-flex h-11 cursor-pointer items-center gap-2.5 rounded-full border border-line-strong px-5 text-[15px] transition-colors hover:border-highlight hover:text-highlight'
-/** Albert Sans sits about 1.5px high in its line box; this centres the letters. */
-export const buttonLabel = 'translate-y-[1.5px]'
+  'inline-flex h-11 cursor-pointer items-center gap-2.5 rounded-full border border-line-strong px-5 text-[15px] *:translate-y-[0.5px] transition-colors hover:border-highlight hover:text-highlight'
+/** Trims the label to cap height so the letters centre exactly (see .button-label). */
+export const buttonLabel = 'button-label'

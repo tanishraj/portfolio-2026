@@ -284,6 +284,21 @@
   }
 }
 
+/*
+ * Button labels: trim the text box to cap height and baseline, so flex centring
+ * centres the letters themselves, not the font's uneven line box. Browsers
+ * without text-box (Firefox for now) get a fixed nudge instead.
+ */
+.button-label {
+  text-box: trim-both cap alphabetic;
+}
+
+@supports not (text-box: trim-both cap alphabetic) {
+  .button-label {
+    transform: translateY(1.5px);
+  }
+}
+
 /* Print: always the light palette on A4, whatever theme the viewer chose. */
 @page {
   size: A4;
