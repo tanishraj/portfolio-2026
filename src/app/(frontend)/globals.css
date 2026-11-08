@@ -284,6 +284,24 @@
   }
 }
 
+/* Lenis smooth scrolling (from lenis/dist/lenis.css). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 /*
  * Button labels: trim the text box to cap height and baseline, so flex centring
  * centres the letters themselves, not the font's uneven line box. Browsers

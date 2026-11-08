@@ -5,6 +5,7 @@ import React from 'react'
 
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
+import { SmoothScroll } from '@/components/SmoothScroll'
 import { siteUrl } from '@/lib/site'
 
 import './globals.css'
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <SiteFooter />
         </div>
+        <SmoothScroll />
       </body>
     </html>
   )
