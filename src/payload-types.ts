@@ -257,11 +257,15 @@ export interface AccessCode {
    */
   label: string;
   /**
-   * Copy this code now and send it to the company. Once you save, it is never shown again: only a hash is stored. To replace a code, revoke this one and create a new one.
+   * Send this code to the company. You can copy it here at any time; it can’t be changed. To replace it, revoke this code and create a new one.
    */
   code?: string | null;
   codeHash?: string | null;
+  codeEncrypted?: string | null;
   study: number | CaseStudy;
+  /**
+   * Defaults to one day from now. The code stops working at this time.
+   */
   expiresAt: string;
   /**
    * Stops the code working immediately, even for visitors already in.
@@ -508,6 +512,7 @@ export interface AccessCodesSelect<T extends boolean = true> {
   label?: T;
   code?: T;
   codeHash?: T;
+  codeEncrypted?: T;
   study?: T;
   expiresAt?: T;
   revoked?: T;

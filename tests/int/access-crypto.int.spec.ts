@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest'
 
-import { generateCode, hashCode, hashIp, signAccess, verifyAccess } from '@/lib/access-crypto'
+import {
+  decryptCode,
+  encryptCode,
+  generateCode,
+  hashCode,
+  hashIp,
+  signAccess,
+  verifyAccess,
+} from '@/lib/access-crypto'
 
 const secret = 'test-secret'
 const now = 1_800_000_000
@@ -15,6 +23,16 @@ describe('access codes', () => {
     expect(hashCode('  AbCd-1234 ', secret)).toBe(hashCode('abcd-1234', secret))
     expect(hashCode('abcd-1234', secret)).not.toBe(hashCode('abcd-1235', secret))
     expect(hashCode('abcd-1234', secret)).not.toBe(hashCode('abcd-1234', 'other-secret'))
+  })
+
+  it('encrypts codes so only the same secret can read them back', () => {
+    const stored = encryptCode('AbCd-2345-wxyz', secret)
+    expect(stored).not.toContain('abcd')
+    expect(decryptCode(stored, secret)).toBe('abcd-2345-wxyz')
+    expect(encryptCode('abcd-2345-wxyz', secret)).not.toBe(stored)
+    expect(decryptCode(stored, 'other-secret')).toBeNull()
+    expect(decryptCode(`${stored.slice(0, -2)}xx`, secret)).toBeNull()
+    expect(decryptCode(null, secret)).toBeNull()
   })
 
   it('never stores the raw IP', () => {

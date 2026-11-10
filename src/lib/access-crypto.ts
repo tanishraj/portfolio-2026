@@ -1,4 +1,11 @@
-import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto'
+import {
+  createCipheriv,
+  createDecipheriv,
+  createHash,
+  createHmac,
+  randomBytes,
+  timingSafeEqual,
+} from 'node:crypto'
 
 // Pure helpers for protected case studies: no Payload, no Next, easy to test.
 
@@ -18,6 +25,33 @@ export function hashCode(code: string, secret: string): string {
   return createHmac('sha256', secret)
     .update(`code:${normalizeCode(code)}`)
     .digest('hex')
+}
+
+const codeKey = (secret: string) => createHash('sha256').update(`code-key:${secret}`).digest()
+
+/**
+ * The code itself is kept encrypted, so a signed-in admin can copy it again
+ * later. Without the secret, a copy of the database reveals no working codes.
+ */
+export function encryptCode(code: string, secret: string): string {
+  const iv = randomBytes(12)
+  const cipher = createCipheriv('aes-256-gcm', codeKey(secret), iv)
+  const text = Buffer.concat([cipher.update(normalizeCode(code), 'utf8'), cipher.final()])
+  return [iv, cipher.getAuthTag(), text].map((part) => part.toString('base64url')).join('.')
+}
+
+/** Returns the code, or null if the value is missing, tampered with or from another secret. */
+export function decryptCode(value: string | null | undefined, secret: string): string | null {
+  const parts = value?.split('.')
+  if (!parts || parts.length !== 3) return null
+  try {
+    const [iv, tag, text] = parts.map((part) => Buffer.from(part, 'base64url'))
+    const decipher = createDecipheriv('aes-256-gcm', codeKey(secret), iv)
+    decipher.setAuthTag(tag)
+    return Buffer.concat([decipher.update(text), decipher.final()]).toString('utf8')
+  } catch {
+    return null
+  }
 }
 
 /** Visitor IPs are only kept as a keyed hash, enough to rate-limit. */

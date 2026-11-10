@@ -53,12 +53,31 @@ describe('access codes', () => {
       },
     })
     expect(await storedHash(created.id)).toBe(true)
+    // The admin can copy the code after saving.
+    expect(created.code).toBe('int1-stay-code')
 
-    await payload.update({
+    const updated = await payload.update({
       collection: 'access-codes',
       id: created.id,
       data: { label, code: 'int1-new1-code' } as never,
     })
     expect(await storedHash(created.id)).toBe(true)
+    expect(updated.code).toBe('int1-stay-code')
+    expect((await payload.findByID({ collection: 'access-codes', id: created.id })).code).toBe(
+      'int1-stay-code',
+    )
+  })
+
+  it('defaults new codes to one day', async () => {
+    const study = (
+      await payload.find({ collection: 'case-studies', where: { slug: { equals: 'librechat' } } })
+    ).docs[0]
+    const created = await payload.create({
+      collection: 'access-codes',
+      data: { label, code: 'int1-oned-code', study: study.id } as never,
+    })
+    const hours = (new Date(created.expiresAt).getTime() - Date.now()) / 3_600_000
+    expect(hours).toBeGreaterThan(23.9)
+    expect(hours).toBeLessThanOrEqual(24)
   })
 })
