@@ -3,6 +3,14 @@
 import Lenis from 'lenis'
 import { useEffect } from 'react'
 
+let active: Lenis | null = null
+
+/** Back to the top of the page: a glide when smooth scrolling is on, else a jump. */
+export function scrollToTop() {
+  if (active) active.scrollTo(0)
+  else window.scrollTo({ top: 0 })
+}
+
 /**
  * Smooth, inertia scrolling for mouse wheels and trackpads (Lenis). Touch and
  * keyboard scrolling stay native, and nothing changes when the visitor prefers
@@ -18,6 +26,7 @@ export function SmoothScroll() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const lenis = new Lenis({ autoRaf: true, lerp: 0.104, stopInertiaOnNavigate: true })
+    active = lenis
 
     // Capture phase, so this runs before Next's <Link> and can take the click.
     const onClick = (event: MouseEvent) => {
@@ -47,6 +56,7 @@ export function SmoothScroll() {
     return () => {
       document.removeEventListener('click', onClick, { capture: true })
       lenis.destroy()
+      active = null
     }
   }, [])
 

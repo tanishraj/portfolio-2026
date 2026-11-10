@@ -276,6 +276,33 @@ test.describe('site', () => {
     await expect(page.locator('html')).toHaveAttribute('data-menu-open', 'true')
   })
 
+  test('back to top appears after the first screen and returns there', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto('/')
+    const button = page.getByRole('button', { name: 'Back to top', includeHidden: true })
+    await expect(button).toHaveAttribute('data-shown', 'false')
+    await expect(button).toHaveAttribute('tabindex', '-1')
+
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+    await expect(button).toHaveAttribute('data-shown', 'true')
+    // At the very bottom it clears the footer's text.
+    const overlaps = await page.evaluate(() => {
+      const b = document.querySelector('.back-to-top')!.getBoundingClientRect()
+      return [...document.querySelectorAll('footer p, footer a')]
+        .map((e) => e.getBoundingClientRect())
+        .some((r) => r.right > b.left && r.left < b.right && r.bottom > b.top && r.top < b.bottom)
+    })
+    expect(overlaps).toBe(false)
+    expect(await new AxeBuilder({ page }).analyze().then((r) => r.violations)).toEqual([])
+
+    await button.focus()
+    await page.keyboard.press('Enter')
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+    await expect(button).toHaveAttribute('data-shown', 'false')
+    await expect(page.locator('header a').first()).toBeFocused()
+  })
+
   test('menu button is only on phones; inline links from 640px', async ({ page }) => {
     for (const [width, phone] of [
       [390, true],
@@ -318,6 +345,27 @@ test.describe('site', () => {
       return rows.slice(1).map((row, i) => Math.round(top(row) - bottom(rows[i])))
     })
     expect(new Set(gaps).size, gaps.join(', ')).toBe(1)
+  })
+
+  // Like desktop, a phone's first screen holds the whole intro and the logos,
+  // and the gap above the logos holds while scrolling.
+  test('phone first screen fits the intro and the logos', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'no-preference' })
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto('/')
+    const logos = page.locator('#worked-for ul')
+    const box = await logos.boundingBox()
+    expect(box!.y + box!.height).toBeLessThanOrEqual(844)
+
+    for (const y of [0, 300, 700]) {
+      await page.evaluate((top) => window.scrollTo(0, top), y)
+      await page.waitForTimeout(100)
+      const gap = await page.evaluate(() => {
+        const cv = document.querySelector('main header a[download]')!.getBoundingClientRect()
+        return document.getElementById('worked-for')!.getBoundingClientRect().top - cv.bottom
+      })
+      expect(gap, `at scroll ${y}`).toBeGreaterThanOrEqual(48)
+    }
   })
 
   test('removed studies return 404 and are absent from the homepage', async ({ page }) => {

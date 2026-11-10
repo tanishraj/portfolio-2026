@@ -84,7 +84,9 @@ export function SiteFooter() {
           </dl>
         </div>
       </div>
-      <div className="flex flex-col gap-2 border-t border-line py-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+      {/* Room for the back-to-top button: below it on phones, beside it until
+          the page is wide enough for the button to sit past the content. */}
+      <div className="flex flex-col gap-2 border-t border-line pb-24 pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:pb-6 sm:pr-14 min-[1280px]:pr-0">
         <p>
           © {new Date().getFullYear()} {person.name}
         </p>

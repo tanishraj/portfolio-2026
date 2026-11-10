@@ -53,16 +53,19 @@ export default function HomePage() {
       />
 
       <div className="flex min-h-[calc(100svh-76px)] flex-col">
-        <header className="hero-drift flex flex-1 flex-col justify-center py-12">
-          <h1 className="text-[44px] font-extralight leading-[1.08] tracking-[-0.03em] text-balance sm:text-[72px]">
-            <span className="block">I build scalable interfaces,</span>
-            <span className="block">
+        {/* Phones get the same first screen as desktop (headline, intro, both
+            buttons and the logos) by letting the headline flow instead of
+            breaking per line, and setting the intro a size smaller. */}
+        <header className="hero-drift flex flex-1 flex-col justify-center pb-14 pt-6 sm:py-12">
+          <h1 className="text-[38px] font-extralight leading-[1.1] tracking-[-0.03em] text-balance sm:text-[72px] sm:leading-[1.08]">
+            <span className="sm:block">I build scalable interfaces,</span>{' '}
+            <span className="sm:block">
               integrate <span className="text-highlight">AI</span> into apps &amp;
-            </span>
-            <span className="block">work across the stack.</span>
+            </span>{' '}
+            <span className="sm:block">work across the stack.</span>
           </h1>
           <p
-            className="rise mt-10 max-w-[40rem] text-[19px] leading-[1.6] text-muted"
+            className="rise mt-5 max-w-[40rem] text-[17px] leading-[1.6] text-muted sm:mt-10 sm:text-[19px]"
             style={delay(1)}
           >
             For over a decade, I&apos;ve built enterprise web applications across finance, energy,
@@ -71,7 +74,7 @@ export default function HomePage() {
             the frontend, building across the stack and integrating AI into modern applications.
           </p>
           <p
-            className="rise mt-8 flex flex-wrap items-center gap-3"
+            className="rise mt-6 flex flex-wrap items-center gap-3 sm:mt-8"
             style={delay(2)}
           >
             <CopyEmail email={person.email} variant="button" />

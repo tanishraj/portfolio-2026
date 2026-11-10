@@ -3,6 +3,7 @@ import { Albert_Sans, Geist_Mono } from 'next/font/google'
 import Script from 'next/script'
 import React from 'react'
 
+import { BackToTop } from '@/components/BackToTop'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteHeader } from '@/components/SiteHeader'
 import { SmoothScroll } from '@/components/SmoothScroll'
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <SiteFooter />
         </div>
+        <BackToTop />
         <SmoothScroll />
       </body>
     </html>

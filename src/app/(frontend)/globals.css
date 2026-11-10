@@ -223,10 +223,14 @@
       animation-range: entry 0 entry 220px;
     }
 
-    .hero-drift {
-      animation: hero-drift linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 720px;
+    /* Not on phones: there the hero is taller than the screen, and drifting
+       down would close the gap above the logos. */
+    @media (min-width: 40rem) {
+      .hero-drift {
+        animation: hero-drift linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 720px;
+      }
     }
   }
 }
