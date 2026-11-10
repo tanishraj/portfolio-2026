@@ -6,8 +6,10 @@ const signedIn = ({ req }: { req: { user?: unknown } }) => Boolean(req.user)
 
 const in30Days = () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
 
-// One code per company. The plain code is shown once on the create form;
+// One code per company. The plain code is shown once, on the create form, and
 // only its HMAC is stored, so a leaked database can't reveal working codes.
+// The code field exists only on create: an existing record has no plain code to
+// show, and re-saving it must never replace the code that was sent out.
 export const AccessCodes: CollectionConfig = {
   slug: 'access-codes',
   admin: {
@@ -20,11 +22,9 @@ export const AccessCodes: CollectionConfig = {
   hooks: {
     beforeChange: [
       ({ data, operation, req }) => {
-        const secret = req.payload.secret
-        if (data.code) {
-          data.codeHash = hashCode(data.code, secret)
-        } else if (operation === 'create') {
-          throw new APIError('Enter a code, or keep the generated one.', 400)
+        if (operation === 'create') {
+          if (!data.code) throw new APIError('Enter a code, or keep the generated one.', 400)
+          data.codeHash = hashCode(data.code, req.payload.secret)
         }
         delete data.code
         return data
@@ -44,8 +44,9 @@ export const AccessCodes: CollectionConfig = {
       virtual: true,
       defaultValue: generateCode,
       admin: {
+        condition: (_data, _siblingData, { operation }) => operation === 'create',
         description:
-          'Copy this before saving and send it to the company. It is never shown again: only a hash is stored. To replace a code, type a new one here.',
+          'Copy this code now and send it to the company. Once you save, it is never shown again: only a hash is stored. To replace a code, revoke this one and create a new one.',
       },
     },
     {

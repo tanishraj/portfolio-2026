@@ -257,7 +257,7 @@ export interface AccessCode {
    */
   label: string;
   /**
-   * Copy this before saving and send it to the company. It is never shown again: only a hash is stored. To replace a code, type a new one here.
+   * Copy this code now and send it to the company. Once you save, it is never shown again: only a hash is stored. To replace a code, revoke this one and create a new one.
    */
   code?: string | null;
   codeHash?: string | null;
