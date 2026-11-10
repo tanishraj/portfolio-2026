@@ -317,6 +317,68 @@ html.lenis body {
   }
 }
 
+/* Physical device chrome for case-study screenshots, shared by both themes. */
+.macbook-frame {
+  width: 100%;
+  padding-block: 0.5rem 0.75rem;
+}
+
+.macbook-display {
+  position: relative;
+  width: 100%;
+  padding: 1% 1% 1.5%;
+  border: 1px solid #303238;
+  border-radius: clamp(10px, 1.5vw, 18px) clamp(10px, 1.5vw, 18px) 0 0;
+  background: #17191d;
+}
+
+.macbook-camera {
+  position: absolute;
+  z-index: 1;
+  top: 0.7%;
+  left: 45.5%;
+  width: 9%;
+  height: 2%;
+  border-radius: 0 0 4px 4px;
+  background: #17191d;
+}
+
+.macbook-camera::after {
+  position: absolute;
+  top: 20%;
+  left: 47.5%;
+  width: 5%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #39414b;
+  content: '';
+}
+
+.macbook-screen {
+  overflow: hidden;
+  border-radius: clamp(4px, 0.8vw, 10px) clamp(4px, 0.8vw, 10px) 2px 2px;
+  background: #fff;
+}
+
+.macbook-base {
+  position: relative;
+  height: clamp(6px, 0.8vw, 10px);
+  border-top: 1px solid #b8bdc5;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(#b8bdc5, #939aa5 65%, #6c7480);
+  box-shadow: 0 8px 12px -8px rgb(0 0 0 / 35%);
+}
+
+.macbook-notch {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 43%;
+  width: 14%;
+  height: 45%;
+  border-radius: 0 0 6px 6px;
+  background: #a5aab2;
+}
+
 /* Print: always the light palette on A4, whatever theme the viewer chose. */
 @page {
   size: A4;

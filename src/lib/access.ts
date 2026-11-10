@@ -120,11 +120,14 @@ export async function getUnlockedStudy(slug: string): Promise<CaseStudy | null> 
 
   const teaser = getCaseStudy(slug)
   return {
-    kind: 'selected',
+    kind: teaser?.kind ?? 'employer',
     slug: study.slug,
     title: study.title,
     summary: teaser?.summary ?? '',
     meta: teaser?.meta ?? '',
+    company: teaser?.company,
+    role: teaser?.role,
+    period: teaser?.period,
     stack: teaser?.stack,
     facts: study.facts?.map(({ label, value }) => ({ label, value })),
     tagline: study.tagline ?? undefined,

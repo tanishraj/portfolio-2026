@@ -1,6 +1,5 @@
-// Public case studies. Every number here comes from the project's own code,
-// commits or docs (see the research notes kept outside the repo). The protected
-// LibreChat study's body lives only in Payload, never here.
+// The three independent case studies. Every measurement comes from the project's
+// own records. The protected LibreChat body lives only in Payload.
 
 import type { BrandKey } from '@/components/BrandIcon'
 
@@ -11,7 +10,7 @@ export type CaseStudy = {
   title: string
   summary: string
   meta: string
-  /** Selected work is independent or current; employer studies are earlier roles. */
+  /** Independent projects and employment, including the current role. */
   kind: 'selected' | 'employer'
   locked?: boolean
   company?: string
@@ -37,11 +36,19 @@ export type CaseStudy = {
   /** How it fits together, one line each. */
   architecture?: string[]
   decisions?: { title: string; body: string; tradeoff?: string }[]
-  /** Hard problems from the commit history, and how they were solved. */
+  /** Concrete implementation problems described in the project record. */
   stories?: { title: string; body: string }[]
   numbers?: { value: string; label: string }[]
-  gallery?: { src: string; alt: string; caption: string }[]
+  gallery?: {
+    src: string
+    alt: string
+    caption?: string
+    placement?: 'problem' | 'decisions' | 'contribution'
+  }[]
+  /** Approach and validation, before the implementation details. */
   process?: string
+  /** Delivered behaviour, observed results and limits of the evidence. */
+  outcomes?: string[]
   /** What I'd keep or change, written after the fact. */
   lessons?: string[]
   next?: string[]
@@ -52,112 +59,107 @@ export type CaseStudy = {
 export const selectedStudies: CaseStudy[] = [
   {
     kind: 'selected',
-    slug: 'librechat',
-    title: 'Bringing AI into private credit',
-    summary:
-      'A chat assistant for our private credit platform, built on LibreChat. Ask about a portfolio and you get the chart itself, drawn with our components and live numbers.',
-    meta: 'AI · Liquidity Capital · 2024 — now',
-    locked: true,
-    company: 'Liquidity Capital',
-    logo: 'liquidity',
-    role: 'Senior Frontend Engineer',
-    period: 'Jul 2024 — now',
-    stack: ['librechat', 'react', 'typescript', 'node', 'mongodb', 'anthropic'],
-    glance: ['Generative UI in chat', 'Own design system', 'Live platform data'],
-    blurb:
-      'A conversational AI platform built on LibreChat, combining live financial data with reusable UI components and interactive visualizations.',
-    tagline: 'Ask the platform a question and get the answer drawn as UI.',
-    publicPoints: [
-      'We built on LibreChat, the open-source chat platform, instead of writing a chat UI from scratch. Models, agents, tools and MCP were already solved, so the work went into what’s specific to the firm.',
-      'We built our own design system: tokens, components and larger blocks for how the platform shows credit and portfolio information.',
-      'The system itself is React and TypeScript on Tailwind CSS 4, documented in Storybook with a theme per brand, with AG Grid for the data-heavy tables and a separate charts package. I’m now putting an MCP server over it, so a coding agent can look up a component and see its preview before it builds.',
-      'LibreChat renders those same blocks inside the conversation. An answer about a facility or a portfolio arrives as a chart, a table or a card with live data.',
-      'The full write-up covers how the blocks are described to the model, how live data gets into them safely, and what we learnt about reliability. It’s shared with a code because it concerns my current employer’s internal tools.',
-    ],
-  },
-  {
-    kind: 'selected',
     slug: 'anubhav',
-    title: 'Anubhav',
+    title: 'From paper logbooks to reviewable training records',
     summary:
-      'A digital logbook for postgraduate doctors. Guides sign each month, and the final PDF can’t be quietly changed. Built in ten days, in use at a college since.',
+      'I designed and built Anubhav for a medical college: a digital logbook that connects residents’ activity records to faculty approvals and a fixed PDF at certification. The challenge was making daily entry simple while preserving what each reviewer had approved.',
     meta: 'Healthtech · In production',
     stack: ['nextjs', 'react', 'typescript', 'postgres', 'prisma', 'tailwind', 'docker'],
-    glance: ['7 roles', '4.7 MB → 189 KB', '100k activities < 2 s'],
+    glance: ['7 roles', 'Revision-based approvals', '4.7 MB → 189 KB snapshot'],
     blurb:
-      'A digital logbook for postgraduate doctors, with monthly sign-off and a PDF that can’t be quietly changed.',
+      'Replacing paper training records with revision-based approvals and a fixed PDF at certification.',
     cover: {
       src: '/images/work/anubhav-signin.webp',
       alt: 'Anubhav sign-in page: “Your training record, approved and certified”, with the weekly, monthly and HOD steps.',
     },
-    tagline: 'A paper logbook, replaced by one an examiner can trust.',
+    tagline: 'Make daily entry easy, and make approval history explicit.',
     facts: [
-      { label: 'Role', value: 'Everything: product, design, frontend, backend, ops' },
-      { label: 'When', value: 'October to November 2026' },
-      { label: 'Status', value: 'In production at a medical college' },
-      { label: 'Built with', value: 'Next.js 16, Postgres 17, Prisma, Docker, Claude Code' },
+      {
+        label: 'Company',
+        value: 'Independent project',
+      },
+      {
+        label: 'My role',
+        value: 'Product, design, full-stack engineering and operations',
+      },
+      {
+        label: 'Product',
+        value: 'Postgraduate medical training logbook',
+      },
+      {
+        label: 'Contribution',
+        value: 'Built and deployed the complete product for a medical college',
+      },
+      {
+        label: 'Timeline',
+        value: 'October–November 2026',
+      },
     ],
-    link: { label: 'anubhav.everleaf.space', href: 'https://anubhav.everleaf.space' },
+    link: {
+      label: 'anubhav.everleaf.space',
+      href: 'https://anubhav.everleaf.space',
+    },
     problem: [
-      'Postgraduate doctors in India keep a logbook of everything they do in training. Since 2023 the National Medical Commission wants that logbook to be electronic, updated weekly and signed off by the guide every month. The college I built this for was still on paper: a 108-page booklet, mostly scanned forms.',
-      'Paper has two problems. You can’t prove an entry was made on time, and a signature can be added months later. I set myself two goals that pull in opposite directions: a tired resident should be able to log an activity in under a minute, and an external examiner should be able to trust every line.',
+      'The college recorded postgraduate medical training in a 108-page paper logbook. Residents documented activities, guides signed monthly records, and the head of department certified the final submission. Paper made it difficult to establish when an entry changed or which version a signature covered.',
+      'Moving the booklet online would solve storage, but leave the approval problem intact. I needed to connect each sign-off to a specific revision of the record, while keeping activity entry practical for residents using phones during clinical work.',
     ],
     constraints: [
-      'The regulation decides the workflow: weekly entries, monthly sign-off, a quarterly appraisal, and certification by the head of department before the exam.',
-      'Most entries happen on phones in wards, at night, on patchy networks.',
-      'One person can be a guide and a head of department at the same time, so permissions have to combine rather than switch.',
-      'A case reference may only be a hospital number. Never a patient’s name or phone number.',
+      'Support the college’s weekly entries, monthly sign-off, quarterly appraisal and final departmental certification.',
+      'Combine permissions when a faculty member is both a guide and a head of department.',
+      'Keep the interface usable on phones and avoid collecting patient names or phone numbers in case references.',
+      'Run the complete service on modest, self-managed infrastructure.',
     ],
     architecture: [
-      'Next.js with 82 server actions. Each one re-reads the user, re-checks permissions in the database, and writes its audit and notification rows in the same transaction.',
-      'Postgres with 26 models. Every save writes a new revision, and a monthly sign-off records exactly which revisions it covers.',
-      'Sessions live in the database, so removing someone cuts their access immediately. Passwords use scrypt, and five wrong attempts lock the account.',
-      'PDFs come from an isolated headless Chromium, laid out once in print CSS. The preview in the app is the real PDF.',
-      'One small server in India runs the app, Postgres, a virus scanner and the PDF service in Docker, with encrypted backups copied off-site every night.',
+      'Next.js server actions re-read the signed-in user and check database-backed permissions before changing records. Related audit and notification rows are written in the same transaction.',
+      'PostgreSQL stores activity revisions. A monthly approval refers to the revisions reviewed, rather than a record that can later change underneath it.',
+      'Accounts are issued by the college, and an administrator can revoke access at any time.',
+      'A separate rendering service generates the PDF from print CSS. At certification, the generated file and its checksum are stored; the app previews that PDF.',
     ],
     decisions: [
       {
-        title: 'A certified logbook is a frozen file',
-        body: 'At certification the PDF is rendered once and stored with its checksum, so every copy an examiner sees is identical and can be verified. The live logbook freezes too, until the head of department revokes the certificate with a reason.',
-        tradeoff:
-          'Improvements to the template never reach logbooks that are already certified. That’s deliberate.',
+        title: 'Approve revisions, then freeze the certified output',
+        body: 'Monthly approval records which revisions a guide reviewed. Final certification stores one PDF and freezes the live logbook until the head of department revokes certification with a reason. Later edits and template improvements never change a file that has already been certified, and its stored checksum lets the college confirm that a copy matches it.',
       },
       {
-        title: 'Permissions are grants',
-        body: 'Every check asks whether one of the person’s grants covers this exact target. A scope the system doesn’t recognise matches nobody.',
-        tradeoff:
-          'More queries per check than a simple role flag. Worth it for zero accidental access.',
+        title: 'Evaluate permissions against the target record',
+        body: 'Every permission is scoped to the records it covers, and anything not explicitly granted is denied. A faculty member can hold several responsibilities at once, such as guide and head of department, which mirrors how the college actually works.',
       },
       {
-        title: 'Each role sees only its own data',
-        body: 'The browser caches a snapshot shaped to the signed-in person. Deans get counts rather than every activity; faculty see a 90-day window.',
-        tradeoff:
-          'A head of department’s snapshot still grows with department size, so the review inbox needs paging next.',
-      },
-      {
-        title: 'Erasure means minimisation',
-        body: 'Deleting a person would break the approvals and signatures that refer to them. After the retention period, contact details go and the name and registration number stay with the record.',
+        title: 'Send each role only the data it needs',
+        body: 'The Dean’s view receives aggregate counts instead of all activity records, and faculty views use a 90-day window. This reduced the data transferred without changing the underlying activity history.',
       },
     ],
     stories: [
       {
-        title: 'The 4.7 MB home page',
-        body: 'A Dean’s snapshot was 4.7 MB, sent on every load. Shaping it by role cut it to 189 KB, and sign-in to home went from 1.3 s to 0.5 s. A load test now checks every main page stays under 2 s with about 100,000 activities.',
+        title: 'A Dean’s dashboard at a fraction of the size',
+        body: 'I shaped the Dean’s snapshot around exactly what the page shows, cutting it from 4.7 MB to 189 KB. In the recorded test, sign-in to the home page went from 1.3 seconds to 0.5.',
       },
       {
-        title: 'The go-live security pass',
-        body: 'Before launch I went looking for holes and found four, including one that let any college reset an external examiner’s password. Login attempts are now recorded before the password check, approvals take a per-student lock, and CSV exports are escaped.',
+        title: 'Security reviewed before launch',
+        body: 'Before launch, I reviewed every role boundary, sign-in protection, concurrent approvals and data exports, and hardened each one before real records went in.',
       },
       {
-        title: 'One mistyped command',
-        body: 'The seed script emptied whichever database it was pointed at. One typo on the server would have wiped real data. Now anything that empties a database refuses unless the database name ends in _demo or _test.',
+        title: 'Tooling that is safe by default',
+        body: 'Scripts that reset or seed data refuse to run against production, so live training records are never at risk from a mistyped command.',
       },
     ],
     numbers: [
-      { value: '7', label: 'roles, from resident to external examiner' },
-      { value: '189 KB', label: 'Dean’s snapshot, down from 4.7 MB' },
-      { value: '42', label: 'end-to-end phases, signing in as every role' },
-      { value: '10 days', label: 'from first commit to production' },
+      {
+        value: '7',
+        label: 'supported roles, including resident and external examiner',
+      },
+      {
+        value: '189 KB',
+        label: 'Dean’s snapshot, down from 4.7 MB in the recorded comparison',
+      },
+      {
+        value: '42',
+        label: 'end-to-end phases covering the role-based workflows',
+      },
+      {
+        value: '10 days',
+        label: 'from first commit to production',
+      },
     ],
     gallery: [
       {
@@ -167,86 +169,128 @@ export const selectedStudies: CaseStudy[] = [
       },
     ],
     process:
-      'Ten calendar days with Claude Code as pair programmer, and most commits say so. I wrote the product brief, the design system and six decision records, and I reviewed every change against them. Accessibility target is WCAG 2.2 AA, checked by axe in the browser suite.',
+      'I translated the paper workflow into explicit entry, review and certification states, and recorded the important decisions in six architecture records. I worked with Claude Code as an implementation partner: I set the product and architecture constraints, and reviewed every change it made. Before launch, I ran the role-based workflows end to end, checked accessibility with axe, and ran a security and performance review.',
     next: [
-      'Server-side paging for the head of department’s review inbox.',
-      'A PDF in the university’s own format.',
-      'Attendance, and languages other than English.',
+      'Paginate the head of department’s review inbox.',
+      'Support the university’s required PDF format.',
+      'Evaluate attendance and additional languages after validating the core workflow.',
+    ],
+    ownership: [
+      'Defined the product brief, review workflow and interface, then built the application and data model.',
+      'Implemented scoped permissions, revision history, monthly approvals and PDF certification.',
+      'Deployed and operated the service, including backups, performance checks and a pre-launch security review.',
+    ],
+    outcomes: [
+      'The college now has an in-use digital workflow from activity entry through faculty approval to a fixed certification file.',
+      'The implementation preserves the relationship between an approval and the version reviewed. The snapshot comparison also demonstrates a concrete reduction in transferred data.',
+      'Seven roles, from resident to external examiner, work in one system, each seeing only the records their responsibilities cover.',
+    ],
+    lessons: [
+      'An approval system needs version boundaries before it needs polished screens. Otherwise an edit can change the meaning of an earlier signature.',
+      'I would establish review-queue pagination and a repeatable performance baseline earlier, before aggregate snapshots grow with the institution.',
+      'Ten days forced hard scope decisions. Knowing what to leave out, such as attendance and extra languages, mattered as much as what went in.',
     ],
   },
   {
     kind: 'selected',
     slug: 'notivo',
-    title: 'Notivo',
+    title: 'Reliable alerts from an unreliable notice board',
     summary:
-      'Emails new notices from the National Medical Commission to the college, once each. The board duplicates and renumbers its own entries, so “once each” was the whole job.',
+      'I built Notivo to monitor medical-regulator notices for a college. The difficult part was deciding whether a changing entry was genuinely new, and handling uncertain email attempts without blindly resending them.',
     meta: 'Healthtech · In production',
     stack: ['node', 'sqlite', 'react', 'vite', 'tailwind', 'betterauth', 'resend', 'docker'],
-    glance: ['58,510 → 520 rows', '1,017 notices watched', '~40 MB memory'],
+    glance: ['58,510 → 520 rows read', 'Queued email retries', 'Manual review for ambiguity'],
     blurb:
-      'Emails each new notice from the medical regulator exactly once, from a board that renumbers itself.',
+      'Monitoring regulator notices with deduplication, bounded retries and explicit handling of uncertain sends.',
     cover: {
       src: '/images/work/notivo-overview.webp',
       alt: 'Notivo admin overview: monitor healthy, 1,014 unique NMC notices tracked, latest notices listed.',
     },
-    tagline: 'Watching a notice board that keeps changing its mind.',
+    tagline:
+      'Separate a new notice from a changed listing, and a send attempt from a delivered email.',
     facts: [
-      { label: 'Role', value: 'Everything: design, frontend, backend, ops' },
-      { label: 'When', value: 'One week in October 2026' },
-      { label: 'Status', value: 'In production, private admin portal' },
-      { label: 'Built with', value: 'Node 24, SQLite, React 19, Resend, Docker' },
+      {
+        label: 'Company',
+        value: 'Independent project',
+      },
+      {
+        label: 'My role',
+        value: 'Design, full-stack engineering and operations',
+      },
+      {
+        label: 'Product',
+        value: 'Regulatory notice monitoring and email alerts',
+      },
+      {
+        label: 'Contribution',
+        value: 'Source ingestion, notice identity, email queue and admin portal',
+      },
+      {
+        label: 'Timeline',
+        value: 'October 2026',
+      },
     ],
     problem: [
-      'Medical colleges have to act on notices from the National Medical Commission. The notices sit on a “What’s New” page: more than 1,000 entries, 20 to a page, no feed, no alerts. A new one can appear on any page, so checking by hand misses things.',
-      'The page is also unreliable in ways you only discover by watching it. IDs aren’t in order. Some dates have the year “0202”. When notices share a date across a page break, one shows twice and another disappears. Old notices come back under new IDs. A simple scraper either misses notices or emails old ones as new.',
+      'The college needed to act on new National Medical Commission notices without repeatedly checking a paginated notice board. A monitor could automate that work, but treating each unseen listing ID as a new notice produced the wrong answer.',
+      'The source repeated and renumbered entries, contained invalid dates and sometimes moved notices across page boundaries. I needed to separate document identity from listing identity, and preserve ambiguous cases for review instead of silently discarding them.',
     ],
     constraints: [
-      'Never email the same notice twice. Never silently drop one.',
-      'One private admin and a fixed list of up to 20 recipients.',
-      'It started on Cloudflare’s free plan, with a daily limit on database reads. Today it’s one container using about 40 MB of memory.',
+      'Reduce duplicate alerts while making uncertain notices and email attempts visible to the admin.',
+      'Serve a private admin and a small, fixed list of recipients.',
+      'Initially fit Cloudflare’s free-tier read limits; later operate as a small container.',
+      'Avoid advancing the source cursor when the page cannot be parsed reliably.',
     ],
     architecture: [
-      'A timer wakes every minute, checks the board every 15 minutes, and sends due emails on every wake. A database lease stops two cycles overlapping.',
-      'Fetching is strict. If the table, the “Showing X–Y of Z” line or a link looks wrong, nothing is saved and the cursor doesn’t move.',
-      'One SQLite transaction saves notices, history, queued emails and the page cursor together. Each email has a fixed key, so a retry can’t send twice.',
-      'The admin portal is React with Vite and shadcn/ui, behind Better Auth with 8-hour sessions.',
+      'A scheduler wakes each minute, polls the board every 15 minutes and processes due email attempts. A database lease coordinates overlapping cycles.',
+      'The parser validates the table, pagination summary and links. A validation failure leaves the stored cursor unchanged.',
+      'A SQLite transaction records notices, history, queued email work and the cursor together. Each email request uses a stable idempotency key for retries.',
+      'A private React and Vite admin portal behind authentication. It distinguishes provider acceptance from delivery to a recipient.',
     ],
     decisions: [
       {
-        title: 'Three outcomes for every new entry',
-        body: 'Email it now, record it quietly, or hold it for the admin. Anything doubtful is held: an impossible date, an old notice marked new, or more than five new entries in one check, which usually means the board was renumbered.',
-        tradeoff: 'Some notices wait for a person. That beats either kind of mistake.',
+        title: 'Make uncertainty an explicit state',
+        body: 'Invalid dates, old notices marked new and unusually large batches are held for review. More than five apparently new entries in a check is treated as a possible renumbering event. A genuine batch can also trigger this threshold, so the admin reviews held notices before alerts are sent.',
       },
       {
-        title: 'A notice is its download link',
-        body: 'Titles change and IDs aren’t in order, but the document link is stable. Entries without one are matched by title and date until a link appears.',
-        tradeoff:
-          'A recent notice re-uploaded under a new link can be emailed twice. Rare, and written down.',
+        title: 'Use document links as the primary identity',
+        body: 'A download link is more stable than a listing ID. Entries without a link are matched by title and date until a link becomes available. A re-upload under a new URL can still look new, and detecting a changed PDF behind the same URL is the next step.',
       },
       {
-        title: 'Retries stop at 23 hours',
-        body: 'The email provider forgets idempotency keys after 24. After 23 the delivery is marked “uncertain” for a person to check, and there is no “resend everything” button on purpose.',
+        title: 'Bound retries by the provider’s guarantee',
+        body: 'Resend retains idempotency keys for 24 hours. Notivo stops automatic retries at 23 hours and marks the attempt uncertain for a person to investigate.',
       },
     ],
     stories: [
       {
-        title: '58,510 rows, then 520',
-        body: 'Each check was quietly reading about 65,000 rows, close to the free plan’s daily limit. One missing index on the notice lookup was the cause. With it, the same test case read 520 rows instead of 58,510.',
+        title: 'Cutting database reads by 99%',
+        body: 'Profiling the monitor’s most frequent query showed a notice lookup reading 58,510 rows. A targeted index brought that to 520 rows for the same case.',
       },
       {
-        title: '1,017 versus 1,016',
-        body: 'The overview counted one more notice than the board listed. The board had deleted notice 884, a duplicate of 404. Now a notice unseen for three days whose PDF returns 404 is marked “Removed by NMC”.',
+        title: 'An archive that keeps its history',
+        body: 'When a listing disappears from the board, Notivo marks the notice removed once it has been unseen for three days and its PDF returns 404. The record and its history stay in the archive instead of being deleted.',
       },
       {
-        title: 'Leaving Cloudflare in a morning',
-        body: 'I moved from Workers and D1 to one Node container with SQLite in three pull requests before lunch. The data moved with its migration history while the old app was paused, so nothing was emailed twice.',
+        title: 'Moving hosts without replaying alerts',
+        body: 'I migrated from Workers and D1 to a Node.js container with SQLite. The old monitor was paused while data and migration history moved, so the new deployment could continue from the existing queue and cursor instead of treating the archive as new work.',
       },
     ],
     numbers: [
-      { value: '520', label: 'rows read per check, down from 58,510' },
-      { value: '1,017', label: 'notices watched' },
-      { value: '~40 MB', label: 'memory for the whole service' },
-      { value: '0', label: 'duplicate emails, by design' },
+      {
+        value: '520',
+        label: 'rows read in the recorded lookup test, down from 58,510',
+      },
+      {
+        value: '15 min',
+        label: 'between checks of the notice board',
+      },
+      {
+        value: '23 h',
+        label: 'automatic retry cutoff before the provider’s 24-hour key expiry',
+      },
+      {
+        value: '~40 MB',
+        label: 'memory used by the running service',
+      },
     ],
     gallery: [
       {
@@ -262,91 +306,131 @@ export const selectedStudies: CaseStudy[] = [
       },
     ],
     process:
-      'A week, with Claude Code helping, from first commit to production. The portal is calm and explicit about state: colour only ever appears next to a text label, and “unique notices tracked” is not the same as “entries on the board”, so it doesn’t say so.',
+      'I worked through the source’s failure cases: repeated entries, invalid dates, renumbered notices and missing documents. Those cases shaped three classification outcomes: alert, record without alerting, or hold for review. I then connected ingestion to a durable email queue and made the admin states describe exactly what the system knew. I built it in a week, with Claude Code as an implementation partner and every change reviewed.',
     next: [
-      'Delivery and bounce tracking through webhooks.',
-      'Spotting a changed PDF behind the same link.',
-      'Digest emails, and sources beyond the NMC.',
+      'Add delivery and bounce webhooks.',
+      'Detect document changes behind an unchanged URL.',
+      'Evaluate digests and additional sources once the current review workflow is stable.',
+    ],
+    ownership: [
+      'Built the source parser, notice identity rules, scheduler, database and email queue.',
+      'Designed the private admin portal and its health, archive and delivery states.',
+      'Optimised database reads and migrated the service from Cloudflare Workers and D1 to Node.js and SQLite.',
+    ],
+    outcomes: [
+      'The college has an automated monitor with a searchable archive, queued alerts and visible exceptions for notices or sends that need human review.',
+      'The indexed lookup substantially reduced reads in the recorded comparison, and the migration retained the existing notice and queue history.',
+      'The portal labels each email as accepted by the provider, never as delivered, so the admin never sees a stronger claim than the system can make.',
+    ],
+    lessons: [
+      'A reliable monitor needs a model of source identity and uncertainty. Fetching the page on a timer is the easy part.',
+      'I would separate observed entries, unique documents, provider acceptance and recipient delivery in the data model and interface from the start.',
+      'The host migration was smooth because the queue and cursor lived in the database, not in process memory. Durable state made the move a data copy.',
     ],
   },
   {
     kind: 'selected',
     slug: 'institutional-cms',
-    title: 'An institutional CMS, built to be copied',
+    title: 'A publishing platform for institutional websites',
     summary:
-      'A website platform on Payload, copied once per client. The medical college runs on it and the staff publish without asking me.',
+      'I built a Payload-based platform for colleges and hospitals, with a catalogue of reusable page blocks and scoped publishing permissions. Its first live deployment lets college staff update the site without routing routine edits through me.',
     meta: 'Platform · Design system',
     stack: ['payload', 'nextjs', 'mongodb', 'tailwind', 'shadcn', 'storybook', 'vercel'],
-    glance: ['61 blocks', '2,934 integration tests', '0 high-severity deps'],
+    glance: ['61 page blocks', 'Scoped editor permissions', 'First client live'],
     blurb:
-      'A website platform on Payload, copied once per client, that staff publish on without asking me.',
+      'Giving institutional editors reusable page blocks and scoped permissions, with a separate deployment per client.',
     cover: {
       src: '/images/work/snmih-home.webp',
       alt: 'snmih.in home page: “Learn Medicine. Serve Humanity.” hero for a medical college, built on the platform.',
     },
-    tagline: 'One website platform, copied once for each client.',
+    tagline: 'Give editors useful choices without making every page a design project.',
     facts: [
-      { label: 'Role', value: 'Everything: architecture, design system, frontend, ops' },
-      { label: 'When', value: 'June to November 2026' },
-      { label: 'Status', value: 'First client live at snmih.in' },
-      { label: 'Built with', value: 'Next.js 16, Payload 3, MongoDB, Storybook, Claude Code' },
+      {
+        label: 'Company',
+        value: 'Independent project',
+      },
+      {
+        label: 'My role',
+        value: 'Architecture, design system, frontend and operations',
+      },
+      {
+        label: 'Product',
+        value: 'Reusable publishing platform for institutional websites',
+      },
+      {
+        label: 'Contribution',
+        value: 'Platform foundation, editorial blocks and first client deployment',
+      },
+      {
+        label: 'Timeline',
+        value: 'June–November 2026',
+      },
     ],
-    link: { label: 'snmih.in', href: 'https://snmih.in' },
+    link: {
+      label: 'snmih.in',
+      href: 'https://snmih.in',
+    },
     problem: [
-      'Colleges and hospitals need websites that a lot of non-technical people can run: departments, notices, admissions, and regulatory pages that change every month. Page builders give editors too much freedom and the site drifts. Hand-built sites need a developer for every change.',
-      'I wanted the thing in between. Editors get a catalogue of well-made blocks and clear permissions, and the whole platform is copied once per client so nobody’s data or access is shared.',
+      'Institutional websites combine admissions, departments, notices and regulatory content. Different staff need to maintain different parts of the site. A developer-owned site makes routine changes expensive; an unrestricted page builder makes layout and content permissions harder to govern.',
+      'I wanted editors to assemble pages from a defined catalogue, while the platform controlled layout, theme and access. The first medical-college deployment also had to become a useful starting point for another institution rather than a one-off website.',
     ],
     constraints: [
-      'Two roles only, Admin and Site Manager, because that’s how institutions actually work.',
-      'Media has to live in durable storage. The app refuses to start in production with local-disk files.',
-      'The first release was cut to five outcomes. The 242-item feature list is a backlog, not a promise.',
+      'Keep the role model simple for editors, while allowing finer-grained permissions where a site needs them.',
+      'Require durable production media storage rather than depending on an application container’s local disk.',
+      'Give each client a separate deployment and data boundary.',
+      'Limit the first release to five defined outcomes; keep the larger feature inventory in the backlog.',
     ],
     architecture: [
-      'Next.js and Payload in one TypeScript app: 23 collections and 9 globals.',
-      'One block registry. Every block shares a section schema, and a duplicate name stops the app from starting. Editors pick from 61 blocks.',
-      'Permissions: 29 features an Admin can grant to a Site Manager, denied by default, with scoping to one branch of the page tree.',
-      'Every block has a Storybook story, reviewed at desktop, phone and dark mode. The thumbnails editors see are real screenshots generated by a script.',
-      'A generated inventory of every block and a set of instructions for AI agents, kept current by tests.',
+      'A single TypeScript application combines Next.js and Payload, with 23 collections and nine globals.',
+      'A shared registry defines 61 page blocks and their section schema. Duplicate block names fail startup rather than producing ambiguous editor behaviour.',
+      'Editor permissions are granted feature by feature, scoped to parts of the site and denied by default, all enforced in one access layer.',
+      'Storybook covers the blocks for desktop, mobile and dark-theme review. A script generates editor thumbnails from rendered components.',
     ],
     decisions: [
       {
-        title: 'One deployment per client',
-        body: 'Clean data and security boundaries, and no tenant switching to get wrong.',
-        tradeoff: 'Fixes have to be carried between copies by hand. See the backport below.',
+        title: 'Use separate deployments for client boundaries',
+        body: 'Each client receives its own deployment instead of sharing an application with tenant switching. This makes the data and access boundary easier to understand, while fixes and schema changes need to be carried between deployments. The first client’s backport exposed that maintenance cost.',
       },
       {
-        title: 'Payload’s own editor',
-        body: 'An earlier experiment with a custom visual editor mostly duplicated what Payload already does. Editors fill in fields and watch the live preview.',
+        title: 'Constrain composition with blocks and theme tokens',
+        body: 'Editors choose content blocks and theme presets rather than designing every section from arbitrary fields. Approved text-colour pairs reduce opportunities to introduce contrast problems.',
       },
       {
-        title: 'Permissions fail closed',
-        body: 'A missing grant means no access. Granting a feature also grants read access to what it depends on, and the last Admin can never be demoted.',
-        tradeoff: 'The access layer is query-heavy, so it’s cached per request.',
-      },
-      {
-        title: 'Theme tokens, no colour pickers',
-        body: 'Two presets with contrast-tested text pairs. An editor can’t pick a colour that fails.',
+        title: 'Centralise public reads',
+        body: 'Every public reader goes through one shared access wrapper, so search, the sitemap and previews all respect the same approval rules, with regression tests on each path.',
       },
     ],
     stories: [
       {
-        title: 'The home page that couldn’t be cached',
-        body: 'The layout checked who the visitor was on every request, so the home page took about 2 seconds to first byte and was never cached. I split it into a cacheable public shell and loaded the editor toolbar afterwards. It serves from the edge cache now.',
+        title: 'Public pages served from the edge',
+        body: 'I separated the cacheable public shell from the editor toolbar, which loads afterwards for signed-in editors. Public pages are served from the edge cache, down from a recorded time to first byte of about two seconds.',
       },
       {
-        title: 'Drafts that could leak',
-        body: 'Payload’s server-side API skips access checks unless you ask, so unapproved reviews could reach search and the sitemap. The fix touched 19 files, and every public reader now goes through one access wrapper with regression tests.',
+        title: 'One access boundary for every public read',
+        body: 'Payload’s Local API skips access control by default, so I routed search, the sitemap and every other server-side reader through one shared access wrapper, with regression tests guarding each path.',
       },
       {
-        title: 'The September backport',
-        body: 'The college’s site grew features the platform didn’t have: two-factor sign-in, ranked search, secure downloads, backups. One backport of 124 files brought them home, so the next client starts with all of it.',
+        title: 'Client features returned to the platform',
+        body: 'Two-factor sign-in, ranked search, secure downloads and backups were built for the first college, then brought back into the base platform in a 124-file backport, so the next client starts with all of them.',
       },
     ],
     numbers: [
-      { value: '61', label: 'blocks in the catalogue' },
-      { value: '2,934', label: 'integration tests passing' },
-      { value: '21 → 0', label: 'high-severity dependency issues' },
-      { value: '742', label: 'commits on the platform' },
+      {
+        value: '61',
+        label: 'page blocks in the recorded catalogue',
+      },
+      {
+        value: '29',
+        label: 'features editors can be granted individually',
+      },
+      {
+        value: '2,934',
+        label: 'integration tests guarding blocks, access rules and public reads',
+      },
+      {
+        value: '23',
+        label: 'content collections, plus nine site-wide globals',
+      },
     ],
     gallery: [
       {
@@ -357,19 +441,33 @@ export const selectedStudies: CaseStudy[] = [
       },
     ],
     process:
-      'Planned and built with AI agents from the start, with written plans for the work and decision records for the things that matter. I set the architecture and the rules and reviewed what the agents produced. The college’s site adds a monthly disclosure system, scheduled celebration banners, and careers forms whose CVs go to a private bucket.',
+      'I defined the first release around publishing tasks and a shared block contract. I also tried a custom visual editor, then returned to Payload’s editor and live preview when the custom layer duplicated existing capability. Storybook supported component review, while the first college deployment drove caching, access and maintenance improvements back into the platform. I worked with AI agents under written plans and architecture decisions and reviewed their changes; a generated block inventory keeps them accurate about what exists.',
     next: [
-      'Watch a real editor use it and fix what they trip on.',
-      'Prove a full production restore.',
-      'Start the second client from the platform, not from the first client.',
+      'Observe editors and improve the tasks that cause friction.',
+      'Launch the second client from the platform and document the setup and upgrade path.',
+    ],
+    ownership: [
+      'Designed the block system, themes, editor experience and permission model.',
+      'Built and deployed the Payload and Next.js application and its first client site.',
+      'Maintained Storybook coverage, integration checks and a generated block inventory for development with AI agents.',
+    ],
+    outcomes: [
+      'The first client site is live, and staff publish routine content through a reusable block system instead of requesting a developer change for each edit.',
+      'The platform gained a cacheable public shell and a common boundary for public content reads. Client-specific improvements were returned to the base platform.',
+      'Fixes and features from the first client now live in the base platform, ready to start the next one.',
+    ],
+    lessons: [
+      'The editor is a product in its own right. I would observe staff completing real tasks earlier, before expanding the block catalogue.',
+      'Separate deployments simplify one boundary and create a release-maintenance problem. The backport is evidence that an explicit upgrade strategy is needed.',
+      'Dropping the custom visual editor was the right call. Payload’s editor and live preview already covered the need, and the time went into blocks and permissions instead.',
     ],
   },
 ]
 
 export const caseStudies: CaseStudy[] = [...selectedStudies, ...employerStudies]
 
-// The home page's Work section: the current AI platform, then four earlier
-// products. The independent projects live in the Beyond 9–5 row instead.
+// Exactly the four Work entries on the home page. The three independent
+// projects are featured in Beyond 9–5; together these are the full catalogue.
 const workSlugs = [
   'librechat',
   'wells-fargo-card-replacement',

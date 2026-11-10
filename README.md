@@ -5,7 +5,7 @@ The portfolio of Tanish Raj, a senior frontend engineer in Abu Dhabi. It's a Nex
 ## What's in it
 
 - **Home.** Selected work, how I work, experience, skills, lab and writing.
-- **Case studies.** Anubhav, Notivo and an institutional CMS, at `/work/[slug]`. Every number in them comes from the project's own code, commits or docs.
+- **Seven case studies.** Exactly the homepage selection: Liquidity/LibreChat, Wells Fargo, Ola Electric and CGI/Shell in Work; Anubhav, Notivo and the institutional CMS in Beyond 9–5. Public studies follow one pattern: problem, constraints, engineering decisions, contribution, and outcome and learnings. Architecture, validation, screenshots and useful measurements sit within the narrative. Standalone number grids and reference lists are omitted from the pages.
 - **One protected case study.** It covers my current employer, so its body lives in Payload and opens only with a per-company access code (see [Decisions](#decisions)).
 - **Event-loop lab.** `/lab/event-loop` steps through promises, timers and async/await. A TypeScript model of the loop produces each frame, a test checks every snippet against a real JavaScript engine, and the loop itself is drawn with raw WebGL.
 - **Ask about my work.** A streaming Q&A box on the home page, answered by Claude from the site's public content only, with citations linking each claim to its page. The corpus is prompt-cached; questions are rate-limited per IP and per day in Postgres. It appears only when `ANTHROPIC_API_KEY` is set.

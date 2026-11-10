@@ -2,31 +2,25 @@ import Image from 'next/image'
 import React from 'react'
 
 import { StackList } from '@/components/BrandIcon'
-import { SectionIndex } from '@/components/SectionIndex'
-import { label } from '@/components/styles'
+import { LedgerRow } from '@/components/Ledger'
+import { MacBookFrame } from '@/components/MacBookFrame'
+import { buttonLabel, ledgerCols, outlineButton } from '@/components/styles'
 import type { CaseStudy } from '@/content/case-studies'
 
 // The full write-up, shared by public case studies and unlocked protected ones.
-// Sections render only when the study has content for them.
+// It uses the home page's ledger: a large title, the summary set into the
+// content column, then one row per section with its label pinned on the left.
+// Supporting detail is grouped into the same five sections for every study.
 
-function Block({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
+export function Bullets({ items }: { items: string[] }) {
   return (
-    <section aria-labelledby={`${id}-title`} className="scroll-mt-28" id={id}>
-      <h2 className={label} id={`${id}-title`}>
-        <span aria-hidden="true" className="mb-3 block h-px w-7 bg-highlight" />
-        {title}
-      </h2>
-      <div className="mt-6">{children}</div>
-    </section>
-  )
-}
-
-function Bullets({ items }: { items: string[] }) {
-  return (
-    <ul className="grid max-w-[68ch] gap-3">
+    <ul className="grid max-w-[64ch] gap-3.5">
       {items.map((item) => (
-        <li className="flex gap-3 leading-relaxed text-muted" key={item.slice(0, 32)}>
-          <span aria-hidden="true" className="mt-[0.7em] h-px w-3 shrink-0 bg-highlight" />
+        <li className="flex gap-3.5 text-[17px] leading-relaxed text-muted" key={item.slice(0, 32)}>
+          <span
+            aria-hidden="true"
+            className="mt-[calc(0.8em-0.5px)] h-0.5 w-3 shrink-0 bg-highlight"
+          />
           {item}
         </li>
       ))}
@@ -34,222 +28,265 @@ function Bullets({ items }: { items: string[] }) {
   )
 }
 
+/** Titled entries separated by hairlines, like the About row's sections. */
+function Entries({ children }: { children: React.ReactNode }) {
+  return <ul className="divide-y divide-line">{children}</ul>
+}
+
+function Entry({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <li className="py-7 first:pt-0 last:pb-0">
+      <h3 className="text-[20px] font-light leading-snug text-fg text-balance">{title}</h3>
+      <div className="mt-3 grid max-w-[60ch] gap-3">{children}</div>
+    </li>
+  )
+}
+
+function Detail({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="grid gap-4">
+      <h3 className="text-[20px] font-light leading-snug text-fg text-balance">{title}</h3>
+      {children}
+    </div>
+  )
+}
+
+function ExternalIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="shrink-0 text-muted transition-colors group-hover:text-highlight"
+      fill="none"
+      height="11"
+      viewBox="0 0 12 12"
+      width="11"
+    >
+      <path
+        d="M3.5 8.5l5-5M4.5 3.5h4v4"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.2"
+      />
+    </svg>
+  )
+}
+
+function StudyImages({ images }: { images: NonNullable<CaseStudy['gallery']> }) {
+  if (!images.length) return null
+
+  return (
+    <div className="grid gap-12">
+      {images.map((shot) => (
+        <figure key={shot.src}>
+          <MacBookFrame>
+            <Image
+              alt={shot.alt}
+              className="block h-auto w-full"
+              height={900}
+              sizes="(min-width: 1184px) 792px, (min-width: 640px) calc(100vw - 392px), calc(100vw - 48px)"
+              src={shot.src}
+              width={1440}
+            />
+          </MacBookFrame>
+          {shot.caption && (
+            <figcaption className="mt-3 text-[15px] text-muted">{shot.caption}</figcaption>
+          )}
+        </figure>
+      ))}
+    </div>
+  )
+}
+
+export function CaseStudyHeader({ study }: { study: Pick<CaseStudy, 'title' | 'summary'> }) {
+  return (
+    <header>
+      <h1 className="max-w-[20ch] text-[40px] font-extralight leading-[1.08] tracking-[-0.03em] text-balance sm:text-[64px]">
+        {study.title}
+      </h1>
+      <div className={`mt-10 grid gap-4 sm:mt-14 sm:gap-10 ${ledgerCols}`}>
+        <span aria-hidden="true" className="hidden sm:block" />
+        <p className="max-w-[46ch] text-[22px] font-light leading-[1.5] tracking-[-0.01em]">
+          {study.summary}
+        </p>
+      </div>
+    </header>
+  )
+}
+
 export function CaseStudyBody({ study }: { study: CaseStudy }) {
-  const sections = [
-    study.problem?.length && { id: 'problem', label: 'The problem' },
-    study.ownership?.length && { id: 'ownership', label: 'What I owned' },
-    study.constraints?.length && { id: 'constraints', label: 'Constraints' },
-    study.architecture?.length && { id: 'architecture', label: 'How it works' },
-    study.decisions?.length && { id: 'decisions', label: 'Decisions' },
-    study.stories?.length && { id: 'stories', label: 'Hard problems' },
-    study.numbers?.length && { id: 'numbers', label: 'By the numbers' },
-    study.gallery?.length && { id: 'screens', label: 'Screens' },
-    study.process && { id: 'process', label: 'How I built it' },
-    study.lessons?.length && { id: 'lessons', label: 'Looking back' },
-    study.next?.length && { id: 'next', label: 'What’s next' },
-    study.sources?.length && { id: 'sources', label: 'Sources' },
-  ].filter(Boolean) as { id: string; label: string }[]
+  const images = study.gallery ?? []
+  const problemImages = images.filter((image) => image.placement === 'problem')
+  const decisionImages = images.filter((image) => image.placement === 'decisions')
+  const contributionImages = images.filter(
+    (image) => !image.placement || image.placement === 'contribution',
+  )
+  const hasEngineering =
+    !!study.process ||
+    !!study.architecture?.length ||
+    !!study.decisions?.length ||
+    !!decisionImages.length
+  const hasContribution =
+    !!study.ownership?.length || !!study.stories?.length || !!contributionImages.length
+  const hasOutcomes = !!study.outcomes?.length || !!study.lessons?.length || !!study.next?.length
+  const hasOverview = !!study.facts?.length || !!study.stack?.length || !!study.link
 
   return (
     <article className="mt-6">
-      <header>
-        <h1 className="max-w-[18ch] text-4xl font-light leading-[1.06] tracking-[-0.035em] text-balance sm:text-[64px]">
-          {study.title}
-        </h1>
-        {study.tagline && (
-          <p className="mt-6 max-w-[40ch] text-xl font-light leading-snug text-muted text-balance sm:text-2xl">
-            {study.tagline}
-          </p>
-        )}
+      <CaseStudyHeader study={study} />
 
-        {!!study.facts?.length && (
-          <dl className="mt-12 grid gap-6 border-y border-line py-8 sm:grid-cols-2 lg:grid-cols-4">
-            {study.facts.map((fact) => (
-              <div className="min-w-0" key={fact.label}>
-                <dt className={label}>{fact.label}</dt>
-                <dd className="mt-2 text-sm leading-relaxed">{fact.value}</dd>
+      <div className="mt-16 grid gap-16 sm:mt-24 sm:gap-24">
+        {hasOverview && (
+          <LedgerRow id="overview" title="At a glance">
+            {!!study.facts?.length && (
+              <dl className="grid gap-x-8 gap-y-6 border-t border-line pt-6 lg:grid-cols-2">
+                {study.facts.map((fact) => (
+                  <div className="grid content-start gap-1.5" key={fact.label}>
+                    <dt className="text-[15px] text-muted">{fact.label}</dt>
+                    <dd className="min-w-0 text-[17px] leading-relaxed text-fg">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+            {(!!study.stack?.length || study.link) && (
+              <div className="mt-8 flex flex-wrap items-center justify-between gap-6">
+                {study.stack && <StackList items={study.stack} />}
+                {study.link && (
+                  <a
+                    className={`group ${outlineButton} text-fg`}
+                    href={study.link.href}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <span className={buttonLabel}>Visit {study.link.label}</span>
+                    <ExternalIcon />
+                  </a>
+                )}
               </div>
-            ))}
-          </dl>
+            )}
+          </LedgerRow>
         )}
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-6">
-          {study.stack && <StackList items={study.stack} />}
-          {study.link && (
-            <a
-              className="inline-flex items-center gap-2 rounded-full border border-line-strong px-4 py-2 text-sm transition-colors hover:border-highlight hover:text-highlight"
-              href={study.link.href}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Visit {study.link.label} ↗
-            </a>
-          )}
-        </div>
-      </header>
-
-      <div className="mt-20 grid gap-16 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-10">
-        <aside className="hidden lg:block">
-          <div className="sticky top-28">
-            <SectionIndex sections={sections} />
-          </div>
-        </aside>
-
-        <div className="grid min-w-0 gap-20">
-          {!!study.problem?.length && (
-            <Block id="problem" title="The problem">
-              <div className="grid max-w-[60ch] gap-5 text-[19px] leading-[1.6]">
+        {!!study.problem?.length && (
+          <LedgerRow id="problem" title="The problem">
+            <div className="grid gap-10">
+              <div className="grid max-w-[62ch] gap-5 text-[18px] leading-[1.7]">
                 {study.problem.map((paragraph, i) => (
-                  <p className={i ? 'text-muted' : undefined} key={paragraph.slice(0, 24)}>
+                  <p className={i ? 'text-muted' : 'text-fg'} key={paragraph.slice(0, 24)}>
                     {paragraph}
                   </p>
                 ))}
               </div>
-            </Block>
-          )}
+              <StudyImages images={problemImages} />
+            </div>
+          </LedgerRow>
+        )}
 
-          {!!study.ownership?.length && (
-            <Block id="ownership" title="What I owned">
-              <Bullets items={study.ownership} />
-            </Block>
-          )}
+        {!!study.constraints?.length && (
+          <LedgerRow id="constraints" title="The constraints">
+            <Bullets items={study.constraints} />
+          </LedgerRow>
+        )}
 
-          {!!study.constraints?.length && (
-            <Block id="constraints" title="Constraints">
-              <Bullets items={study.constraints} />
-            </Block>
-          )}
+        {hasEngineering && (
+          <LedgerRow id="decisions" title="Engineering decisions">
+            <div className="grid gap-10">
+              {study.process && (
+                <Detail title="Approach and validation">
+                  <p className="max-w-[62ch] text-[17px] leading-relaxed text-muted">
+                    {study.process}
+                  </p>
+                </Detail>
+              )}
+              {!!study.architecture?.length && (
+                <Detail title="System design">
+                  <Bullets items={study.architecture} />
+                </Detail>
+              )}
+              {!!study.decisions?.length && (
+                <Entries>
+                  {study.decisions.map((decision) => (
+                    <Entry key={decision.title} title={decision.title}>
+                      <p className="text-[17px] leading-relaxed text-muted">
+                        {decision.body}
+                        {decision.tradeoff ? ` ${decision.tradeoff}` : ''}
+                      </p>
+                    </Entry>
+                  ))}
+                </Entries>
+              )}
+              <StudyImages images={decisionImages} />
+            </div>
+          </LedgerRow>
+        )}
 
-          {!!study.architecture?.length && (
-            <Block id="architecture" title="How it works">
-              <Bullets items={study.architecture} />
-            </Block>
-          )}
+        {hasContribution && (
+          <LedgerRow id="ownership" title="My contribution">
+            <div className="grid gap-10">
+              {!!study.ownership?.length && <Bullets items={study.ownership} />}
+              {!!study.stories?.length && (
+                <Entries>
+                  {study.stories.map((story) => (
+                    <Entry key={story.title} title={story.title}>
+                      <p className="text-[17px] leading-relaxed text-muted">{story.body}</p>
+                    </Entry>
+                  ))}
+                </Entries>
+              )}
+              <StudyImages images={contributionImages} />
+            </div>
+          </LedgerRow>
+        )}
 
-          {!!study.decisions?.length && (
-            <Block id="decisions" title="Decisions">
-              <ul className="divide-y divide-line border-y border-line">
-                {study.decisions.map((decision) => (
-                  <li
-                    className="grid gap-3 py-7 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] md:gap-10"
-                    key={decision.title}
-                  >
-                    <h3 className="text-lg font-normal tracking-tight text-balance">
-                      {decision.title}
-                    </h3>
-                    <div className="grid gap-3">
-                      <p className="leading-relaxed text-muted">{decision.body}</p>
-                      {decision.tradeoff && (
-                        <p className="text-sm leading-relaxed">
-                          <span className="font-mono text-xs uppercase tracking-[0.08em] text-highlight">
-                            Trade-off ·{' '}
-                          </span>
-                          <span className="text-muted">{decision.tradeoff}</span>
-                        </p>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          )}
+        {hasOutcomes && (
+          <LedgerRow id="outcomes" title="Outcome and learnings">
+            <div className="grid gap-10">
+              {!!study.outcomes?.length && <Bullets items={study.outcomes} />}
+              {!!study.lessons?.length && (
+                <Detail title="What I learned">
+                  <Bullets items={study.lessons} />
+                </Detail>
+              )}
+              {!!study.next?.length && (
+                <Detail title="What I would improve next">
+                  <Bullets items={study.next} />
+                </Detail>
+              )}
+            </div>
+          </LedgerRow>
+        )}
+      </div>
 
-          {!!study.stories?.length && (
-            <Block id="stories" title="Hard problems">
-              <ul className="grid gap-4 md:grid-cols-3">
-                {study.stories.map((story) => (
-                  <li className="rounded-2xl border border-line bg-surface p-6" key={story.title}>
-                    <h3 className="text-lg font-normal tracking-tight">{story.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted">{story.body}</p>
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          )}
-
-          {!!study.numbers?.length && (
-            <Block id="numbers" title="By the numbers">
-              <ul className="grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line pt-8 lg:grid-cols-4">
-                {study.numbers.map((n) => (
-                  <li key={n.label}>
-                    <p className="text-4xl font-light tracking-tight text-highlight tabular-nums">
-                      {n.value}
-                    </p>
-                    <p className="mt-2 max-w-[24ch] text-sm leading-relaxed text-muted">
-                      {n.label}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          )}
-
-          {!!study.gallery?.length && (
-            <Block id="screens" title="Screens">
-              <div className="grid gap-10">
-                {study.gallery.map((shot) => (
-                  <figure key={shot.src}>
-                    <div className="overflow-hidden rounded-xl border border-line bg-surface">
-                      <div
-                        aria-hidden="true"
-                        className="flex gap-1.5 border-b border-line px-3 py-2"
-                      >
-                        <i className="size-2 rounded-full bg-line" />
-                        <i className="size-2 rounded-full bg-line" />
-                        <i className="size-2 rounded-full bg-line" />
-                      </div>
-                      <Image
-                        alt={shot.alt}
-                        className="w-full"
-                        height={900}
-                        sizes="(min-width: 1024px) 50rem, 100vw"
-                        src={shot.src}
-                        width={1440}
-                      />
-                    </div>
-                    <figcaption className="mt-3 text-sm text-muted">{shot.caption}</figcaption>
-                  </figure>
-                ))}
-              </div>
-            </Block>
-          )}
-
-          {study.process && (
-            <Block id="process" title="How I built it">
-              <p className="max-w-[60ch] text-[17px] leading-relaxed text-muted">{study.process}</p>
-            </Block>
-          )}
-
-          {!!study.lessons?.length && (
-            <Block id="lessons" title="Looking back">
-              <Bullets items={study.lessons} />
-            </Block>
-          )}
-
-          {!!study.next?.length && (
-            <Block id="next" title="What’s next">
-              <Bullets items={study.next} />
-            </Block>
-          )}
-
-          {!!study.sources?.length && (
-            <Block id="sources" title="Sources">
-              <ul className="grid max-w-[68ch] gap-2 text-sm">
-                {study.sources.map((source) => (
-                  <li key={source.href}>
-                    <a
-                      className="text-muted underline decoration-line-strong underline-offset-4 transition-colors hover:text-fg hover:decoration-fg"
-                      href={source.href}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {source.label} ↗
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          )}
+      <div
+        className={`mt-12 grid gap-4 border-t border-line py-12 sm:mt-16 sm:gap-10 sm:py-16 ${ledgerCols}`}
+        id="case-study-closing"
+      >
+        <div className="min-w-0 sm:col-start-2">
+          <p className="max-w-[32ch] text-[24px] font-light leading-snug tracking-[-0.02em] text-fg sm:text-[28px]">
+            Thank you for taking the time to read.
+          </p>
+          <p className="mt-3 max-w-[54ch] text-[17px] leading-relaxed text-muted">
+            I’d be happy to share more about the decisions, challenges, and lessons behind this
+            project.
+          </p>
+          <a className={`group/talk mt-6 ${outlineButton} text-fg`} href="#contact">
+            <span className={buttonLabel}>Get in touch</span>
+            <svg
+              aria-hidden="true"
+              className="text-muted transition-transform duration-300 group-hover/talk:translate-y-0.5 group-hover/talk:text-highlight motion-reduce:transition-none"
+              fill="none"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <path
+                d="M8 2.25v11.5M4.5 10.25 8 13.75l3.5-3.5"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.3"
+              />
+            </svg>
+          </a>
         </div>
       </div>
     </article>

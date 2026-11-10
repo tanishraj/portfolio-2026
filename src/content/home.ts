@@ -62,7 +62,6 @@ export const experience: {
   {
     years: '2022 — 2024',
     company: 'Banque Saudi Fransi',
-    study: 'bsf-digital-bank',
     logo: 'bsf',
     role: 'Senior Frontend Engineer',
     place: 'Dubai',
@@ -89,7 +88,6 @@ export const experience: {
   {
     years: '2020 — 2021',
     company: 'Rakuten',
-    study: 'rakuten-card-apply',
     logo: 'rakuten',
     role: 'Frontend Engineer',
     place: 'Bangalore',
@@ -107,7 +105,6 @@ export const experience: {
   {
     years: '2016 — 2018',
     company: 'Thomson Reuters',
-    study: 'thomson-reuters',
     logo: 'thomsonreuters',
     role: 'Associate to Senior Web Developer',
     roles: [

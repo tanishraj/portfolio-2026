@@ -54,3 +54,6 @@ node_modules/
 
 # protected case-study bodies, seeded with `pnpm seed:private`
 /content/private/
+
+# Internal notes, not for the public repo
+/content/case-study-review.md

@@ -2,14 +2,45 @@ import { describe, expect, it } from 'vitest'
 
 import robots from '@/app/robots'
 import sitemap from '@/app/sitemap'
-import { caseStudies, workStudies } from '@/content/case-studies'
+import { caseStudies, selectedStudies, workStudies } from '@/content/case-studies'
 import { cvBullets } from '@/content/cv'
 import { experience } from '@/content/home'
+import { sideProjects } from '@/content/side-projects'
 
 const publicStudies = caseStudies.filter((study) => !study.locked)
 const lockedStudies = caseStudies.filter((study) => study.locked)
 
 describe('case studies', () => {
+  // Four employment projects (Work) and three independent projects (Beyond 9–5).
+  it('are the seven featured on the home page', () => {
+    expect(caseStudies.map((study) => study.slug).sort()).toEqual(
+      [
+        'anubhav',
+        'institutional-cms',
+        'librechat',
+        'notivo',
+        'ola-electric-reservations',
+        'shell-wells-digitalisation',
+        'wells-fargo-card-replacement',
+      ].sort(),
+    )
+  })
+
+  it('matches the homepage selection with three personal and four employment studies', () => {
+    const featured = [
+      ...workStudies.map((study) => study.slug),
+      ...sideProjects.map((study) => study.slug),
+    ]
+    expect(featured).toHaveLength(7)
+    expect(new Set(featured).size).toBe(7)
+    expect(caseStudies.map((study) => study.slug).sort()).toEqual(featured.sort())
+    expect(selectedStudies).toHaveLength(3)
+    expect(caseStudies.filter((study) => study.kind === 'employer')).toHaveLength(4)
+    for (const job of experience.filter((job) => job.study)) {
+      expect(featured, job.company).toContain(job.study)
+    }
+  })
+
   it('have unique slugs', () => {
     const slugs = caseStudies.map((study) => study.slug)
     expect(new Set(slugs).size).toBe(slugs.length)
@@ -45,8 +76,14 @@ describe('case studies', () => {
       expect(study.facts?.length, study.slug).toBeGreaterThan(0)
       expect(study.problem?.length, study.slug).toBeGreaterThan(0)
       expect(study.decisions?.length, study.slug).toBeGreaterThan(0)
-      // Employer studies only quote numbers that are public or Tanish's own measures.
-      if (study.kind === 'selected') expect(study.numbers?.length, study.slug).toBeGreaterThan(0)
+      expect(study.constraints?.length, study.slug).toBeGreaterThan(0)
+      expect(study.ownership?.length, study.slug).toBeGreaterThan(0)
+      expect(study.outcomes?.length, study.slug).toBeGreaterThan(0)
+      expect(study.lessons?.length, study.slug).toBeGreaterThan(0)
+      expect(
+        study.facts?.map((fact) => fact.label),
+        study.slug,
+      ).toEqual(['Company', 'My role', 'Product', 'Contribution', 'Timeline'])
       expect(study.process, study.slug).toBeTruthy()
     }
   })

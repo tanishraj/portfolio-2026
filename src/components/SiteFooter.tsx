@@ -27,7 +27,7 @@ function ExternalIcon() {
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid gap-x-6 gap-y-1 border-b border-line py-4 sm:grid-cols-[12rem_minmax(0,1fr)] sm:items-center">
+    <div className="grid gap-x-6 gap-y-1 border-b border-line py-4 lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-center">
       <dt className="text-[15px] text-muted">{label}</dt>
       <dd className="min-w-0 text-[17px] text-fg">{children}</dd>
     </div>

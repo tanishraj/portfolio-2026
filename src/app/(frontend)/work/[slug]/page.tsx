@@ -5,7 +5,7 @@ import React from 'react'
 
 import { CaseStudyBody } from '@/components/CaseStudyBody'
 import { NextStudy } from '@/components/NextStudy'
-import { container, label } from '@/components/styles'
+import { buttonLabel, container, label, outlineButton } from '@/components/styles'
 import { caseStudies, getCaseStudy } from '@/content/case-studies'
 
 // Protected studies have their own dynamic route (see ../librechat).
@@ -29,9 +29,18 @@ export default async function CaseStudyPage({ params }: Props) {
   if (!study || study.locked) notFound()
 
   return (
-    <main className={`${container} pb-16 pt-12 sm:pt-20`} id="main">
-      <Link className="text-sm text-muted transition-colors hover:text-fg" href="/#work">
-        ← All work
+    <main className={`${container} pt-12 sm:pt-20`} id="main">
+      <Link className={`${outlineButton} pl-4 text-muted`} href="/#work">
+        <svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16">
+          <path
+            d="M13 8H3m4-4L3 8l4 4"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.2"
+          />
+        </svg>
+        <span className={buttonLabel}>All work</span>
       </Link>
       <p className={`${label} mt-12`}>{study.meta}</p>
       <CaseStudyBody study={study} />
