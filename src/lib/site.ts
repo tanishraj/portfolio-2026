@@ -5,6 +5,8 @@ export const person = {
   name: 'Tanish Raj',
   jobTitle: 'Senior Frontend Engineer',
   email: 'hire.tanishraj@gmail.com',
+  /** Shown on the CV only. */
+  phone: '+971 56 133 8400',
   location: 'Abu Dhabi, UAE',
 }
 

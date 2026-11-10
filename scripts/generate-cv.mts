@@ -85,7 +85,7 @@ footer { position: absolute; bottom: 9mm; left: 16mm; right: 16mm; display: flex
   <header>
     <h1>${escape(person.name)}</h1>
     <p class="headline">${escape(person.jobTitle)}</p>
-    <div class="contact"><span>${escape(person.location)}</span><a href="mailto:${escape(person.email)}">${escape(person.email)}</a><a href="https://tanish.im">tanish.im</a><a href="https://www.linkedin.com/in/itsmetanishraj/">LinkedIn</a><a href="https://github.com/tanishraj">GitHub</a></div>
+    <div class="contact"><span>${escape(person.location)}</span><a href="tel:${person.phone.replace(/\s/g, '')}">${escape(person.phone)}</a><a href="mailto:${escape(person.email)}">${escape(person.email)}</a><a href="https://tanish.im">tanish.im</a><a href="https://www.linkedin.com/in/itsmetanishraj/">LinkedIn</a><a href="https://github.com/tanishraj">GitHub</a></div>
   </header>
   ${row('Profile', `<p>${escape(cvSummary)}</p>`)}
   ${row('Experience', jobs(experience.slice(0, 4)))}
