@@ -18,6 +18,10 @@ const revision = (() => {
 })()
 
 const nextConfig: NextConfig = {
+  // Unknown addresses match neither root layout (site, admin); see app/global-not-found.tsx.
+  experimental: {
+    globalNotFound: true,
+  },
   env: {
     NEXT_PUBLIC_REVISION: revision,
     NEXT_PUBLIC_BUILT_AT: new Date().toISOString(),

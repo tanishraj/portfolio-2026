@@ -180,6 +180,146 @@ test.describe('site', () => {
     expect(response?.status()).toBe(404)
   })
 
+  // Any address, not only missing case studies, gets the site's own 404 page.
+  test('unknown addresses get the themed 404 with header and footer', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const response = await page.goto('/no-such-page')
+    expect(response?.status()).toBe(404)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(/^This page doesn['’]t exist\.$/)
+    await expect(page.getByRole('button', { name: 'Open menu' })).toBeVisible()
+    await expect(page.locator('footer#contact')).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Home', exact: true })).toHaveAttribute('href', '/')
+    const { violations } = await new AxeBuilder({ page }).analyze()
+    expect(violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')).toEqual([])
+  })
+
+  test('phone menu opens, navigates, traps focus and closes', async ({ page }) => {
+    // Reduced motion, so the accessibility scan sees the sheet fully drawn.
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto('/work/notivo')
+    // Inline links are hidden on phones; the menu button replaces them.
+    await expect(page.locator('header nav[aria-label="Main"]').first()).toBeHidden()
+    const toggle = page.getByRole('button', { name: 'Open menu' })
+    await toggle.click()
+    const sheet = page.getByRole('dialog', { name: 'Menu' })
+    await expect(sheet).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Close menu' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    )
+    // The page behind stays still and focus starts on the first link.
+    expect(await page.evaluate(() => getComputedStyle(document.documentElement).overflow)).toBe(
+      'hidden',
+    )
+    await expect(sheet.getByRole('link', { name: /AI/ })).toBeFocused()
+    // On a case study, Work is the current section.
+    await expect(sheet.getByRole('link', { name: /Work/ })).toHaveAttribute(
+      'aria-current',
+      'location',
+    )
+    const { violations } = await new AxeBuilder({ page }).analyze()
+    expect(violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')).toEqual([])
+
+    // Tab cycles inside the menu rather than escaping to the page.
+    for (let i = 0; i < 12; i++) await page.keyboard.press('Tab')
+    expect(
+      await page.evaluate(() =>
+        Boolean(document.activeElement?.closest('#mobile-menu, .menu-toggle')),
+      ),
+    ).toBe(true)
+
+    // Escape closes it and returns focus to the button.
+    await page.keyboard.press('Escape')
+    await expect(sheet).toBeHidden()
+    await expect(page.getByRole('button', { name: 'Open menu' })).toBeFocused()
+
+    // A link closes the menu and lands on its section on the home page.
+    await page.getByRole('button', { name: 'Open menu' }).click()
+    await sheet.getByRole('link', { name: /About/ }).click()
+    await expect(page).toHaveURL(/\/#about$/)
+    await expect(sheet).toBeHidden()
+    expect(await page.evaluate(() => getComputedStyle(document.documentElement).overflow)).not.toBe(
+      'hidden',
+    )
+    await expect
+      .poll(() =>
+        page.evaluate(() => document.getElementById('about')!.getBoundingClientRect().top),
+      )
+      .toBeLessThan(200)
+  })
+
+  test('phone menu fades out on close, and can reopen mid-close', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'no-preference' })
+    await page.setViewportSize({ width: 390, height: 800 })
+    await page.goto('/')
+    const toggle = page.locator('.menu-toggle')
+    const sheet = page.locator('#mobile-menu')
+
+    await toggle.click()
+    await expect(sheet).toBeVisible()
+    await toggle.click()
+    // Still on screen while it plays out, with the button already showing "Open".
+    await expect(sheet).toHaveAttribute('data-closing', 'true')
+    await expect(sheet).toBeVisible()
+    await expect(toggle).toHaveAttribute('aria-label', 'Open menu')
+    await expect(sheet).toBeHidden()
+    await expect(sheet).not.toHaveAttribute('data-closing')
+
+    // Tapping again during the close brings it straight back, page locked.
+    await toggle.click()
+    await expect(sheet).toBeVisible()
+    await toggle.click()
+    await toggle.click()
+    await expect(sheet).not.toHaveAttribute('data-closing')
+    await expect(sheet).toBeVisible()
+    await expect(page.locator('html')).toHaveAttribute('data-menu-open', 'true')
+  })
+
+  test('menu button is only on phones; inline links from 640px', async ({ page }) => {
+    for (const [width, phone] of [
+      [390, true],
+      [640, false],
+      [1280, false],
+    ] as const) {
+      await page.setViewportSize({ width, height: 800 })
+      await page.goto('/')
+      await expect(page.locator('.menu-toggle')).toBeVisible({ visible: phone })
+      await expect(page.locator('header nav[aria-label="Main"]').first()).toBeVisible({
+        visible: !phone,
+      })
+    }
+  })
+
+  // Sections keep one even rhythm on phones, as they do on desktop.
+  test('home sections are evenly spaced on phones', async ({ page }) => {
+    // Reduced motion, so rows are measured at rest rather than mid reveal.
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto('/')
+    const gaps = await page.evaluate(() => {
+      const bottom = (el: Element) =>
+        Math.max(
+          ...[...el.querySelectorAll('*')]
+            .map((n) => n.getBoundingClientRect())
+            .filter((r) => r.height > 0)
+            .map((r) => r.bottom),
+        )
+      const top = (el: Element) =>
+        Math.min(
+          ...[...el.querySelectorAll('*')]
+            .map((n) => n.getBoundingClientRect())
+            .filter((r) => r.height > 0)
+            .map((r) => r.top),
+        )
+      const rows = ['worked-for', 'ai', 'work', 'about', 'beyond', 'experience', 'stack'].map(
+        (id) => document.getElementById(id)!,
+      )
+      return rows.slice(1).map((row, i) => Math.round(top(row) - bottom(rows[i])))
+    })
+    expect(new Set(gaps).size, gaps.join(', ')).toBe(1)
+  })
+
   test('removed studies return 404 and are absent from the homepage', async ({ page }) => {
     await page.goto('/')
     for (const slug of ['bsf-digital-bank', 'rakuten-card-apply', 'thomson-reuters']) {

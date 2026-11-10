@@ -5,14 +5,15 @@ import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 import { Logo } from '@/components/Logo'
+import { MobileMenu } from '@/components/MobileMenu'
 import { container } from '@/components/styles'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
 const nav = [
-  { label: 'AI', href: '/#ai', always: true },
-  { label: 'Work', href: '/#work', always: true },
-  { label: 'About', href: '/#about', always: true },
-  { label: 'Contact', href: '/#contact', always: true },
+  { label: 'AI', href: '/#ai' },
+  { label: 'Work', href: '/#work' },
+  { label: 'About', href: '/#about' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 const sectionIds = nav.map((item) => item.href.split('#')[1])
@@ -94,27 +95,28 @@ export function SiteHeader() {
           </span>
           Tanish Raj
         </Link>
-        <nav
-          aria-label="Main"
-          className="flex items-center gap-3.5 text-sm font-normal text-muted sm:gap-6 sm:text-[15px]"
-        >
-          {nav.map((item) => {
-            const current = item.href.endsWith(`#${active}`)
-            return (
-              <Link
-                aria-current={current ? 'location' : undefined}
-                className={`${item.always ? '' : 'hidden sm:inline'} transition-colors ${
-                  current ? 'text-highlight' : 'hover:text-fg'
-                }`}
-                href={item.href}
-                key={item.label}
-              >
-                {item.label}
-              </Link>
-            )
-          })}
+        <div className="flex items-center gap-2.5 sm:gap-6">
+          <nav
+            aria-label="Main"
+            className="hidden items-center gap-6 text-[15px] font-normal text-muted sm:flex"
+          >
+            {nav.map((item) => {
+              const current = item.href.endsWith(`#${active}`)
+              return (
+                <Link
+                  aria-current={current ? 'location' : undefined}
+                  className={`transition-colors ${current ? 'text-highlight' : 'hover:text-fg'}`}
+                  href={item.href}
+                  key={item.label}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
+          </nav>
           <ThemeToggle />
-        </nav>
+          <MobileMenu active={active} items={nav} />
+        </div>
       </div>
     </header>
   )

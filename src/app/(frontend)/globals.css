@@ -415,3 +415,106 @@ html.lenis body {
     opacity: 0.45;
   }
 }
+
+/* Phone menu. The button's two lines, one long and one short, fold into a
+   cross; the sheet's rows rise in one after another like the hero. */
+.menu-lines {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 10px;
+}
+
+.menu-lines > span {
+  position: absolute;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+  transition:
+    transform 0.45s var(--ease-calm),
+    width 0.45s var(--ease-calm),
+    top 0.45s var(--ease-calm);
+}
+
+.menu-lines > span:first-child {
+  top: 2px;
+  width: 16px;
+}
+
+.menu-lines > span:last-child {
+  top: 7px;
+  width: 10px;
+}
+
+.menu-toggle[data-open='true'] .menu-lines > span {
+  top: 4.5px;
+  width: 16px;
+}
+
+.menu-toggle[data-open='true'] .menu-lines > span:first-child {
+  transform: rotate(45deg);
+}
+
+.menu-toggle[data-open='true'] .menu-lines > span:last-child {
+  transform: rotate(-45deg);
+}
+
+/* While the sheet is open the page underneath stays still. */
+html[data-menu-open] {
+  overflow: hidden;
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-row-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes sheet-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-sheet[data-open='true'] {
+    animation: sheet-in 0.3s var(--ease-calm) both;
+  }
+
+  .mobile-sheet[data-open='true'] .sheet-item {
+    animation: sheet-row-in 0.6s var(--ease-calm) both;
+    animation-delay: calc(0.06s + var(--i, 0) * 0.05s);
+  }
+
+  /* Leaving mirrors arriving, a little quicker: the rows lift away, then the
+     sheet fades. Taps already pass through to the page underneath. */
+  .mobile-sheet[data-closing='true'] {
+    pointer-events: none;
+    animation: sheet-out 0.3s var(--ease-calm) 0.12s both;
+  }
+
+  .mobile-sheet[data-closing='true'] .sheet-item {
+    animation: sheet-row-out 0.28s var(--ease-calm) both;
+    animation-delay: calc((4 - var(--i, 0)) * 0.025s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-lines > span {
+    transition: none;
+  }
+}

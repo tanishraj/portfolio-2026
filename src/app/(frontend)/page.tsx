@@ -114,7 +114,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="grid gap-20 pb-8 pt-20 sm:gap-28 sm:pt-28">
+      <div className="grid gap-20 pb-8 pt-10 sm:gap-28 sm:pt-28">
         <LedgerRow id="ai" title="Engineering with AI">
           <AiRow />
         </LedgerRow>

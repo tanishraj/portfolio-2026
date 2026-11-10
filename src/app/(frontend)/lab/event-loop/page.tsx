@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
-import { containerWide as container, label } from '@/components/styles'
+import { buttonLabel, containerWide as container, label, outlineButton } from '@/components/styles'
 import { EventLoopLab } from '@/lab/event-loop/EventLoopLab'
 
 export const metadata: Metadata = {
@@ -14,11 +14,20 @@ export const metadata: Metadata = {
 export default function EventLoopPage() {
   return (
     <main className={`${container} pb-16 pt-12 sm:pt-20`} id="main">
-      <Link className="text-sm text-muted transition-colors hover:text-fg" href="/#lab">
-        ← Lab
+      <Link className={`${outlineButton} pl-4 text-muted`} href="/">
+        <svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16">
+          <path
+            d="M13 8H3m4-4L3 8l4 4"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.2"
+          />
+        </svg>
+        <span className={buttonLabel}>Home</span>
       </Link>
       <p className={`${label} mt-12`}>Lab · Interactive</p>
-      <h1 className="mt-6 max-w-[20ch] text-4xl font-light leading-[1.08] tracking-[-0.03em] text-balance sm:text-6xl">
+      <h1 className="mt-6 max-w-[20ch] text-[40px] font-extralight leading-[1.08] tracking-[-0.03em] text-balance sm:text-[64px]">
         The event loop, drawn.
       </h1>
       <p className="mt-6 max-w-[60ch] text-lg leading-relaxed text-muted">
