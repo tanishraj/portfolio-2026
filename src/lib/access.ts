@@ -84,8 +84,14 @@ export async function unlock(slug: string, rawCode: string): Promise<UnlockResul
  * still live. Checked on every request, so revoking a code takes effect at once.
  */
 export async function getUnlockedStudy(slug: string): Promise<CaseStudy | null> {
+  // Read the cookie before starting Payload: it makes the page render per
+  // request rather than at build time, and visitors without a code never touch
+  // the database.
+  const token = (await cookies()).get(cookieName(slug))?.value
+  if (!token) return null
+
   const payload = await getPayload({ config })
-  const access = verifyAccess((await cookies()).get(cookieName(slug))?.value, payload.secret)
+  const access = verifyAccess(token, payload.secret)
   if (!access) return null
 
   const code = await payload
