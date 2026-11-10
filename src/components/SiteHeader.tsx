@@ -70,8 +70,12 @@ export function SiteHeader() {
     'pointer-events-none absolute bg-bg/90 backdrop-blur-md supports-[backdrop-filter]:bg-bg/80'
 
   return (
+    // A fixed height: the bar tightens inside it, but the space it takes in the
+    // page never changes. If it did, the content below would shift as the bar
+    // shrank, browsers would correct the scroll position, and right at the
+    // threshold the header would flip back and forth.
     <header
-      className="sticky top-0 z-30 print:hidden"
+      className="sticky top-0 z-30 h-22 print:hidden"
       style={{ top: 'env(safe-area-inset-top, 0px)' }}
     >
       {/* A tint behind the nav that reaches well below it and fades to nothing,
