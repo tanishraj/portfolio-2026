@@ -9,7 +9,7 @@ The portfolio of Tanish Raj, a senior frontend engineer in Abu Dhabi. It's a Nex
 - **One protected case study.** It covers my current employer, so its body lives in Payload and opens only with a per-company access code (see [Decisions](#decisions)).
 - **Event-loop lab.** `/lab/event-loop` steps through promises, timers and async/await. A TypeScript model of the loop produces each frame, a test checks every snippet against a real JavaScript engine, and the loop itself is drawn with raw WebGL.
 - **Ask about my work.** A streaming Q&A box on the home page, answered by Claude from the site's public content only, with citations linking each claim to its page. The corpus is prompt-cached; questions are rate-limited per IP and per day in Postgres. It appears only when `ANTHROPIC_API_KEY` is set.
-- **CV.** A PDF at `public/Tanish-Raj-CV.pdf`, linked from the hero and the Contact section.
+- **CV.** A two-page PDF at `public/Tanish-Raj-CV.pdf`, linked from the hero and the Contact section. Run `pnpm generate:cv` after updating `src/content/cv.ts` or the roles in `src/content/home.ts`. The generator embeds Albert Sans and checks that content clears the page footers; install Chromium once with `pnpm exec playwright install chromium` if needed.
 - **Brand.** The signature mark is one path in `src/brand/signature.ts`; `pnpm brand` regenerates the favicon, Apple icon and avatar from it. Link previews are generated per page with `next/og`.
 
 ## Stack

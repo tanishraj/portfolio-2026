@@ -88,7 +88,18 @@ export function SiteFooter() {
         <p>
           © {new Date().getFullYear()} {person.name}
         </p>
-        <p>Designed with intention. Built with code and AI.</p>
+        <p>
+          Designed by{' '}
+          <a
+            className="underline decoration-line-strong underline-offset-4 transition-colors hover:text-highlight hover:decoration-highlight"
+            href="https://chetanshridhar.in"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Chetan
+          </a>
+          . Engineered by me.
+        </p>
       </div>
     </footer>
   )
