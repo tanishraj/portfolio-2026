@@ -98,7 +98,7 @@ export function SiteFooter() {
           >
             Chetan
           </a>
-          . Engineered by me.
+          . Engineered by me. Built with Claude Code.
         </p>
       </div>
     </footer>
