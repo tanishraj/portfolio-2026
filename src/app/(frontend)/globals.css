@@ -3,7 +3,7 @@
 /*
  * Direction C · Soft Product
  * A warm light theme with a designed dark mode, one sea-glass teal accent,
- * light display type with mono metadata, and a single ambient glow.
+ * light display type with mono metadata, on a plain background.
  *
  * Theme resolution: light by default, whatever the OS prefers. Dark only when
  * the visitor picks it with the toggle, which sets [data-theme] and remembers it.
@@ -18,7 +18,6 @@
   --muted: #5f5a50;
   --accent: #2a7a6e;
   --glow: 82 170 155;
-  --glow-alpha: 0.14;
   --highlight: #c2410c;
   --highlight-ink: #ffffff;
   color-scheme: light;
@@ -34,7 +33,6 @@
   --muted: #8a959b;
   --accent: #86cfc1;
   --glow: 134 207 193;
-  --glow-alpha: 0.11;
   --highlight: #f5b544;
   --highlight-ink: #1a1305;
   color-scheme: dark;
@@ -97,31 +95,6 @@
   }
 }
 
-/* The one ambient element: a soft glow that drifts down as the page scrolls. */
-.ambient {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.ambient::before {
-  content: '';
-  position: absolute;
-  top: -22rem;
-  right: -18rem;
-  width: 64rem;
-  height: 48rem;
-  background: radial-gradient(closest-side, rgb(var(--glow) / var(--glow-alpha)), transparent);
-}
-
-@keyframes drift {
-  to {
-    transform: translate(-28vw, 55vh);
-  }
-}
-
 @keyframes rise {
   from {
     opacity: 0;
@@ -130,13 +103,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: scroll()) {
-    .ambient::before {
-      animation: drift linear both;
-      animation-timeline: scroll(root);
-    }
-  }
-
   .rise {
     animation: rise 0.9s var(--ease-calm) both;
     animation-delay: calc(var(--i, 0) * 90ms);

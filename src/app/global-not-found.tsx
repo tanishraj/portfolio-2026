@@ -39,7 +39,6 @@ export default function GlobalNotFound() {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
-        <div aria-hidden="true" className="ambient print:hidden" />
         <div className="relative z-10">
           <SiteHeader />
           <NotFoundContent />
