@@ -74,7 +74,8 @@ li::marker { color: #c2410c; font-size: 7pt; }
 .continuation span { color: #5f5a50; font-size: 9pt; }
 .project + .project { margin-top: 3mm; }
 .project h3 { font-size: 11pt; margin-bottom: 1mm; }
-.skills p + p { margin-top: 1.6mm; }
+.skills { font-size: 10pt; }
+.skills p + p { margin-top: 1mm; }
 .skills strong { font-weight: 500; }
 .education p + p { margin-top: 2mm; }
 .education strong { font-weight: 500; }
@@ -88,14 +89,14 @@ footer { position: absolute; bottom: 9mm; left: 16mm; right: 16mm; display: flex
     <div class="contact"><span>${escape(person.location)}</span><a href="tel:${person.phone.replace(/\s/g, '')}">${escape(person.phone)}</a><a href="mailto:${escape(person.email)}">${escape(person.email)}</a><a href="https://tanish.im">tanish.im</a><a href="https://www.linkedin.com/in/itsmetanishraj/">LinkedIn</a><a href="https://github.com/tanishraj">GitHub</a></div>
   </header>
   ${row('Profile', `<p>${escape(cvSummary)}</p>`)}
-  ${row('Experience', jobs(experience.slice(0, 4)))}
+  ${row('Skills', cvSkills.map((skill) => `<p><strong>${escape(skill.heading)}</strong> / ${escape(skill.items)}</p>`).join(''), 'skills')}
+  ${row('Experience', jobs(experience.slice(0, 3)))}
   ${footer(1)}
 </article>
 <article class="page">
-  <header class="continuation"><p>${escape(person.name)}</p><span>Experience, projects &amp; skills</span></header>
-  ${row('Experience', jobs(experience.slice(4)))}
+  <header class="continuation"><p>${escape(person.name)}</p><span>Experience, projects &amp; education</span></header>
+  ${row('Experience', jobs(experience.slice(3)))}
   ${row('Independent projects', cvProjects.map((project) => `<section class="project"><h3>${escape(project.title)}</h3><p>${escape(project.detail)}</p></section>`).join(''))}
-  ${row('Skills', cvSkills.map((skill) => `<p><strong>${escape(skill.heading)}</strong> / ${escape(skill.items)}</p>`).join(''), 'skills')}
   ${row('Education', cvEducation.map((item) => `<p><strong>${escape(item.title)}</strong><br>${escape(item.detail.replace('–', '-'))}</p>`).join(''), 'education')}
   ${footer(2)}
 </article>

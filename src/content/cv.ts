@@ -38,7 +38,7 @@ export const cvProjects = [
   {
     title: 'Anubhav',
     detail:
-      'Built and deployed a medical training logbook with seven roles, revision-linked faculty approvals and stored certification PDFs. Reduced the Dean’s snapshot from 4.7 MB to 189 KB in a recorded test. Next.js, PostgreSQL, Docker.',
+      'Built and deployed a medical training logbook with role-based workflows, revision-linked faculty approvals and stored certification PDFs. Next.js, PostgreSQL, Docker.',
   },
   {
     title: 'Notivo',
