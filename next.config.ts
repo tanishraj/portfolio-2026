@@ -26,6 +26,16 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_REVISION: revision,
     NEXT_PUBLIC_BUILT_AT: new Date().toISOString(),
   },
+  // The CV used to live at /Tanish-Raj-CV.pdf; links already shared keep working.
+  async redirects() {
+    return [
+      {
+        source: '/Tanish-Raj-CV.pdf',
+        destination: '/Tanish-Raj-Node-React-CV%28UAE%29.pdf',
+        permanent: true,
+      },
+    ]
+  },
   images: {
     localPatterns: [
       {

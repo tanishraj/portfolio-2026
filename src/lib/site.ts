@@ -10,8 +10,9 @@ export const person = {
   location: 'Abu Dhabi, UAE',
 }
 
-// The downloadable CV, linked from the hero and the Contact section.
-export const cvPdfPath = '/Tanish-Raj-CV.pdf'
+// The downloadable CV, linked from the hero and the Contact section. Tanish's
+// own PDF, kept under the file name he gave it.
+export const cvPdfPath = '/Tanish-Raj-Node-React-CV(UAE).pdf'
 
 // Build revision and date for the footer colophon (set in next.config.ts).
 export const revision = process.env.NEXT_PUBLIC_REVISION ?? 'local'
